@@ -39,7 +39,7 @@
 </div>
 
 <script>
-// ========== SİZİN APPS SCRIPT URL ==========
+// ========== BURAYA ÖZ APPS SCRIPT URL-İNİZİ YAZIN (MÜTLƏQ YENİ OLMALIDIR) ==========
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpPXYg0eZ646WDHR9iU2GmKHc1nTjVF7WNdO7b5ud3cEAudfDzpFnjH7e3oHXUKTEc6Q/exec";
 
 const items = [
@@ -73,7 +73,7 @@ document.getElementById("saveBtn").onclick = async () => {
     const url = `${SCRIPT_URL}?action=save&name=${encodeURIComponent(name)}&dob=${document.getElementById("dob").value}&reg=${document.getElementById("regNo").value}&checks=${encodeURIComponent(getChecks())}&perc=${document.getElementById("perc").value}`;
     showMessage("Göndərilir...", "blue");
     try {
-        const resp = await fetch(url);
+        const resp = await fetch(url, { mode: 'cors' });
         const txt = await resp.text();
         if(txt === "OK") showMessage("✅ Məlumatlar yadda saxlanıldı!", "green");
         else showMessage("⚠️ Xəta: " + txt, "red");
@@ -83,7 +83,7 @@ document.getElementById("saveBtn").onclick = async () => {
 document.getElementById("loadBtn").onclick = async () => {
     const url = `${SCRIPT_URL}?action=load`;
     try {
-        const resp = await fetch(url);
+        const resp = await fetch(url, { mode: 'cors' });
         const data = await resp.json();
         if(Array.isArray(data) && data.length) {
             let msg = `📋 ${data.length} test qeydi yükləndi.<br>Son 3:<br>`;
