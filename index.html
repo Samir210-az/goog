@@ -1,32 +1,24 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <button id="saveTest">1. Yadda saxla (POST)</button>
-    <button id="loadTest">2. Yüklə (GET)</button>
-    <pre id="result"></pre>
+  <button onclick="saveTest()">Yadda saxla</button>
+  <button onclick="loadTest()">Yüklə</button>
+  <pre id="out"></pre>
 
-    <script>
-        const URL = "https://script.google.com/macros/s/AKfycbzJEPXdiyTZNZzOtr1ktU6gay1o0l0gwpYObxFpeYHYWCxCAc0yuqqHwn8kae7QlujsLA/exec";
-        
-        document.getElementById("saveTest").onclick = async () => {
-            const formData = new URLSearchParams();
-            formData.append("action", "save");
-            formData.append("name", "Koray");
-            formData.append("dob", "2022-01-01");
-            formData.append("reg", "123");
-            formData.append("checks", "test_maddesi");
-            formData.append("perc", "50");
-            
-            const res = await fetch(URL, { method: "POST", body: formData });
-            const txt = await res.text();
-            document.getElementById("result").innerText = "Save cavabı: " + txt;
-        };
-        
-        document.getElementById("loadTest").onclick = async () => {
-            const res = await fetch(URL + "?action=load");
-            const txt = await res.text();
-            document.getElementById("result").innerText = "Load cavabı (ilk 300 simvol):\n" + txt.substring(0, 300);
-        };
-    </script>
+  <script>
+    const URL = "https://script.google.com/macros/s/AKfycbyJtteRJ37CBr6jaNHDyNomGHi65cix9QA6nxBoIDpPcUzrzuylcWwzgtteqjcaWjeACg/exec"; // ÖZ URL-İNİZ
+
+    async function saveTest() {
+      const res = await fetch(`${URL}?action=save&name=Test&dob=2023-01-01&reg=001&checks=top&perc=50`);
+      const txt = await res.text();
+      out.innerText = "Save cavabı: " + txt;
+    }
+
+    async function loadTest() {
+      const res = await fetch(`${URL}?action=load`);
+      const txt = await res.text();
+      out.innerText = "Load cavabı:\n" + txt.slice(0, 500);
+    }
+  </script>
 </body>
 </html>
