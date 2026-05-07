@@ -1,20 +1,40 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <button onclick="save()">Save</button>
-    <button onclick="load()">Load</button>
-    <pre id="out"></pre>
+    <h3>Denver II API Test</h3>
+    <button onclick="testSave()">1. Yadda saxla (Save)</button>
+    <button onclick="testLoad()">2. Yüklə (Load)</button>
+    <pre id="result" style="background:#f0f0f0; padding:12px; margin-top:20px;"></pre>
+
     <script>
-        const URL = "https://script.google.com/macros/s/AKfycbygohnkH5bh7QWO6p2YnFsWHAGeJHb9KZn_VofwpQytIEKWMouapa7wRvPemMkR-yf6Gg/exec";
+        // SİZİN URL-İNİZ (dəyişməyin)
+        const BASE_URL = "https://script.google.com/macros/s/AKfycbzJEPXdiyTZNZzOtr1ktU6gay1o0l0gwpYObxFpeYHYWCxCAc0yuqqHwn8kae7QlujsLA/exec";
         
-        async function save() {
-            const res = await fetch(URL + "?action=save&name=Test&dob=2020-01-01&reg=1&checks=abc&perc=50");
-            out.innerText = await res.text();
+        async function testSave() {
+            // action parametrini AÇIQ şəkildə əlavə edirik
+            const fullUrl = BASE_URL + "?action=save&name=Koray&dob=2020-01-01&reg=123&checks=test_bacariq&perc=50";
+            document.getElementById("result").innerText = "Göndərilir:\n" + fullUrl + "\n\nGözlənilir...";
+            
+            try {
+                const response = await fetch(fullUrl);
+                const text = await response.text();
+                document.getElementById("result").innerText = "✅ CAVAB:\n" + text;
+            } catch(err) {
+                document.getElementById("result").innerText = "❌ XƏTA:\n" + err.message;
+            }
         }
         
-        async function load() {
-            const res = await fetch(URL + "?action=load");
-            out.innerText = await res.text();
+        async function testLoad() {
+            const fullUrl = BASE_URL + "?action=load";
+            document.getElementById("result").innerText = "Göndərilir:\n" + fullUrl + "\n\nGözlənilir...";
+            
+            try {
+                const response = await fetch(fullUrl);
+                const text = await response.text();
+                document.getElementById("result").innerText = "✅ CAVAB (ilk 500 simvol):\n" + text.substring(0, 500);
+            } catch(err) {
+                document.getElementById("result").innerText = "❌ XƏTA:\n" + err.message;
+            }
         }
     </script>
 </body>
