@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <button id="testBtn">API-ni test et</button>
+    <button id="saveTest">1. Yadda saxla (OK gözlənilir)</button>
+    <button id="loadTest">2. Yüklə (JSON gözlənilir)</button>
     <pre id="result"></pre>
 
     <script>
-        // BURAYA ÖZ URL-İNİZİ YAZIN
-        const MY_URL = "https://script.google.com/macros/s/AKfycbzWqtqS78pnJAQtA0yiS3E5kjuR4Od4EtFPg3L8eohRNfsZJCi7G-2wgaXyhB1yOT2K/exec";
+        const URL = "https://script.google.com/macros/s/AKfycbyGfnijLEfnqs9-FSnYnjAlypgvZU9gYa3VTejdT91dbBjOU9gCXtAHryRAry-sRf8cTw/exec";
         
-        document.getElementById("testBtn").onclick = async () => {
-            const url = MY_URL + "?action=save&name=TestAd&dob=2020-01-01&reg=123&checks=TestBacariq&perc=50";
-            document.getElementById("result").innerText = "Göndərilir: " + url + "\n\n";
-            try {
-                const response = await fetch(url);
-                const text = await response.text();
-                document.getElementById("result").innerText += "Cavab: " + text;
-            } catch(err) {
-                document.getElementById("result").innerText += "Xəta: " + err.message;
-            }
+        document.getElementById("saveTest").onclick = async () => {
+            const res = await fetch(URL + "?action=save&name=Koray&dob=2022-01-01&reg=001&checks=test&perc=50");
+            const txt = await res.text();
+            document.getElementById("result").innerText = "Save cavabı: " + txt;
+        };
+        
+        document.getElementById("loadTest").onclick = async () => {
+            const res = await fetch(URL + "?action=load");
+            const txt = await res.text();
+            document.getElementById("result").innerText = "Load cavabı (ilk 200 simvol):\n" + txt.substring(0, 200);
         };
     </script>
 </body>
