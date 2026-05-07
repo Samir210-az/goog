@@ -1,24 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>Denver II API Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        button { background: #2c7a4d; color: white; border: none; padding: 10px 24px; border-radius: 30px; font-size: 16px; cursor: pointer; margin: 8px; }
+        button:hover { background: #1e5a38; }
+        pre { background: #f0f0f0; padding: 16px; border-radius: 12px; overflow-x: auto; font-size: 12px; margin-top: 20px; border: 1px solid #ddd; }
+        .status { padding: 12px; border-radius: 10px; margin-top: 16px; }
+        .success { background: #d4edda; color: #155724; border-left: 5px solid #28a745; }
+        .error { background: #f8d7da; color: #721c24; border-left: 5px solid #dc3545; }
+        input { padding: 8px; margin: 5px; border: 1px solid #ccc; border-radius: 8px; width: calc(100% - 20px); }
+    </style>
+</head>
 <body>
-  <button onclick="saveTest()">Yadda saxla</button>
-  <button onclick="loadTest()">Yüklə</button>
-  <pre id="out"></pre>
+<div class="container">
+    <h2>📋 Denver II API Test Paneli</h2>
+    <p><strong>Apps Script URL:</strong> <span id="urlDisplay" style="font-family: monospace; background:#eee; padding:4px; word-break:break-all;"></span></p>
+    
+    <div style="background:#eef2fa; padding: 15px; border-radius: 16px; margin-bottom: 20px;">
+        <h3>💾 Yeni test məlumatı yaz (save)</h3>
+        <input type="text" id="childName" placeholder="Uşaq adı (məsələn: Koray)" value="TestUşaq">
+        <input type="date" id="dob" value="2022-01-01">
+        <input type="text" id="regNo" placeholder="Qeydiyyat №" value="12345">
+        <input type="text" id="checks" placeholder="Bacarıqlar (məsələn: top_atir;qacir)" value="test_bacarigi1;test_bacarigi2">
+        <input type="number" id="percentile" placeholder="Persentil" value="50">
+        <button id="saveBtn">🚀 SAVE (yaz)</button>
+    </div>
 
-  <script>
-    const URL = "https://script.google.com/macros/s/AKfycbyJtteRJ37CBr6jaNHDyNomGHi65cix9QA6nxBoIDpPcUzrzuylcWwzgtteqjcaWjeACg/exec"; // ÖZ URL-İNİZ
+    <div style="background:#eef2fa; padding: 15px; border-radius: 16px;">
+        <h3>📂 Keçmiş məlumatları oxu (load)</h3>
+        <button id="loadBtn">📥 LOAD (oxu)</button>
+    </div>
 
-    async function saveTest() {
-      const res = await fetch(`${URL}?action=save&name=Test&dob=2023-01-01&reg=001&checks=top&perc=50`);
-      const txt = await res.text();
-      out.innerText = "Save cavabı: " + txt;
-    }
+    <div id="resultArea" class="status"></div>
+    <pre id="rawOutput" style="white-space: pre-wrap;"></pre>
+</div>
 
-    async function loadTest() {
-      const res = await fetch(`${URL}?action=load`);
-      const txt = await res.text();
-      out.innerText = "Load cavabı:\n" + txt.slice(0, 500);
-    }
-  </script>
+<script>
+    // ============================================================
+    // BURAYA ÖZ APPS SCRIPT URL-İNİZİ YAZIN (DOĞRU VƏ TAM)
+    // ============================================================
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz7a-ksX6NRQbpUC6-xbTJRfqKeXRFXdcMlf5nIdTidlq6BdhgJfceMLusIigXjMWiBXg/exec";
+    
+    document.getElementById("urlDisplay").innerText = SCRIPT_URL;
+
+    // SAVE (yazma) - GET metodu ilə sadə
+    document.getElementById("saveBtn").onclick = async () => {
+        const name = document.getElementById("childName").value;
+        const dob = document.getElementById("dob").value;
+        const reg = document.getElementById("regNo").value;
+        const checks = document.getElementById("checks").value;
+        const perc = document.getElementById("percentile").value;
+
+        const url = `${SCRIPT_URL}?action=save&name=${encodeURIComponent(name)}&dob=${encodeURIComponent(dob)}&reg=${encodeURIComponent(reg)}&checks=${encodeURIComponent(checks)}&perc=${encodeURIComponent(perc)}`;
+        
+        document.getElementById("rawOutput").innerText = "Göndərilir: " + url + "\n\nGözlənilir...";
+        
+        try {
+            const response = await fetch(url, { method: "GET", mode: "cors" });
+            const text = await response.text();
+            document.getElementById("rawOutput").innerText = "✅ CAVAB:\n" + text;
+            if (text.trim() === "OK") {
+                document.getElementById("resultArea").innerHTML = "✅ Uğurla yadda saxlanıldı!";
+                document.getElementById("resultArea").className = "status success";
+            } else {
+                document.getElementById("resultArea").innerHTML = "⚠️ Xəta: " + text;
+                document.getElementById("resultArea").className = "status error";
+            }
+        } catch (err) {
+            document.getElementById("rawOutput").innerText = "❌ XƏTA: " + err.message;
+            document.getElementById("resultArea").innerHTML = "❌ Şəbəkə xətası: " + err.message;
+            document.getElementById("resultArea").className = "status error";
+        }
+    };
+
+    // LOAD (oxuma) - GET metodu ilə
+    document.getElementById("loadBtn").onclick = async () => {
+        const url = `${SCRIPT_URL}?action=load`;
+        document.getElementById("rawOutput").innerText = "Yüklənir: " + url + "\n\nGözlənilir...";
+        
+        try {
+            const response = await fetch(url, { method: "GET", mode: "cors" });
+            const text = await response.text();
+            document.getElementById("rawOutput").innerText = "📊 YÜKLƏNDİ:\n" + text;
+            
+            // Yoxlayaq ki, JSON formatındadırmı?
+            try {
+                const jsonData = JSON.parse(text);
+                document.getElementById("resultArea").innerHTML = `✅ ${jsonData.length} sətir məlumat yükləndi. Birinci sətir: ${JSON.stringify(jsonData[0])}`;
+                document.getElementById("resultArea").className = "status success";
+            } catch(e) {
+                document.getElementById("resultArea").innerHTML = "⚠️ Cavab JSON deyil: " + text.substring(0, 150);
+                document.getElementById("resultArea").className = "status error";
+            }
+        } catch (err) {
+            document.getElementById("rawOutput").innerText = "❌ XƏTA: " + err.message;
+            document.getElementById("resultArea").innerHTML = "❌ Yükləmə xətası: " + err.message;
+            document.getElementById("resultArea").className = "status error";
+        }
+    };
+</script>
 </body>
 </html>
