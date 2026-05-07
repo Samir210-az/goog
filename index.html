@@ -39,10 +39,9 @@
 </div>
 
 <script>
-// ========== SİZİN APPS SCRIPT URL (dəyişməyin) ==========
+// ========== SİZİN APPS SCRIPT URL ==========
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyCqdkQFfrFvVem8ru3hoIJe96hbCzIaTA1EkzB_WSGNI5zy2c6TGbhGqOmvTIA7hNrrQ/exec";
 
-// Nümunə maddələr (Denver II-dən)
 const items = [
     "Başını düz tutur", "Gülümsəyir", "Əlini tanıyır", "Oturur", 
     "Sürünür", "Dayanır", "Yeriyir", "Qaçır", "Kubla oynayır",
@@ -87,7 +86,7 @@ document.getElementById("loadBtn").onclick = async () => {
         const resp = await fetch(url);
         const data = await resp.json();
         if(Array.isArray(data) && data.length) {
-            let msg = `📋 ${data.length} test qeydi.<br>Son 3:<br>`;
+            let msg = `📋 ${data.length} test qeydi yükləndi.<br>Son 3:<br>`;
             data.slice(-3).reverse().forEach(row => msg += `👉 ${row.slice(1,5).join(" | ")}<br>`);
             showMessage(msg, "green");
         } else showMessage("⚠️ Heç bir məlumat yoxdur.", "orange");
