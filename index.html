@@ -1,41 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>Denver II Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f0f4f0; }
+        .container { max-width: 1300px; margin: auto; background: white; padding: 20px; border-radius: 20px; }
+        button { background: #2b6e2f; color: white; padding: 10px 20px; border: none; border-radius: 30px; cursor: pointer; margin: 5px; }
+        .status { background: #e8f0e8; padding: 10px; border-radius: 12px; margin: 15px 0; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #bbb; padding: 6px; font-size: 12px; }
+        .item-name { background: #fef5e0; text-align: left; }
+        input[type="checkbox"] { transform: scale(1.2); }
+    </style>
+</head>
 <body>
-    <h3>Denver II API Test</h3>
-    <button onclick="testSave()">1. Yadda saxla (Save)</button>
-    <button onclick="testLoad()">2. Yüklə (Load)</button>
-    <pre id="result" style="background:#f0f0f0; padding:12px; margin-top:20px;"></pre>
+<div class="container">
+    <h2>🏥 Denver II Gelişim Testi (Ortaq cədvəl)</h2>
+    
+    <div class="status">
+        <label>👶 Uşaq adı: <input type="text" id="childName" style="width:150px"></label>
+        <label>📅 Doğum tarixi: <input type="date" id="dob"></label>
+        <label>🆔 Qeydiyyat №: <input type="text" id="regNo" style="width:120px"></label>
+        <label>📊 Persentil: <input type="range" id="perc" min="0" max="100" value="50"><span id="percVal">50</span></label>
+        <button id="saveBtn">💾 Yadda saxla</button>
+        <button id="loadBtn">📂 Keçmiş testlər</button>
+        <button id="clearBtn">🗑 Təmizlə</button>
+    </div>
+    
+    <div id="message" style="background:#fcf8e0; padding:8px; border-radius:10px; margin-bottom:15px;"></div>
+    
+    <div style="overflow-x:auto">
+        <table id="testTable">
+            <thead><tr><th>Bacarıqlar</th><th>2a</th><th>4a</th><th>6a</th><th>9a</th><th>12a</th><th>15a</th><th>18a</th><th>24a</th><th>3y</th><th>4y</th><th>5y</th><th>6y</th></tr></thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+</div>
 
-    <script>
-        // SİZİN URL-İNİZ (dəyişməyin)
-        const BASE_URL = "https://script.google.com/macros/s/AKfycbyCqdkQFfrFvVem8ru3hoIJe96hbCzIaTA1EkzB_WSGNI5zy2c6TGbhGqOmvTIA7hNrrQ/exec";
-        
-        async function testSave() {
-            // action parametrini AÇIQ şəkildə əlavə edirik
-            const fullUrl = BASE_URL + "?action=save&name=Koray&dob=2020-01-01&reg=123&checks=test_bacariq&perc=50";
-            document.getElementById("result").innerText = "Göndərilir:\n" + fullUrl + "\n\nGözlənilir...";
-            
-            try {
-                const response = await fetch(fullUrl);
-                const text = await response.text();
-                document.getElementById("result").innerText = "✅ CAVAB:\n" + text;
-            } catch(err) {
-                document.getElementById("result").innerText = "❌ XƏTA:\n" + err.message;
-            }
-        }
-        
-        async function testLoad() {
-            const fullUrl = BASE_URL + "?action=load";
-            document.getElementById("result").innerText = "Göndərilir:\n" + fullUrl + "\n\nGözlənilir...";
-            
-            try {
-                const response = await fetch(fullUrl);
-                const text = await response.text();
-                document.getElementById("result").innerText = "✅ CAVAB (ilk 500 simvol):\n" + text.substring(0, 500);
-            } catch(err) {
-                document.getElementById("result").innerText = "❌ XƏTA:\n" + err.message;
-            }
-        }
-    </script>
+<script>
+// ========== SİZİN APPS SCRIPT URL (dəyişməyin) ==========
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzJEPXdiyTZNZzOtr1ktU6gay1o0l0gwpYObxFpeYHYWCxCAc0yuqqHwn8kae7QlujsLA/exec";
+
+// Nümunə maddələr (Denver II-dən)
+const items = [
+    "Başını düz tutur", "Gülümsəyir", "Əlini tanıyır", "Oturur", 
+    "Sürünür", "Dayanır", "Yeriyir", "Qaçır", "Kubla oynayır",
+    "Söz deyir", "Bədən hissələrini göstərir", "Özü yeyir"
+];
+
+function buildTable() {
+    let html = "";
+    items.forEach(item => {
+        html += "<tr><td class='item-name'>"+item+"</td>";
+        for(let i=0;i<12;i++) html += "<td><input type='checkbox' class='chk' data-item='"+item+"' data-col='"+i+"'></td>";
+        html += "</tr>";
+    });
+    document.getElementById("tableBody").innerHTML = html;
+}
+buildTable();
+
+function getChecks() {
+    let checks = [];
+    document.querySelectorAll(".chk:checked").forEach(cb => {
+        checks.push(cb.getAttribute("data-item") + "|" + cb.getAttribute("data-col"));
+    });
+    return checks.join(";");
+}
+
+document.getElementById("saveBtn").onclick = async () => {
+    const name = document.getElementById("childName").value.trim();
+    if(!name) { showMessage("❌ Uşaq adını yazın!", "red"); return; }
+    const url = `${SCRIPT_URL}?action=save&name=${encodeURIComponent(name)}&dob=${document.getElementById("dob").value}&reg=${document.getElementById("regNo").value}&checks=${encodeURIComponent(getChecks())}&perc=${document.getElementById("perc").value}`;
+    showMessage("Göndərilir...", "blue");
+    try {
+        const resp = await fetch(url);
+        const txt = await resp.text();
+        if(txt === "OK") showMessage("✅ Məlumatlar yadda saxlanıldı!", "green");
+        else showMessage("⚠️ Xəta: " + txt, "red");
+    } catch(e) { showMessage("❌ Şəbəkə xətası: " + e.message, "red"); }
+};
+
+document.getElementById("loadBtn").onclick = async () => {
+    const url = `${SCRIPT_URL}?action=load`;
+    try {
+        const resp = await fetch(url);
+        const data = await resp.json();
+        if(Array.isArray(data) && data.length) {
+            let msg = `📋 ${data.length} test qeydi.<br>Son 3:<br>`;
+            data.slice(-3).reverse().forEach(row => msg += `👉 ${row.slice(1,5).join(" | ")}<br>`);
+            showMessage(msg, "green");
+        } else showMessage("⚠️ Heç bir məlumat yoxdur.", "orange");
+    } catch(e) { showMessage("❌ Xəta: " + e.message, "red"); }
+};
+
+document.getElementById("clearBtn").onclick = () => {
+    document.querySelectorAll(".chk").forEach(cb => cb.checked = false);
+    showMessage("🧹 Bütün işarələr silindi.", "blue");
+};
+
+document.getElementById("perc").oninput = () => {
+    document.getElementById("percVal").innerText = document.getElementById("perc").value;
+};
+
+function showMessage(msg, color) {
+    const msgDiv = document.getElementById("message");
+    msgDiv.innerHTML = msg;
+    msgDiv.style.borderLeft = `5px solid ${color}`;
+}
+</script>
 </body>
 </html>
