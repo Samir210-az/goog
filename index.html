@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <button id="saveTest">1. Yadda saxla (OK gözlənilir)</button>
-    <button id="loadTest">2. Yüklə (JSON gözlənilir)</button>
+    <button id="saveTest">1. Yadda saxla (POST)</button>
+    <button id="loadTest">2. Yüklə (GET)</button>
     <pre id="result"></pre>
 
     <script>
-        const URL = "https://script.google.com/macros/s/AKfycbyGfnijLEfnqs9-FSnYnjAlypgvZU9gYa3VTejdT91dbBjOU9gCXtAHryRAry-sRf8cTw/exec";
+        const URL = "https://script.google.com/macros/s/AKfycbzhSHp0tbLb20eYGEyv4al39qadcAVsSTY7CdM-n7acVl8aPE5_YOHpagHg-eN8CCV-kA/exec";
         
         document.getElementById("saveTest").onclick = async () => {
-            const res = await fetch(URL + "?action=save&name=Koray&dob=2022-01-01&reg=001&checks=test&perc=50");
+            const formData = new URLSearchParams();
+            formData.append("action", "save");
+            formData.append("name", "Koray");
+            formData.append("dob", "2022-01-01");
+            formData.append("reg", "123");
+            formData.append("checks", "test_maddesi");
+            formData.append("perc", "50");
+            
+            const res = await fetch(URL, { method: "POST", body: formData });
             const txt = await res.text();
             document.getElementById("result").innerText = "Save cavabı: " + txt;
         };
@@ -17,7 +25,7 @@
         document.getElementById("loadTest").onclick = async () => {
             const res = await fetch(URL + "?action=load");
             const txt = await res.text();
-            document.getElementById("result").innerText = "Load cavabı (ilk 200 simvol):\n" + txt.substring(0, 200);
+            document.getElementById("result").innerText = "Load cavabı (ilk 300 simvol):\n" + txt.substring(0, 300);
         };
     </script>
 </body>
