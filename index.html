@@ -2,106 +2,125 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <title>Denver II API Test</title>
+    <title>Denver II - Tam İşləyən Test (Google Cədvəl ilə)</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        button { background: #2c7a4d; color: white; border: none; padding: 10px 24px; border-radius: 30px; font-size: 16px; cursor: pointer; margin: 8px; }
-        button:hover { background: #1e5a38; }
-        pre { background: #f0f0f0; padding: 16px; border-radius: 12px; overflow-x: auto; font-size: 12px; margin-top: 20px; border: 1px solid #ddd; }
-        .status { padding: 12px; border-radius: 10px; margin-top: 16px; }
-        .success { background: #d4edda; color: #155724; border-left: 5px solid #28a745; }
-        .error { background: #f8d7da; color: #721c24; border-left: 5px solid #dc3545; }
-        input { padding: 8px; margin: 5px; border: 1px solid #ccc; border-radius: 8px; width: calc(100% - 20px); }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #eef2f5; margin: 0; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 20px 24px; overflow-x: auto; }
+        h1 { font-size: 1.8rem; color: #1e6b3b; border-left: 6px solid #1e6b3b; padding-left: 18px; margin-top: 0; }
+        .info-panel { background: #e8f3ec; padding: 15px 20px; border-radius: 20px; display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 25px; align-items: flex-end; }
+        .info-field { flex: 1; min-width: 150px; }
+        .info-field label { display: block; font-weight: bold; font-size: 0.75rem; color: #1e6b3b; margin-bottom: 5px; }
+        .info-field input { width: 100%; padding: 8px 12px; border-radius: 16px; border: 1px solid #cbdcc2; background: white; }
+        button { background: #1e6b3b; color: white; border: none; padding: 8px 24px; border-radius: 40px; font-weight: bold; cursor: pointer; font-size: 0.9rem; margin-right: 12px; margin-top: 8px; transition: 0.2s; }
+        button:hover { background: #0f4a28; transform: scale(1.02); }
+        .btn-secondary { background: #4a6a5e; }
+        .status { background: #fcf8e8; padding: 10px 15px; border-radius: 16px; margin: 15px 0; font-size: 0.85rem; border-left: 4px solid #e9b35f; }
+        .table-wrapper { overflow-x: auto; border: 1px solid #d4dfe3; border-radius: 20px; margin-top: 20px; }
+        .test-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; min-width: 1000px; }
+        .test-table th, .test-table td { border: 1px solid #d0dbdf; padding: 8px 5px; vertical-align: middle; text-align: center; }
+        .test-table th { background: #d9e8da; font-weight: 800; color: #1a4a2a; position: sticky; top: 0; }
+        .domain-row { background: #cbddce; font-weight: bold; text-align: left; padding: 10px; }
+        .item-name { text-align: left; background: #fefaf0; font-weight: 500; width: 210px; font-size: 0.73rem; }
+        .checkbox-cell input { width: 18px; height: 18px; cursor: pointer; accent-color: #1e6b3b; }
+        footer { margin-top: 20px; font-size: 0.7rem; text-align: center; color: #5e7c6b; }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>📋 Denver II API Test Paneli</h2>
-    <p><strong>Apps Script URL:</strong> <span id="urlDisplay" style="font-family: monospace; background:#eee; padding:4px; word-break:break-all;"></span></p>
-    
-    <div style="background:#eef2fa; padding: 15px; border-radius: 16px; margin-bottom: 20px;">
-        <h3>💾 Yeni test məlumatı yaz (save)</h3>
-        <input type="text" id="childName" placeholder="Uşaq adı (məsələn: Koray)" value="TestUşaq">
-        <input type="date" id="dob" value="2022-01-01">
-        <input type="text" id="regNo" placeholder="Qeydiyyat №" value="12345">
-        <input type="text" id="checks" placeholder="Bacarıqlar (məsələn: top_atir;qacir)" value="test_bacarigi1;test_bacarigi2">
-        <input type="number" id="percentile" placeholder="Persentil" value="50">
-        <button id="saveBtn">🚀 SAVE (yaz)</button>
+    <h1>🏥 Denver II Gelişim Tarama Testi</h1>
+    <div class="sub">Denver Skrininq Testi (DDST) – Uşaq inkişafının qiymətləndirilməsi (2 ay – 6 yaş)</div>
+
+    <div class="info-panel">
+        <div class="info-field"><label>👶 Uşağın adı, soyadı</label><input type="text" id="childName" placeholder="Ad Soyad"></div>
+        <div class="info-field"><label>🎂 Doğum tarixi</label><input type="date" id="dob"></div>
+        <div class="info-field"><label>🆔 Qeydiyyat №</label><input type="text" id="regNo" placeholder="Doğum/Imm №"></div>
+        <div class="info-field"><label>📊 Persentil aralığı</label><input type="range" id="percentile" min="0" max="100" step="5" value="50" style="width: 100%;"><span id="percentileVal" style="margin-left: 8px; font-weight:bold;">50</span></div>
     </div>
 
-    <div style="background:#eef2fa; padding: 15px; border-radius: 16px;">
-        <h3>📂 Keçmiş məlumatları oxu (load)</h3>
-        <button id="loadBtn">📥 LOAD (oxu)</button>
+    <div>
+        <button id="saveBtn">💾 Test məlumatlarını YADDA SAXLA (Google Cədvələ)</button>
+        <button id="loadBtn" class="btn-secondary">📂 Keçmiş bütün testləri GÖSTƏR</button>
+        <button id="clearCheckBtn" class="btn-secondary">🗑 Bütün işarələri təmizlə</button>
     </div>
+    <div id="statusMessage" class="status">✅ Status: Düymələr aktivdir. "Yadda saxla" ilə məlumatlar göndərilir.</div>
 
-    <div id="resultArea" class="status"></div>
-    <pre id="rawOutput" style="white-space: pre-wrap;"></pre>
+    <div class="table-wrapper" id="tableWrapper">
+        <!-- Cədvəl JS ilə yüklenəcək -->
+    </div>
+    <footer>⚕️ Hər bir bacarıq işarələnir. Bütün istifadəçilər eyni cədvələ yazır. Google Sheets ilə sinxron.</footer>
 </div>
 
 <script>
-    // ============================================================
-    // BURAYA ÖZ APPS SCRIPT URL-İNİZİ YAZIN (DOĞRU VƏ TAM)
-    // ============================================================
-    const SCRIPT_URL ="https://script.google.com/macros/s/AKfycbz7a-ksX6NRQbpUC6-xbTJRfqKeXRFXdcMlf5nIdTidlq6BdhgJfceMLusIigXjMWiBXg/exec";
+    // ======================= SİZİN APPS SCRIPT URL =======================
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz7a-ksX6NRQbpUC6-xbTJRfqKeXRFXdcMlf5nIdTidlq6BdhgJfceMLusIigXjMWiBXg/exec";
     
-    document.getElementById("urlDisplay").innerText = SCRIPT_URL;
+    // ======================= TAM DENVER II MADDƏLƏRİ =======================
+    const domains = [
+        { name: "🏃 KOBUD MOTOR", items: ["Başını 1-2 dəq düz tutur","Üstüstə yatarkən başını qaldırır","Ayaqları ilə təpikləyir","Baş və döşü qaldırır","Başını düz saxlayır","Dayaqlı oturur","Qarından kürəyə dönür","Sürünməyə çalışır","Stabil oturur","Qaldırılanda ayaq üstə durur","Tutub qalxır","Kreslo ətrafında addımlayır","Müstəqil dayanır","Təkbaşına yeriyir","Pilləkənlərə dırmaşır","Arabaları itələyir","Kresloya dırmaşır","Arxaya doğru yeriyir","Pilləkənlə enib-qalxır","Tullanır","Qaçır","Özü stula oturur","Top atır","Düz qaçır, dırmaşır","Bir ayaqda dayanır, özü geyinir","Bir ayaqda dayanır, tullanır, velosiped"] },
+        { name: "✍ İNCƏ MOTOR", items: ["İşığı izləyir","Zəngi yuxarı-aşağı izləyir","Nəzərini obyektdən obyektə keçirir","Kubu tutur","Əşyaları ağzına aparır","Kubu masadan qaldırır","Düşmüş əşyanı axtarır","Oyuncağı əlindən-ələ keçirir","İki əşya ilə oynayır","Kubları bir-birinə vurur","Cımbız tutuşu","Üç kiçik əşya saxlayır","Bir əl üstünlüyü","Dörd kub tutur","Əşyaları üst-üstə qoyur","Qaralamalar çəkir","3 kubdan qüllə","4 kubdan qüllə","5+ kubdan qüllə","Şaquli xətt kopyalayır","Üfüqi xətt kopyalayır","Dairə çəkir","Sancaq qaldırır","Bir göz qapalı detalları tanıyır","9 kubdan qüllə","Kərpicdən körpü","Kvadrat + dairə çəkir","Qələmi düzgün tutur"] },
+        { name: "🗣 DİL VƏ DANIŞMA", items: ["Səslərdən qorxur","Zəng səsini dinləyir","Səs mənbəyini gözlə axtarır","Səsə baş çevirir","Musiqi eşidəndə səslənir","Vokalizasiyalar","Diqqət çəkmək üçün qışqırır","Mama/dada deyir","Saat tıqqıltısını dinləyir","2 söz bilir","3 söz bilir","Şəkilə baxır","Öz adını bilir","4-5 söz","6-7 söz","Cümlələşir","Şəkilli kitabları sevir","9 söz","12 söz","2 sözlü cümlələr","Nağıl dinləyir","20+ söz","4 oyuncağın adını çəkir","Nə? Harada? sualları","Bədən hissələrini adlandırır","Təmiz danışır, geniş cümlələr","Suallara cavab verir"] },
+        { name: "🧸 SOSIAL-ŞƏXSİ", items: ["Qucağa alanda sakitləşir","Gülümsəyir","İnsanı izləyir","Müayinəçiyə qarşılıqlı gülümsəmə","Oyuna reaksiya","Danışana baş çevirir","Kassadan içir","Güzgüyə baxır","Fincanı tutmağa kömək edir","Güzgüdə təbəssüm","Barmaqları ilə yeyir","Əl çalır, yelləyir, jestləri təqlid edir","Fincanı tutur","Qaşıqdan istifadə edir","Ayaqqabılarını göstərir","Qapı dəstəyini çevirir","Kubokla bacarır","Corab/ayaqqabı çıxarır","Bir bədən hissəsini tanıyır","Tualet istədiyini bildirir","Gündüz sidik nəzarəti","Başına gələni danışır","İki bədən hissəsini bilir","Dörd bədən hissəsi + qaşıq","Şalvarını tualet üçün endirir","Özü yeyir, yuyunur","Adını deyir, ev işlərində kömək edir","Əməkdaşlıq edir","Geyinir/təmizlənir"] }
+    ];
+    const ageCols = ["2ay","4ay","6ay","9am","12ay","15ay","18ay","24ay","3yas","4yas","5yas","6yas"];
 
-    // SAVE (yazma) - GET metodu ilə sadə
+    function buildTable() {
+        let html = `<table class="test-table"><thead><tr><th class="item-name">İnkişaf sahələri / Test maddələri</th>${ageCols.map(a=>`<th>${a}</th>`).join('')}</tr></thead><tbody>`;
+        domains.forEach(domain => {
+            html += `<tr><th class="domain-row" colspan="${ageCols.length+1}">${domain.name}</th></tr>`;
+            domain.items.forEach(item => {
+                html += `<tr><td class="item-name">${item}</td>`;
+                for(let i=0;i<ageCols.length;i++) html += `<td class="checkbox-cell"><input type="checkbox" data-item="${item.replace(/"/g, '&quot;')}" data-age="${ageCols[i]}"></td>`;
+                html += `</tr>`;
+            });
+        });
+        html += `</tbody></table>`;
+        document.querySelector("#tableWrapper").innerHTML = html;
+    }
+    buildTable();
+
+    function getChecks() {
+        let checks = [];
+        document.querySelectorAll("#tableWrapper input[type=checkbox]:checked").forEach(cb => {
+            checks.push(cb.getAttribute("data-item") + "|" + cb.getAttribute("data-age"));
+        });
+        return checks.join(";");
+    }
+
     document.getElementById("saveBtn").onclick = async () => {
-        const name = document.getElementById("childName").value;
-        const dob = document.getElementById("dob").value;
-        const reg = document.getElementById("regNo").value;
-        const checks = document.getElementById("checks").value;
-        const perc = document.getElementById("percentile").value;
-
-        const url = `${SCRIPT_URL}?action=save&name=${encodeURIComponent(name)}&dob=${encodeURIComponent(dob)}&reg=${encodeURIComponent(reg)}&checks=${encodeURIComponent(checks)}&perc=${encodeURIComponent(perc)}`;
-        
-        document.getElementById("rawOutput").innerText = "Göndərilir: " + url + "\n\nGözlənilir...";
-        
+        const child = document.getElementById("childName").value.trim();
+        if(!child) { document.getElementById("statusMessage").innerHTML = "❌ Xəta: Uşağın adını yazın!"; return; }
+        const checks = getChecks();
+        const url = `${SCRIPT_URL}?action=save&name=${encodeURIComponent(child)}&dob=${encodeURIComponent(document.getElementById("dob").value)}&reg=${encodeURIComponent(document.getElementById("regNo").value)}&checks=${encodeURIComponent(checks)}&perc=${document.getElementById("percentile").value}`;
         try {
-            const response = await fetch(url, { method: "GET", mode: "cors" });
-            const text = await response.text();
-            document.getElementById("rawOutput").innerText = "✅ CAVAB:\n" + text;
-            if (text.trim() === "OK") {
-                document.getElementById("resultArea").innerHTML = "✅ Uğurla yadda saxlanıldı!";
-                document.getElementById("resultArea").className = "status success";
-            } else {
-                document.getElementById("resultArea").innerHTML = "⚠️ Xəta: " + text;
-                document.getElementById("resultArea").className = "status error";
-            }
-        } catch (err) {
-            document.getElementById("rawOutput").innerText = "❌ XƏTA: " + err.message;
-            document.getElementById("resultArea").innerHTML = "❌ Şəbəkə xətası: " + err.message;
-            document.getElementById("resultArea").className = "status error";
-        }
+            const resp = await fetch(url);
+            const txt = await resp.text();
+            if(txt === "OK") document.getElementById("statusMessage").innerHTML = "✅ Məlumatlar uğurla yadda saxlanıldı!";
+            else document.getElementById("statusMessage").innerHTML = "⚠️ Xəta: " + txt;
+        } catch(e) { document.getElementById("statusMessage").innerHTML = "❌ Şəbəkə xətası: " + e.message; }
     };
 
-    // LOAD (oxuma) - GET metodu ilə
     document.getElementById("loadBtn").onclick = async () => {
         const url = `${SCRIPT_URL}?action=load`;
-        document.getElementById("rawOutput").innerText = "Yüklənir: " + url + "\n\nGözlənilir...";
-        
         try {
-            const response = await fetch(url, { method: "GET", mode: "cors" });
-            const text = await response.text();
-            document.getElementById("rawOutput").innerText = "📊 YÜKLƏNDİ:\n" + text;
-            
-            // Yoxlayaq ki, JSON formatındadırmı?
-            try {
-                const jsonData = JSON.parse(text);
-                document.getElementById("resultArea").innerHTML = `✅ ${jsonData.length} sətir məlumat yükləndi. Birinci sətir: ${JSON.stringify(jsonData[0])}`;
-                document.getElementById("resultArea").className = "status success";
-            } catch(e) {
-                document.getElementById("resultArea").innerHTML = "⚠️ Cavab JSON deyil: " + text.substring(0, 150);
-                document.getElementById("resultArea").className = "status error";
-            }
-        } catch (err) {
-            document.getElementById("rawOutput").innerText = "❌ XƏTA: " + err.message;
-            document.getElementById("resultArea").innerHTML = "❌ Yükləmə xətası: " + err.message;
-            document.getElementById("resultArea").className = "status error";
-        }
+            const resp = await fetch(url);
+            const data = await resp.json();
+            if(Array.isArray(data) && data.length) {
+                let msg = `📋 ${data.length} test qeydi yükləndi.<br> Son 5: <br>`;
+                data.slice(-5).reverse().forEach(row => msg += `👉 ${row.slice(0,5).join(" | ")}<br>`);
+                document.getElementById("statusMessage").innerHTML = msg;
+            } else document.getElementById("statusMessage").innerHTML = "⚠️ Heç bir məlumat yoxdur.";
+        } catch(e) { document.getElementById("statusMessage").innerHTML = "❌ Yükləmə xətası: " + e.message; }
     };
+
+    document.getElementById("clearCheckBtn").onclick = () => {
+        document.querySelectorAll("#tableWrapper input[type=checkbox]").forEach(cb => cb.checked = false);
+        document.getElementById("statusMessage").innerHTML = "🧹 Bütün işarələr təmizləndi.";
+    };
+    
+    const slider = document.getElementById('percentile');
+    const span = document.getElementById('percentileVal');
+    slider.addEventListener('input', () => span.innerText = slider.value);
 </script>
 </body>
 </html>
