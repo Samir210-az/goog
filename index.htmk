@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <title>Denver II – Ortaq Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f0f4f0; }
+        .container { max-width: 1300px; margin: auto; background: white; padding: 20px; border-radius: 20px; }
+        table { border-collapse: collapse; width: 100%; overflow-x: auto; display: block; }
+        th, td { border: 1px solid #aaa; padding: 6px; text-align: center; font-size: 12px; }
+        .item-name { text-align: left; background: #fef9e6; }
+        input[type="checkbox"] { transform: scale(1.2); }
+        .info { margin-bottom: 20px; background: #e0f0e0; padding: 15px; border-radius: 16px; }
+        button { background: #2b6e2f; color: white; padding: 8px 16px; border: none; border-radius: 30px; cursor: pointer; margin: 5px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>🏥 Denver II Test (Əməkdaşlıq rejimi)</h2>
+    <div class="info">
+        <label>Uşaq adı: <input type="text" id="ad" style="width:140px"></label>
+        <label>Doğum tarixi: <input type="date" id="dogum"></label>
+        <label>Qeydiyyat №: <input type="text" id="qeyd" style="width:120px"></label>
+        <button id="saveBtn">💾 Yadda saxla</button>
+        <button id="loadBtn">📂 Keçmiş testlər</button>
+    </div>
+    <div id="status" style="background:#f3f3f3; padding: 6px; margin-top: 8px;"></div>
+    <div style="overflow-x:auto">
+        <table>
+            <thead><tr><th>Bacarıq / Yaş</th><th>2ay</th><th>4ay</th><th>6ay</th><th>9ay</th><th>12ay</th><th>15ay</th><th>18ay</th><th>24ay</th><th>3yaş</th><th>4yaş</th><th>5yaş</th><th>6yaş</th></tr></thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+</div>
+<script>
+// === SİZİN URL-İNİZ BURAYA YAZILIB ===
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwAnKSSLbKCBZhBV_tgJ6rhM7Ss0baRRnRShy_Xqu9Atv662tS3d4Q_xXp1IbMDNMNuxg/exec";
+
+const items = ["Başını düz tutur", "Gülümsəyir", "Əlini tanıyır", "Oturur", "Sürünür", "Dayanır", "Yeriyir", "Qaçır", "Kubla oynayır", "Söz deyir", "Bədən hissələrini göstərir", "Özü yeyir"];
+
+function buildTable() {
+    let html = "";
+    items.forEach(item => {
+        html += "<tr><td class='item-name'>"+item+"</td>";
+        for(let i=0;i<12;i++) html += "<td><input type='checkbox' class='chk' data-item='"+item+"' data-col='"+i+"'></td>";
+        html += "</tr>";
+    });
+    document.getElementById("tableBody").innerHTML = html;
+}
+buildTable();
+
+function getTestData() {
+    return {
+        ad: document.getElementById("ad").value,
+        dogum: document.getElementById("dogum").value,
+        qeyd: document.getElementById("qeyd").value,
+        checks: Array.from(document.querySelectorAll(".chk:checked")).map(cb => cb.dataset.item+"_"+cb.dataset.col).join(","),
+        zaman: new Date().toISOString()
+    };
+}
+
+document.getElementById("saveBtn").onclick = async () => {
+    const d = getTestData();
+    if(!d.ad) { alert("Uşaq adı tələb olunur"); return; }
+    const url = `${SCRIPT_URL}?action=save&name=${encodeURIComponent(d.ad)}&dogum=${encodeURIComponent(d.dogum)}&reg=${encodeURIComponent(d.qeyd)}&checks=${encodeURIComponent(d.checks)}`;
+    const r = await fetch(url);
+    const txt = await r.text();
+    document.getElementById("status").innerHTML = "✅ " + txt;
+};
+
+document.getElementById("loadBtn").onclick = async () => {
+    const r = await fetch(`${SCRIPT_URL}?action=load`);
+    const data = await r.json();
+    let out = "<b>📋 Keçmiş testlər:</b><br>";
+    if(data.length===0) out += "Heç bir test yoxdur.";
+    else data.slice(0,20).forEach((row,i)=> out += (i+1)+". "+row.join(" | ")+"<br>");
+    document.getElementById("status").innerHTML = out;
+};
+</script>
+</body>
+</html>
