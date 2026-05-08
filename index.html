@@ -2,76 +2,258 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Denver II Test – Tam Funksiyalı (Mobil Optimallaşdırılmış)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Denver II Test – Tam Arxiv, Geriləmə Analizi, Mobil Optimallaşdırma</title>
     <style>
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Segoe UI', Roboto, system-ui, sans-serif; background: #eef2f5; margin: 0; padding: 12px; font-size: 14px; }
-        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); padding: 16px; }
-        h1 { font-size: 1.5rem; color: #1e6b3b; border-left: 5px solid #1e6b3b; padding-left: 16px; margin-top: 0; }
-        .tabs { display: flex; gap: 6px; margin: 16px 0; flex-wrap: wrap; }
-        .tab-btn { background: #e0e8e0; border: none; padding: 8px 16px; border-radius: 40px; font-weight: bold; cursor: pointer; font-size: 0.85rem; }
-        .tab-btn.active { background: #1e6b3b; color: white; }
-        .tab-pane { display: none; animation: fade 0.2s; }
-        .tab-pane.active { display: block; }
-        @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
-        .info-panel { background: #e8f3ec; padding: 12px; border-radius: 20px; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; align-items: flex-end; }
-        .info-field { flex: 1; min-width: 120px; }
-        .info-field label { font-weight: bold; font-size: 0.7rem; color: #1e6b3b; display: block; margin-bottom: 3px; }
-        .info-field input { width: 100%; padding: 8px 10px; border-radius: 30px; border: 1px solid #cbdcc2; font-size: 0.85rem; }
-        button { background: #1e6b3b; color: white; border: none; padding: 8px 16px; border-radius: 40px; font-weight: bold; cursor: pointer; margin: 3px 3px 0 0; font-size: 0.8rem; }
-        button:active { transform: scale(0.97); }
-        .btn-secondary { background: #4a6a5e; }
-        .status { background: #fcf8e8; padding: 10px; border-radius: 16px; margin: 12px 0; border-left: 4px solid #e9b35f; font-size: 0.8rem; }
-        .table-wrapper { overflow-x: auto; border: 1px solid #d4dfe3; border-radius: 20px; margin-top: 16px; -webkit-overflow-scrolling: touch; }
-        .test-table { min-width: 950px; border-collapse: collapse; font-size: 0.7rem; width: 100%; }
-        .test-table th, .test-table td { border: 1px solid #d0dbdf; padding: 6px 3px; text-align: center; }
-        .test-table th { background: #d9e8da; font-weight: 800; position: sticky; top: 0; }
-        .domain-row { background: #cbddce; font-weight: bold; text-align: left; }
-        .item-name { text-align: left; background: #fefaf0; font-weight: 500; width: 180px; font-size: 0.68rem; }
-        .checkbox-cell input { width: 16px; height: 16px; cursor: pointer; accent-color: #1e6b3b; }
-        .search-box { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-        .search-box input { flex: 2; padding: 10px; border-radius: 40px; border: 1px solid #ccc; font-size: 0.9rem; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 16px; }
-        .stat-card { background: #f0f7f0; padding: 12px; border-radius: 20px; text-align: center; }
-        .archive-row-actions button { padding: 4px 12px; font-size: 0.7rem; margin: 0; background: #c96f0e; }
-        footer { font-size: 0.65rem; text-align: center; margin-top: 20px; color: #5e7c6b; }
-        @media (max-width: 680px) {
-            body { padding: 6px; }
-            .container { padding: 12px; }
-            h1 { font-size: 1.2rem; }
-            .tab-btn { padding: 6px 12px; font-size: 0.7rem; }
-            .info-field input { font-size: 0.8rem; padding: 6px 8px; }
-            button { padding: 6px 12px; font-size: 0.7rem; }
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
-        .rotate-hint { background: #ffecb3; padding: 8px; border-radius: 16px; text-align: center; font-size: 0.7rem; margin-bottom: 12px; display: none; }
-        @media (max-width: 700px) { .rotate-hint { display: block; } }
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: #eef2f5;
+            margin: 0;
+            padding: 12px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            padding: 16px 20px 24px;
+        }
+        h1 {
+            font-size: 1.5rem;
+            color: #1e6b3b;
+            border-left: 5px solid #1e6b3b;
+            padding-left: 16px;
+            margin-top: 0;
+        }
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin: 16px 0;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #ccc;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 8px 18px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 30px 30px 0 0;
+            color: #2c5a2e;
+        }
+        .tab-btn.active {
+            background: #1e6b3b;
+            color: white;
+        }
+        .tab-pane {
+            display: none;
+            animation: fade 0.2s;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .info-panel {
+            background: #e8f3ec;
+            padding: 12px 16px;
+            border-radius: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            align-items: flex-end;
+        }
+        .info-field {
+            flex: 1;
+            min-width: 130px;
+        }
+        .info-field label {
+            font-weight: bold;
+            font-size: 0.7rem;
+            color: #1e6b3b;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .info-field input {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 24px;
+            border: 1px solid #cbdcc2;
+            background: white;
+            font-size: 0.85rem;
+        }
+        button {
+            background: #1e6b3b;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 4px 4px 0 0;
+            font-size: 0.8rem;
+        }
+        .btn-secondary {
+            background: #4a6a5e;
+        }
+        .status {
+            background: #fcf8e8;
+            padding: 10px;
+            border-radius: 18px;
+            margin: 12px 0;
+            border-left: 5px solid #e9b35f;
+            font-size: 0.85rem;
+        }
+        /* Mobil üçün sticky başlıq */
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid #d4dfe3;
+            border-radius: 20px;
+            margin-top: 20px;
+            position: relative;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .test-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.7rem;
+            min-width: 850px;
+        }
+        .test-table th {
+            background: #d9e8da;
+            font-weight: 800;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            padding: 8px 4px;
+        }
+        .test-table th:first-child {
+            left: 0;
+            z-index: 20;
+            background: #cbddce;
+        }
+        .test-table td {
+            border: 1px solid #d0dbdf;
+            padding: 6px 3px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .item-name {
+            text-align: left;
+            background: #fefaf0;
+            font-weight: 500;
+            font-size: 0.7rem;
+            position: sticky;
+            left: 0;
+            background-color: #fefaf0;
+            z-index: 5;
+        }
+        .domain-row {
+            background: #cbddce;
+            font-weight: bold;
+            text-align: left;
+        }
+        .checkbox-cell input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #1e6b3b;
+        }
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .search-box input {
+            flex: 2;
+            padding: 8px 14px;
+            border-radius: 30px;
+            border: 1px solid #ccc;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .stat-card {
+            background: #f0f7f0;
+            padding: 12px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        footer {
+            font-size: 0.7rem;
+            text-align: center;
+            margin-top: 25px;
+            color: #5e7c6b;
+        }
+        @media (max-width: 700px) {
+            .container {
+                padding: 12px;
+            }
+            .test-table {
+                font-size: 0.65rem;
+                min-width: 750px;
+            }
+            .item-name {
+                font-size: 0.65rem;
+                min-width: 140px;
+            }
+            button {
+                padding: 6px 14px;
+                font-size: 0.75rem;
+            }
+        }
+        .archive-row-select {
+            cursor: pointer;
+            background: #f0f7f0;
+            transition: 0.1s;
+        }
+        .archive-row-select:hover {
+            background: #e0f0e0;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🏥 Denver II İnkişaf Testi <span style="font-size:0.7rem;">(Mobil üçün uyğunlaşdırılıb)</span></h1>
-    <div class="rotate-hint">📱 İpucu: Cədvəli rahat görmək üçün telefonu üfüqi (landscape) çevirin və ya sürüşdürün.</div>
+    <h1>🏥 Denver II İnkişaf Testi <span style="font-size:0.8rem;">(Geriləmə Analizi + Mobil UX)</span></h1>
+    
     <div class="tabs">
-        <button class="tab-btn active" data-tab="test">📋 Test</button>
-        <button class="tab-btn" data-tab="archive">📚 Arxiv</button>
+        <button class="tab-btn active" data-tab="test">📋 Test Cədvəli</button>
+        <button class="tab-btn" data-tab="archive">📚 Arxiv & Axtarış</button>
         <button class="tab-btn" data-tab="stats">📊 Statistika</button>
     </div>
 
     <!-- TEST PANELİ -->
     <div id="testPane" class="tab-pane active">
         <div class="info-panel">
-            <div class="info-field"><label>👶 Uşaq adı</label><input type="text" id="childName" placeholder="Ad Soyad"></div>
+            <div class="info-field"><label>👶 Uşağın adı</label><input type="text" id="childName" placeholder="Ad Soyad"></div>
             <div class="info-field"><label>🎂 Doğum tarixi</label><input type="date" id="dob"></div>
             <div class="info-field"><label>🆔 Qeydiyyat №</label><input type="text" id="regNo" placeholder="Qeydiyyat"></div>
-            <div class="info-field"><label>📊 Faiz</label><input type="range" id="perc" min="0" max="100" value="50" style="width:100%"><span id="percVal" style="margin-left:6px;">50</span></div>
-            <div><button id="saveBtn">💾 Yadda saxla</button><button id="clearCheckBtn" class="btn-secondary">🗑 Təmizlə</button><button id="reportBtn" style="background:#c96f0e;">📄 Hesabat</button></div>
+            <div class="info-field"><label>📊 Faiz</label><input type="range" id="perc" min="0" max="100" value="50"><span id="percVal">50</span></div>
+            <div>
+                <button id="saveBtn">💾 Yadda saxla</button>
+                <button id="clearCheckBtn" class="btn-secondary">🗑 Təmizlə</button>
+                <button id="reportBtn" class="btn-secondary" style="background:#c96f0e;">📄 Hesabat çıxar</button>
+            </div>
         </div>
-        <div id="testMessage" class="status">✅ Düymələr aktiv. "Hesabat" cari işarələrə əsasən analiz + iş planı yaradır.</div>
+        <div id="testMessage" class="status">✅ Cədvəldə işarələr edin. "Hesabat çıxar" -> Geriləmə (ay) və təfərrüatlı iş planı.</div>
         <div class="table-wrapper" id="testTableWrapper"></div>
     </div>
 
-    <!-- ARXIV PANELİ -->
+    <!-- ARXİV (Seçilə bilən) -->
     <div id="archivePane" class="tab-pane">
         <div class="search-box">
             <input type="text" id="searchName" placeholder="Uşaq adı ilə axtar...">
@@ -86,14 +268,14 @@
         <button id="calcStatsBtn" class="btn-secondary">📈 Yenilə statistika</button>
         <div id="statsContent" class="stats-grid"></div>
     </div>
-    <footer>⚕️ Denver II testi — hər test qeydindən "Hesabata Bax" düyməsi ilə keçmiş nəticəni yükləyib təkrar hesabat ala bilərsiniz.</footer>
+    <footer>✔️ Arxivdə hər hansı testə klikləyin → o testin işarələri yüklenir, sonra "Hesabat çıxar" ilə geriləmə (ay) və detallı plan alın.</footer>
 </div>
 
 <script>
-    // ========== KONFİQURASİYA ==========
+    // ========== APPS SCRIPT URL (Dəyişməyin) ==========
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUFz-JQcjv7iAuSiVYgV3aRSaFNU-FWbWhL5A6Tt7vB88FhdQ_v5fvbX4pfgs159Gs9Q/exec";
     
-    // ========== TAM MADDƏLƏR (qısa nümunə, əvvəlki kimi tam) ==========
+    // ========== TAM DENVER II MADDƏLƏRİ ==========
     const domains = [
         { name: "🏃 KOBUD MOTOR", items: [ "Başını 1-2 dəq düz tutur","Üstüstə yatarkən başını qaldırır","Ayaqları ilə təpikləyir","Baş və döşü qaldırır","Başını düz saxlayır","Dayaqlı oturur","Qarından kürəyə dönür","Sürünməyə çalışır","Stabil oturur","Qaldırılanda ayaq üstə durur","Tutub qalxır","Kreslo ətrafında addımlayır","Müstəqil dayanır","Təkbaşına yeriyir","Pilləkənlərə dırmaşır","Arabaları itələyir","Kresloya dırmaşır","Arxaya doğru yeriyir","Pilləkənlə enib-qalxır","Tullanır","Qaçır","Özü stula oturur","Top atır","Düz qaçır, dırmaşır","Bir ayaqda dayanır, özü geyinir","Bir ayaqda dayanır, tullanır, velosiped" ] },
         { name: "✍ İNCƏ MOTOR", items: [ "İşığı izləyir","Zəngi yuxarı-aşağı izləyir","Nəzərini obyektdən obyektə keçirir","Kubu tutur","Əşyaları ağzına aparır","Kubu masadan qaldırır","Düşmüş əşyanı axtarır","Oyuncağı əlindən-ələ keçirir","İki əşya ilə oynayır","Kubları bir-birinə vurur","Cımbız tutuşu","Üç kiçik əşya saxlayır","Bir əl üstünlüyü","Dörd kub tutur","Əşyaları üst-üstə qoyur","Qaralamalar çəkir","3 kubdan qüllə","4 kubdan qüllə","5+ kubdan qüllə","Şaquli xətt kopyalayır","Üfüqi xətt kopyalayır","Dairə çəkir","Sancaq qaldırır","Bir göz qapalı detalları tanıyır","9 kubdan qüllə","Kərpicdən körpü","Kvadrat + dairə çəkir","Qələmi düzgün tutur" ] },
@@ -103,15 +285,17 @@
     const ageCols = ["2ay","4ay","6ay","9am","12ay","15ay","18ay","24ay","3yas","4yas","5yas","6yas"];
     const ageMonths = [2,4,6,9,12,15,18,24,36,48,60,72];
     
-    function buildFullTable(existingChecks = []) {
+    // Cədvəl yaradıcı
+    function buildFullTable(checksSet = new Set()) {
         let html = `<table class="test-table"><thead><tr><th class="item-name">İnkişaf sahəsi / Maddələr</th>${ageCols.map(a=>`<th>${a}</th>`).join('')}</tr></thead><tbody>`;
         domains.forEach(domain => {
             html += `<tr><th class="domain-row" colspan="${ageCols.length+1}">${domain.name}</th></tr>`;
             domain.items.forEach(item => {
                 html += `<tr><td class="item-name">${item}</td>`;
                 for(let i=0;i<ageCols.length;i++) {
-                    const checked = existingChecks.includes(`${item}|${ageCols[i]}`) ? 'checked' : '';
-                    html += `<td class="checkbox-cell"><input type="checkbox" class="chk" data-item="${item.replace(/"/g, '&quot;')}" data-age="${ageCols[i]}" ${checked}></td>`;
+                    const key = `${item}|${ageCols[i]}`;
+                    const checked = checksSet.has(key) ? 'checked' : '';
+                    html += `<td class="checkbox-cell"><input type="checkbox" data-item="${item.replace(/"/g, '&quot;')}" data-age="${ageCols[i]}" ${checked}></td>`;
                 }
                 html += `</tr>`;
             });
@@ -119,180 +303,264 @@
         html += `</tbody></table>`;
         document.getElementById("testTableWrapper").innerHTML = html;
     }
+    
     function getAllChecks() {
         let checks = [];
-        document.querySelectorAll("#testTableWrapper .chk:checked").forEach(cb => {
+        document.querySelectorAll("#testTableWrapper input[type=checkbox]:checked").forEach(cb => {
             checks.push(cb.getAttribute("data-item") + "|" + cb.getAttribute("data-age"));
         });
         return checks;
     }
+    
     function setChecksFromArray(checksArray) {
-        document.querySelectorAll("#testTableWrapper .chk").forEach(cb => {
-            const val = cb.getAttribute("data-item") + "|" + cb.getAttribute("data-age");
-            cb.checked = checksArray.includes(val);
-        });
+        const chkSet = new Set(checksArray);
+        buildFullTable(chkSet);
     }
-    function showTestMessage(msg, color) { const div = document.getElementById("testMessage"); div.innerHTML = msg; div.style.borderLeftColor = color || "#e9b35f"; }
     
-    // Yadda saxla (yeni test)
-    document.getElementById("saveBtn").onclick = async () => {
-        const name = document.getElementById("childName").value.trim();
-        if(!name) { showTestMessage("❌ Uşaq adını yazın!", "red"); return; }
-        const checksStr = getAllChecks().join(";");
-        const url = `${SCRIPT_URL}?action=save&name=${encodeURIComponent(name)}&dob=${document.getElementById("dob").value}&reg=${encodeURIComponent(document.getElementById("regNo").value)}&checks=${encodeURIComponent(checksStr)}&perc=${document.getElementById("perc").value}`;
-        showTestMessage("Göndərilir...", "blue");
-        try {
-            const resp = await fetch(url);
-            const txt = await resp.text();
-            if(txt === "OK") showTestMessage("✅ Yadda saxlandı! Arxiv yenilənə bilər.", "green");
-            else showTestMessage("⚠️ Xəta: " + txt, "red");
-        } catch(e) { showTestMessage("❌ Şəbəkə xətası: " + e.message, "red"); }
-    };
-    document.getElementById("clearCheckBtn").onclick = () => { document.querySelectorAll("#testTableWrapper .chk").forEach(cb => cb.checked=false); showTestMessage("🧹 Təmizləndi.", "blue"); };
-    document.getElementById("perc").oninput = () => document.getElementById("percVal").innerText = document.getElementById("perc").value;
+    // Yaş hesablama
+    function calculateAge(birthDateStr) {
+        if(!birthDateStr) return null;
+        const birth = new Date(birthDateStr);
+        const today = new Date();
+        let months = (today.getFullYear() - birth.getFullYear())*12 + (today.getMonth()-birth.getMonth());
+        if(today.getDate() < birth.getDate()) months--;
+        return months;
+    }
     
-    // ========== YAŞ HESABLAMA ==========
-    function calcAge(dobStr) { if(!dobStr) return null; const birth = new Date(dobStr); const today = new Date(); let m = (today.getFullYear()-birth.getFullYear())*12 + (today.getMonth()-birth.getMonth()); if(today.getDate()<birth.getDate()) m--; return m; }
-    
-    // ========== ANALİZ (gecikmə, xəbərdarlıq, təxmini yaş) ==========
-    function analyzeChildAdvanced(childName, dob, checksArray) {
-        const realAge = calcAge(dob);
-        if(realAge === null) return { error: "Doğum tarixi keçərsiz" };
+    // Gecikmə analizi + geriləmə yaşı (inDevelopmentAge)
+    function analyzeAdvanced(childName, dob, checksArray) {
+        const factualAge = calculateAge(dob);
+        if(factualAge === null) return { error: "Doğum tarixi keçərsiz" };
         let ageIndex = 0;
-        for(let i=0;i<ageMonths.length;i++) if(realAge >= ageMonths[i]) ageIndex = i; else break;
+        for(let i=0; i<ageMonths.length; i++) {
+            if(factualAge >= ageMonths[i]) ageIndex = i;
+            else break;
+        }
         const checkedSet = new Set(checksArray);
-        let delayCount = 0, warningCount = 0;
-        let maxCheckedAge = -1;
-        // hər maddə üçün ən yüksək işarələnmiş yaşı tap
+        let delays = []; // {item, ageCol, domain, colIndex}
         domains.forEach(domain => {
             domain.items.forEach(item => {
                 for(let col=0; col<ageCols.length; col++) {
                     const key = `${item}|${ageCols[col]}`;
-                    if(checkedSet.has(key)) {
-                        if(ageMonths[col] > maxCheckedAge) maxCheckedAge = ageMonths[col];
+                    if(col <= ageIndex && !checkedSet.has(key)) {
+                        delays.push({ item, ageCol: ageCols[col], colMonth: ageMonths[col], domain: domain.name });
                     }
-                    if(col <= ageIndex && !checkedSet.has(key)) delayCount++;
-                    else if(col > ageIndex && !checkedSet.has(key)) warningCount++;
                 }
             });
         });
-        const approximateAge = maxCheckedAge !== -1 ? maxCheckedAge : 0;
-        const delayMonths = realAge - approximateAge;
+        // Təqribi inkişaf yaşının hesablanması: ən yuxarı (ən böyük yaş) maddələrdən gecikmə varsa, geriləmə aylarla ifadə olunur.
+        let maxPassedMonth = 0;
+        for(let col=0; col<=ageIndex; col++) {
+            let allPassed = true;
+            domains.forEach(domain => {
+                domain.items.forEach(item => {
+                    const key = `${item}|${ageCols[col]}`;
+                    if(!checkedSet.has(key)) allPassed = false;
+                });
+            });
+            if(allPassed) maxPassedMonth = ageMonths[col];
+        }
+        let developmentalAge = maxPassedMonth;
+        let delayMonths = factualAge - developmentalAge;
+        if(delayMonths < 0) delayMonths = 0;
+        
+        const delayCount = delays.length;
         let evaluation = "";
-        if(delayCount === 0 && warningCount <= 1) evaluation = "✅ Normal (yaşına uyğun)";
-        else if(delayCount >= 2 || (delayCount >=1 && warningCount >=2)) evaluation = "⚠️ Anormal – Dərinləşdirilmiş qiymətləndirmə lazım";
-        else evaluation = "🔍 Şübhəli – Təkrar test edilməlidir";
-        return { childName, dob, realAge, approximateAge, delayMonths: delayMonths>0 ? delayMonths : 0, delayCount, warningCount, evaluation, checkedItems: checksArray };
+        if(delayCount === 0) evaluation = "✅ Normal (yaşına uyğun inkişaf)";
+        else if(delayCount >= 2) evaluation = "⚠️ Anormal – Dərinləşdirilmiş qiymətləndirmə tövsiyyə olunur";
+        else evaluation = "🔍 Şübhəli – Təkrar test və müşahidə";
+        
+        return { childName, dob, factualAge, developmentalAge, delayMonths, delayCount, delays, evaluation };
     }
     
-    // İş planı (əvvəlki kimi ətraflı)
-    function generateDetailedPlan(analysis) {
-        if(!analysis.delayMonths && analysis.delayCount===0) return `<p>✅ Heç bir gecikmə yoxdur. İnkişaf üçün gündəlik oyun və kitab fəaliyyətləri yetərlidir.</p>`;
-        let html = `<h3>📝 Fərdi İş Planı (Beynəlxalq təlimatlarla uyğun)</h3>`;
-        html += `<p>Uşağın təxmini geriləməsi <strong>${analysis.delayMonths} ay</strong> olaraq qiymətləndirilir. Aşağıdakı sahələr üzrə müdaxilə tövsiyə olunur:</p>`;
-        // sadələşdirilmiş lakin mənalı tövsiyələr
-        if(analysis.delayCount>0) html += `<ul><li><strong>🔄 Ümumi yanaşma:</strong> Oyun əsaslı, qısa (10-15 dəq) və təkrar fəaliyyətlər. Hər gün eyni vaxtda məşğələ.</li>`;
-        if(analysis.delayMonths >= 6) html += `<li><strong>⏳ Geriləmə əhəmiyyətli (≥6 ay):</strong> Mütləq peşəkar dəstək (psixoloq, erqoterapevt) cəlb edin.</li>`;
-        html += `<li><strong>🏠 Valideynlər üçün gündəlik oyunlar:</strong> Barmaq oyunları, top atma-tutma, şəkil kartları ilə sözləri öyrənmə, birlikdə yemək hazırlama, sadə qaydalı stol oyunları.</li>`;
-        html += `<li><strong>🧠 Psixoloq üçün:</strong> Həftədə 2-3 seans incə motor, dil və sosial bacarıqları inkişaf etdirən strukturlaşdırılmış məşğələlər.</li></ul>`;
-        return html;
+    // ƏTRAFLI İŞ PLANI (geniş izahlı, psixoloq+valideyn)
+    function generateDetailedPlan(analysis, checkedItems) {
+        let planHtml = `<div style="background:#e8f0fe; padding:18px; border-radius:24px; margin:20px 0;">`;
+        planHtml += `<h3>📘 Fərdi İş Planı (Beynəlxalq Erkən Müdaxilə Prinsipləri)</h3>`;
+        planHtml += `<p><strong>🕒 Geriləmə (İnkişaf fərqi):</strong> Uşağın faktiki yaşı <strong>${analysis.factualAge} ay</strong>, test nəticələrinə əsasən təqribi inkişaf yaşı <strong>${analysis.developmentalAge} ay</strong> təşkil edir. <span style="background:#ffecb3;">Geriləmə müddəti: ${analysis.delayMonths} ay</span>. Bu, uşağın müvafiq sahələrdə dəstəyə ehtiyacı olduğunu göstərir.</p>`;
+        planHtml += `<p><strong>🎯 Ümumi yanaşma:</strong> Oyun əsaslı, uşaq mərkəzli, ailə iştirakı vacibdir. İrəliləyiş hər gün kiçik addımlarla qeydə alınmalıdır.</p>`;
+        
+        // Gecikmiş sahələrə görə tövsiyələr (geniş)
+        if(analysis.delays.length === 0) {
+            planHtml += `<p>✅ Heç bir gecikmə yoxdur. Standart inkişaf oyunları və kitab oxumaq kifayətdir.</p>`;
+        } else {
+            // Sahələrə bölək
+            const motorDelays = analysis.delays.filter(d => d.domain.includes("KOBUD"));
+            const fineDelays = analysis.delays.filter(d => d.domain.includes("İNCƏ"));
+            const langDelays = analysis.delays.filter(d => d.domain.includes("DİL"));
+            const socialDelays = analysis.delays.filter(d => d.domain.includes("SOSİAL"));
+            
+            if(motorDelays.length) {
+                planHtml += `<div style="margin-top:16px;"><h4>🏃 Kobud Motor (Böyük əzələlər) – ${motorDelays.length} bacarıqda gerilik</h4>`;
+                planHtml += `<p><strong>👩‍⚕️ Psixoloq / Fizioterapevt üçün metodlar:</strong> Gündəlik 20 dəqiqə yerdə oyun, sürünmə maneələri, top oyunları, pilləkən qalxma təlimi. Tarazlıq lövhəsi, "Yol göstər" oyunları. Hər bacarıq ən az 5-7 dəfə təkrarlanmalı, müsbət gücləndirmə istifadə olunmalıdır. Beynəlxalq təcrübədə 'goal bank' sistemindən istifadə edərək həftəlik kiçik hədəflər qoyun.</p>`;
+                planHtml += `<p><strong>👪 Valideynlər üçün gündəlik fəaliyyətlər:</strong> Parkda "mənim kimi et" oyunu (qaç, dayan, tullan). Evdə yastıqlardan maneəli yol düzəldin – uşaq sürünərək keçsin. Hər axşam 10 dəqiqə "cırtdan futbol" (yumşaq top ayaqla vurma). Nümunə: "Topu qapıya vur" oyunu.</p>`;
+                planHtml += `<p><strong>✅ İzlənən bacarıqlar:</strong> ${motorDelays.slice(0,8).map(d=>d.item).join(", ")}</p></div>`;
+            }
+            if(fineDelays.length) {
+                planHtml += `<div><h4>✍ İncə Motor (Əl-göz koordinasiyası) – ${fineDelays.length} ədəd</h4>`;
+                planHtml += `<p><strong>👩‍⚕️ Psixoloq üçün:</strong> Mozaika, lego, muncuq dizmə, qayçı ilə kəsmə, barmaq rəngləri, cımbızla pom-pom yerləşdirmə. Hər seansda 3-4 fərqli alət, dönə-dönə İncə Motor Çantası istifadə edin. Hər tapşırıq 5-10 dəqiqə.</p>`;
+                planHtml += `<p><strong>👪 Valideynlərə tövsiyələr:</strong> Hər gün makaron ipə düzmə, şəkilli kitabda kiçik detalları tapmaq, qum qabında gizlənmiş oyuncaqları çıxarma. Barmaq boyaları ilə dairə çəkmə. Yumşaq plastilinlə oyun. "Barmaqlar salamlaşır" mahnılı oyun.</p></div>`;
+            }
+            if(langDelays.length) {
+                planHtml += `<div><h4>🗣 Dil və Danışma – ${langDelays.length} gecikmə</h4>`;
+                planHtml += `<p><strong>👩‍⚕️ Psixoloq/Dil terapevti:</strong> Hər gün 20 dəqiqə kartlar, şəkil tapma, əmrə uyğun hərəkət. Ekpressiv dil üçün "Gördüyünü adlandır" oyunu, səs çıxarma təqlidi. Reseptiv dil üçün "Mənə ver..." tapşırıqları. Aylıq hədəf söz sayını artırmaq.</p>`;
+                planHtml += `<p><strong>👪 Valideynlər:</strong> Gündəlik 15 dəqiqə kitab oxuyun, şəkli göstərib "Bu nədir?" deyə soruşun. Uşağın cümlələrini genişləndirərək təkrarlayın (məsələn "Top" deyəndə "Bəli, böyük qırmızı top"). Gün ərzində nə etdiyinizi söyləyin (yemək bişirərkən, geyinərkən).</p></div>`;
+            }
+            if(socialDelays.length) {
+                planHtml += `<div><h4>🧸 Sosial-Şəxsi – ${socialDelays.length} bacarıqda gerilik</h4>`;
+                planHtml += `<p><strong>👩‍⚕️ Psixoloq:</strong> Rollu oyunlar (ailə, məktəb), emosiya kartları, növbə gözləmə oyunları, gündəlik həyat bacarıqları (ayaqqabı bağlama, düymə). Qaydaları şəkillərlə göstərin. Mükafat sistemi.</p>`;
+                planHtml += `<p><strong>👪 Valideynlər:</strong> Özü qaşıq tutmasına icazə, sadə ev işləri (dəsmal yığmaq), birlikdə stol oyunları (loto). "Xahiş edirəm", "sağ ol" ifadələrini hər gün modelləşdirin. Uşağın geyinib-soyunmasına vaxt verin, tələsməyin.</p></div>`;
+            }
+        }
+        planHtml += `<hr><p><strong>🌍 Qlobal Erkən Müdaxilə Qaydaları:</strong> Ailə mərkəzli, təbii mühit, oyunun gücü, müsbət davranış dəstəyi (PBS). Yenidən qiymətləndirmə 3-6 ay sonra tövsiyə olunur.</p>`;
+        planHtml += `</div>`;
+        return planHtml;
     }
     
-    // ========== HESABAT YARAT (checksArray əsasında) ==========
-    async function generateReportFromData(childName, dob, perc, checksArray) {
-        const analysis = analyzeChildAdvanced(childName, dob, checksArray);
-        if(analysis.error) { alert(analysis.error); return; }
-        const planHtml = generateDetailedPlan(analysis);
+    // HESABAT YARATMA (işarələnmiş siyahı, geriləmə, iş planı)
+    async function generateReportFromChecks(childName, dob, checksArray) {
+        if(!childName || !dob) { alert("Uşağın adı və doğum tarixi olmalıdır"); return null; }
+        const analysis = analyzeAdvanced(childName, dob, checksArray);
+        if(analysis.error) { alert(analysis.error); return null; }
+        const plan = generateDetailedPlan(analysis, checksArray);
+        
         const reportHtml = `
-        <!DOCTYPE html><html><head><meta charset="UTF-8"><title>Denver II Hesabat - ${escapeHtml(childName)}</title>
-        <style>body{font-family:system-ui;margin:20px;background:#f8faf8;} .report{max-width:1000px;margin:auto;background:#fff;padding:20px;border-radius:24px;} h1{color:#1e6b3b;} .info{background:#eef5ea;padding:14px;border-radius:20px;} .badge{font-weight:bold;} .plan{margin-top:20px;}</style></head>
-        <body><div class="report">
-        <h1>🏥 Denver II Fərdi Hesabat</h1>
-        <div class="info"><p><strong>Uşaq:</strong> ${escapeHtml(childName)}</p><p><strong>Doğum:</strong> ${dob}</p><p><strong>Test tarixi:</strong> ${new Date().toLocaleDateString('az-AZ')}</p><p><strong>Faktiki yaşı:</strong> ${analysis.realAge} ay</p><p><strong>Testə əsasən təxmini inkişaf yaşı:</strong> ${analysis.approximateAge} ay</p><p><strong>📉 Geriləmə (inkişaf fərqi):</strong> ${analysis.delayMonths} ay</p><p><strong>⚠️ Gecikmə sayı:</strong> ${analysis.delayCount} &nbsp;|&nbsp; <strong>🔔 Xəbərdarlıq:</strong> ${analysis.warningCount}</p><p><strong>📊 Qiymətləndirmə:</strong> <span class="badge">${analysis.evaluation}</span></p></div>
-        <div class="plan">${planHtml}</div>
-        <h3>📋 İşarələnmiş bacarıqlar (${analysis.checkedItems.length} ədəd)</h3><ul>${analysis.checkedItems.slice(0,30).map(i=>`<li>${escapeHtml(i)}</li>`).join('')}${analysis.checkedItems.length>30?'<li>...</li>':''}</ul>
-        <footer>Bu hesabat Denver II və beynəlxalq erkən müdaxilə prinsiplərinə əsaslanır.</footer>
-        </div></body></html>`;
-        const win = window.open();
-        win.document.write(reportHtml);
-        win.document.close();
+        <!DOCTYPE html>
+        <html>
+        <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Denver II Hesabat - ${escapeHtml(childName)}</title>
+        <style>body{font-family:Segoe UI,sans-serif;margin:20px;background:#f8faf8;}.report{max-width:1100px;margin:auto;background:white;padding:24px;border-radius:30px;}.info{background:#eef5ea;padding:16px;border-radius:20px;}.badge{font-weight:bold;font-size:1.2rem;}</style>
+        </head>
+        <body>
+        <div class="report">
+            <h1>🏥 Denver II Hesabat & Geriləmə Analizi</h1>
+            <div class="info">
+                <p><strong>Uşaq:</strong> ${escapeHtml(childName)}</p>
+                <p><strong>Doğum tarixi:</strong> ${dob} | Faktiki yaş: ${analysis.factualAge} ay</p>
+                <p><strong>Test tarixi:</strong> ${new Date().toLocaleDateString('az-AZ')}</p>
+                <p><strong>📉 Təqribi inkişaf yaşı:</strong> ${analysis.developmentalAge} ay &nbsp;&nbsp;<strong style="color:#b45f06;">Geriləmə: ${analysis.delayMonths} ay</strong></p>
+                <p><strong>⚠️ Gecikmə sayı:</strong> ${analysis.delayCount} &nbsp;| <strong>🔔 Qiymət:</strong> ${analysis.evaluation}</p>
+            </div>
+            <h3>✅ İşarələnmiş bacarıqlar (${checksArray.length} ədəd)</h3>
+            <ul style="columns:2;column-gap:20px;">
+                ${checksArray.map(c => `<li>${escapeHtml(c)}</li>`).join('')}
+            </ul>
+            ${plan}
+            <footer>Bu hesabat Denver II və ÜTT tövsiyələrinə əsaslanır. Mütləq mütəxəssis tərəfindən izlənilməlidir.</footer>
+        </div>
+        </body>
+        </html>
+        `;
+        return reportHtml;
     }
     
-    async function generateReportCurrent() {
+    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+    
+    // Yadda saxla əməliyyatı
+    document.getElementById("saveBtn").onclick = async () => {
+        const name = document.getElementById("childName").value.trim();
+        if(!name){ showTestMessage("❌ Uşaq adı tələb olunur","red"); return; }
+        const checks = getAllChecks();
+        const url = `${SCRIPT_URL}?action=save&name=${encodeURIComponent(name)}&dob=${document.getElementById("dob").value}&reg=${encodeURIComponent(document.getElementById("regNo").value)}&checks=${encodeURIComponent(checks.join(";"))}&perc=${document.getElementById("perc").value}`;
+        showTestMessage("Göndərilir...","blue");
+        try{
+            const resp = await fetch(url);
+            const txt = await resp.text();
+            if(txt==="OK") showTestMessage("✅ Məlumatlar saxlanıldı!","green");
+            else showTestMessage("⚠️ Xəta: "+txt,"red");
+        }catch(e){ showTestMessage("❌ Şəbəkə xətası","red"); }
+    };
+    
+    // Cari uşaq üçün hesabat (cədvəldən)
+    document.getElementById("reportBtn").onclick = async () => {
         const name = document.getElementById("childName").value.trim();
         const dob = document.getElementById("dob").value;
-        const perc = document.getElementById("perc").value;
-        if(!name || !dob) { showTestMessage("❌ Hesabat üçün ad və doğum tarixi daxil edin!", "red"); return; }
+        if(!name || !dob){ showTestMessage("Hesabat üçün ad və doğum tarixi yazın","red"); return; }
         const checks = getAllChecks();
-        if(checks.length===0) { showTestMessage("⚠️ Heç bir işarə yoxdur!", "orange"); return; }
-        await generateReportFromData(name, dob, perc, checks);
-        showTestMessage("✅ Hesabat yaradıldı.", "green");
-    }
-    document.getElementById("reportBtn").onclick = generateReportCurrent;
+        if(checks.length===0){ showTestMessage("Heç bir işarə yoxdur","orange"); return; }
+        const report = await generateReportFromChecks(name, dob, checks);
+        if(report){
+            const win = window.open();
+            win.document.write(report);
+            win.document.close();
+        }
+    };
     
-    // ========== ARXİV (hər testin yanında "Hesabata Bax" düyməsi) ==========
+    document.getElementById("clearCheckBtn").onclick = () => { buildFullTable(new Set()); showTestMessage("Təmizləndi","blue"); };
+    document.getElementById("perc").oninput = () => document.getElementById("percVal").innerText = document.getElementById("perc").value;
+    function showTestMessage(msg,col){ const d=document.getElementById("testMessage"); d.innerHTML=msg; d.style.borderLeftColor=col||"#e9b35f"; }
+    
+    // ========== ARXİV VƏ KEÇMİŞ TESTLƏRİ YENİDƏN YÜKLƏMƏ ==========
     let allRecords = [];
     async function loadAllData() {
-        try { const resp = await fetch(SCRIPT_URL + "?action=load"); const data = await resp.json(); allRecords = Array.isArray(data) ? data : []; return allRecords; } catch(e) { return []; }
+        try{
+            const resp = await fetch(SCRIPT_URL+"?action=load");
+            const data = await resp.json();
+            allRecords = Array.isArray(data) ? data : [];
+            return allRecords;
+        }catch(e){ return []; }
     }
-    async function displayArchive(searchTerm = "") {
+    async function displayArchive(searchTerm=""){
         const records = await loadAllData();
         const container = document.getElementById("archiveList");
-        if(!records.length) { container.innerHTML = `<div class="status">⚠️ Heç bir test yoxdur.</div>`; return; }
+        if(!records.length){ container.innerHTML=`<div class="status">⚠️ Heç bir test yoxdur</div>`; return; }
         let filtered = records;
-        if(searchTerm.trim()) filtered = records.filter(r => r[1] && r[1].toLowerCase().includes(searchTerm.toLowerCase()));
-        if(!filtered.length) { container.innerHTML = `<div class="status">🔍 "${searchTerm}" üçün nəticə yoxdur.</div>`; return; }
-        let html = `<div class="table-wrapper"><table class="test-table"><thead><tr><th>Tarix</th><th>Uşaq</th><th>Doğum</th><th>Faiz</th><th>Bac.Say</th><th>Əməliyyat</th></tr></thead><tbody>`;
-        filtered.slice().reverse().forEach((row, idx) => {
-            const checksRaw = row[4] || "";
-            const checksArr = checksRaw.split(";").filter(c=>c);
-            const child = row[1] || "adsız";
-            const birth = row[2] || "";
-            const percVal = row[5] || "50";
-            html += `<tr><td>${(row[0]||"").slice(0,16)}</td><td>${escapeHtml(child)}</td><td>${birth}</td><td>${percVal}</td><td>${checksArr.length}</td>
-            <td><button class="loadArchiveBtn" data-name="${escapeHtml(child)}" data-dob="${birth}" data-perc="${percVal}" data-checks="${escapeHtml(checksRaw)}">📄 Hesabata Bax</button></td></tr>`;
+        if(searchTerm.trim()) filtered = records.filter(r=>r[1] && r[1].toLowerCase().includes(searchTerm.toLowerCase()));
+        if(!filtered.length){ container.innerHTML=`<div>🔍 Nəticə yoxdur</div>`; return; }
+        let html = `<div class="table-wrapper"><table class="test-table"><thead><tr><th>Tarix</th><th>Uşaq adı</th><th>Doğum</th><th>Qeydiyyat</th><th>Faiz</th><th>Bac.Say</th></thead><tbody>`;
+        filtered.slice().reverse().forEach((row,idx)=>{
+            const checksField = row[4] || "";
+            const count = checksField.split(";").filter(c=>c).length;
+            const recordId = `rec_${Date.now()}_${idx}`;
+            html += `<tr class="archive-row-select" data-name="${escapeHtml(row[1]||'')}" data-dob="${row[2]||''}" data-checks="${escapeHtml(checksField)}" data-reg="${row[3]||''}" data-perc="${row[5]||''}" style="cursor:pointer;">
+                        <td>${(row[0]||'').slice(0,16)}</td>
+                        <td>${row[1]||''}</td>
+                        <td>${row[2]||''}</td>
+                        <td>${row[3]||''}</td>
+                        <td>${row[5]||''}</td>
+                        <td>${count}</td>
+                     </tr>`;
         });
-        html += `</tbody></table></div>`;
+        html += `</tbody></table></div><p style="font-size:0.7rem;">📌 Siyahıda bir sətirə klikləyin → O testin məlumatları yüklənir, "Hesabat çıxar" edə bilərsiniz.</p>`;
         container.innerHTML = html;
-        // Event listenerləri əlavə et
-        document.querySelectorAll(".loadArchiveBtn").forEach(btn => {
-            btn.addEventListener("click", async (e) => {
-                const name = btn.getAttribute("data-name");
-                const dob = btn.getAttribute("data-dob");
-                const perc = btn.getAttribute("data-perc");
-                const checksStr = btn.getAttribute("data-checks");
-                const checksArray = checksStr.split(";").filter(c=>c);
-                // Cari tabda test cədvəlini yüklə (istəyə görə) və hesabat göstər
+        // Klik eventləri
+        document.querySelectorAll('.archive-row-select').forEach(tr => {
+            tr.addEventListener('click', (e) => {
+                const name = tr.getAttribute('data-name');
+                const dob = tr.getAttribute('data-dob');
+                const checksStr = tr.getAttribute('data-checks');
+                const reg = tr.getAttribute('data-reg');
+                const perc = tr.getAttribute('data-perc');
                 document.getElementById("childName").value = name;
                 document.getElementById("dob").value = dob;
-                document.getElementById("perc").value = perc;
-                document.getElementById("percVal").innerText = perc;
-                buildFullTable(checksArray);
-                await generateReportFromData(name, dob, perc, checksArray);
-                // Tabı test cədvəlinə keçir
-                document.querySelector(".tab-btn[data-tab='test']").click();
-                showTestMessage(`📂 ${name} testi yükləndi və hesabat açıldı.`, "green");
+                document.getElementById("regNo").value = reg;
+                document.getElementById("perc").value = perc || 50;
+                document.getElementById("percVal").innerText = perc || 50;
+                const checksArray = checksStr ? checksStr.split(";").filter(c=>c) : [];
+                setChecksFromArray(checksArray);
+                showTestMessage(`📂 "${name}" testi yükləndi. İndi "Hesabat çıxar" edə bilərsiniz.`, "blue");
+                // Test panelinə keç
+                document.querySelector('.tab-btn[data-tab="test"]').click();
             });
         });
     }
     
-    // ========== STATİSTİKA ==========
-    async function displayStats() {
+    // Statisika
+    async function displayStats(){
         const records = await loadAllData();
-        if(!records.length) { document.getElementById("statsContent").innerHTML = `<div class="stat-card">Məlumat yoxdur</div>`; return; }
+        if(!records.length){ document.getElementById("statsContent").innerHTML=`<div>Məlumat yoxdur</div>`; return; }
         const total = records.length;
         const unique = new Set(records.map(r=>r[1])).size;
         let skillCount = {};
-        records.forEach(r => { (r[4]||"").split(";").forEach(s=>{ if(s) skillCount[s]=(skillCount[s]||0)+1; }); });
+        records.forEach(r=>{ (r[4]||"").split(";").forEach(s=>{ if(s) skillCount[s]=(skillCount[s]||0)+1; }); });
         const top = Object.entries(skillCount).sort((a,b)=>b[1]-a[1]).slice(0,5);
-        let totalDelayEstimate = 0; // təxmini geriləmə (yalnız nümunə)
-        const html = `<div class="stat-card"><h3>📋 Ümumi testlər</h3><p style="font-size:1.8rem;">${total}</p></div>
-                      <div class="stat-card"><h3>👶 Fərqli uşaqlar</h3><p>${unique}</p></div>
-                      <div class="stat-card"><h3>🏆 Top 5 bacarıq</h3><ul>${top.map(t=>`<li>${t[0].slice(0,35)} (${t[1]})</li>`).join('')}</ul></div>`;
-        document.getElementById("statsContent").innerHTML = html;
+        const avgPerc = records.reduce((s,r)=>s+(parseInt(r[5])||0),0)/total;
+        document.getElementById("statsContent").innerHTML = `<div class="stat-card"><h3>📋 Ümumi testlər</h3><p>${total}</p></div>
+        <div class="stat-card"><h3>👶 Fərqli uşaqlar</h3><p>${unique}</p></div>
+        <div class="stat-card"><h3>📊 Orta faiz</h3><p>${avgPerc.toFixed(1)}</p></div>
+        <div class="stat-card"><h3>🏆 Top 5 bacarıq</h3><ul>${top.map(t=>`<li>${t[0].slice(0,30)}... (${t[1]})</li>`).join('')}</ul></div>`;
     }
     
-    // Tab keçidlər və ilkin yükləmə
+    // Tab keçidlər
     document.querySelectorAll(".tab-btn").forEach(btn => {
         btn.addEventListener("click", () => {
             document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
@@ -307,9 +575,9 @@
     document.getElementById("searchBtn").onclick = () => displayArchive(document.getElementById("searchName").value);
     document.getElementById("refreshArchiveBtn").onclick = () => displayArchive(document.getElementById("searchName").value);
     document.getElementById("calcStatsBtn").onclick = () => displayStats();
-    function escapeHtml(str) { return String(str).replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
     
-    buildFullTable();
+    buildFullTable(new Set());
+    showTestMessage("Hazır. Mobil telefonlarda üfüqi sürüşdürərək rahat işarələyin. Arxivdən test seçib hesabat ala bilərsiniz.","green");
 </script>
 </body>
 </html>
