@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Denver II – 120+ Maddə, Yaşa uyğun filtr</title>
+    <title>Denver II – 120+ Maddə, Yaşa uyğun filtr, Ətraflı Hesabat</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -90,7 +90,7 @@
         // ========== GOOGLE APPS SCRIPT URL ==========
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwgEOECX7j1ye1fcRbhPxkDwopZDaYmpB9lj6w71TuVjlARZeJzFOq5wGI0Ul9kJQYvoA/exec";
     
-    // ---------- 120+ maddə (əvvəlki tam siyahı) ----------
+    // ---------- 120+ maddə (əvvəlki tam siyahı, dəyişməz) ----------
     const items = [
         { domain: "KOBUD MOTOR", name: "Başını dik saxlaya bilir?", minMonth:0, maxMonth:4 },
         { domain: "KOBUD MOTOR", name: "Qarınüstə uzanarkən başını qaldırır?", minMonth:1, maxMonth:4 },
@@ -246,9 +246,9 @@
             if(i.domain !== curDom) { html += `<tr><th class="domain-row" colspan="${visibleCols.length+1}">${i.domain}</th></tr>`; curDom = i.domain; }
             html += `<td>${i.name} (${i.minMonth}-${i.maxMonth} ay)</td>`;
             for(let c=0;c<=maxCol;c++) html += `<td class="checkbox-cell"><input type="checkbox" data-item="${i.name.replace(/"/g, '&quot;')}" data-age="${ageCols[c]}"></td>`;
-            html += `</tr>`;
+            html += `<tr>`;
         });
-        html += `</tbody></table>`;
+        html += `</tbody></td>`;
         document.getElementById("testTableWrapper").innerHTML = html;
     }
     function getAllChecks() { let ch=[]; document.querySelectorAll("#testTableWrapper input:checked").forEach(cb=>ch.push(cb.dataset.item+"|"+cb.dataset.age)); return ch; }
@@ -283,44 +283,59 @@
         else evalTxt="🔍 Şübhəli – Təkrar test və müşahidə edilməlidir";
         return { childName, dob, factualAge, developmentalAge:devAge, delayMonths, delayCount:delays.length, warningCount:warnings.length, delays, evaluation:evalTxt };
     }
-    
-    // ========== GENİŞ TÖVSİYYƏ FUNKSİYASI (əvvəlki kimi, dəyişməz) ==========
+        // ========== ƏTRAFLI TÖVSİYYƏ FUNKSİYASI (hər gecikən maddə üçün izah) ==========
     function generateDetailedPlan(analysis, behavior) {
+        const age = analysis.factualAge;
         const devAge = analysis.developmentalAge;
-        let interval = "";
-        if (devAge < 6) interval = "0-6";
-        else if (devAge < 12) interval = "6-12";
-        else if (devAge < 18) interval = "12-18";
-        else if (devAge < 24) interval = "18-24";
-        else if (devAge < 36) interval = "24-36";
-        else if (devAge < 48) interval = "36-48";
-        else if (devAge < 60) interval = "48-60";
-        else interval = "60-72";
+        const delayItems = analysis.delays;
         
-        const recommendations = {
-            "0-6": { psych: "🧠 Psixoloq: Qısa üz-üzə oyunlar, cingiltili oyuncaqlar. Hər səsə reaksiya.", speech: "🗣 Loqoped: Səsləri təkrarlayın, hecalar deyin, ninnilər oxuyun.", ergo: "✍ Erqoterapevt: Barmaq uclarına toxunuş, qarınüstə yatırma, barmaq oyunları.", physio: "🏃 Fizioterapevt: Qarınüstə vaxt, baş çevirmə, ayaq təpikləmə.", parent: "👪 Valideyn: Qucaqla, danış, masaj et, sabit gündəlik." },
-            "6-12": { psych: "Diqqət müddətini artır, emosiyaları adlandır, təriflə.", speech: "Əmrlər ver, şəkilli kitablar, səs təqlidi.", ergo: "Cımbız tutuşu, barmaq boyaları, əşya daimiiliyi oyunları.", physio: "Oturma, sürünmə, ayağa qalxma dəstəyi, top oyunları.", parent: "Gündəlik kitab, sürünməyə təşviq, uşaqla 'söhbət'." },
-            "12-18": { psych: "2-3 addımlı tapşırıqlar, emosiya kartları, müsbət dəstək.", speech: "2-3 sözlü ifadələr, 'Bu nədir?', 15 dəq dialoq.", ergo: "Qüllə tikmə, rəsm, muncuq düzmə, səhifə çevirmə.", physio: "Pilləkən qalxma, top təpikləmə, əllə tutaraq gəzinti.", parent: "Maneəli parkur, birgə oyunlar, özü qaşıq tutma, tərif." },
-            "18-24": { psych: "Sadə qaydalar, xəyal oyunları, emosiyaları adlandırma.", speech: "2 sözlü cümlələr, mahnı, 1-3 sayma, 'xahiş edirəm'.", ergo: "Qayçı, düymə, rəsm (xətt, dairə), orta muncuqlar.", physio: "Bir ayaqda dayanma, tullanma, üçtəkərli velosiped, top tutma.", parent: "20 dəq aktiv oyun, seçim vermə, sabit rejim." },
-            "24-36": { psych: "Rol oyunları, emosiya tənzimləmə, mükafat cədvəli.", speech: "3-4 sözlü cümlələr, hekayə, bədən hissələri, 'niyə?'.", ergo: "Kvadrat kopyalama, kiçik muncuqlar, düymə/fermuar, labirint.", physio: "Bir ayaqda 5 saniyə, topu hədəfə atma, 'don-qaç'.", parent: "Məktəbə hazırlıq, müstəqilliyi dəstəklə, müsbət intizam." },
-            "36-48": { psych: "Qrup oyunları, emosiya tanıma, problem həlli.", speech: "Mürəkkəb cümlələr, rənglər, formalar, şeir, hekayə.", ergo: "Xaç (+), adın baş hərfi, puzzle 4-6 hissə, qayçı ilə kəsmə.", physio: "Tək ayaqda tullanma, top atma-tutma, velosiped, xətt üzərində gəzinti.", parent: "Uşağın suallarına cavab, birlikdə yemək, musiqi, məktəbə hazırlıq." },
-            "48-60": { psych: "Məğlubiyyət/qələbə reaksiyası, müstəqil seçim, dostluq.", speech: "Təfərrüatlı hekayə, riyazi dil, məktəb lüğəti.", ergo: "Üçbucaq, almaz, kiçik legolar, ad-soyad yazma, ayaqqabı bağlama.", physio: "İp atlama, bir ayaqda 10 saniyə, topu səkkiz şəklində sürmə, istiqamət dəyişmə.", parent: "Məktəbə hazırlıq dəstəyi, stol oyunları, məsuliyyət vermə." },
-            "60-72": { psych: "Mücərrəd düşüncə, empatiya, ev işləri, heyvan baxımı.", speech: "1000+ söz, mürəkkəb zamanlar, söhbət, aydın tələffüz.", ergo: "K i ç i k y a z ı, 50+ puzzle, yemək hazırlığı (təhlükəsiz).", physio: "Mürəkkəb idman, daban-ucma xətt, sürətli qaçışda ani dayanma, tarazlıq.", parent: "Məktəbə emosional hazırlıq, idman/musiqi, gündəlik oxuma, layihələr." }
-        };
-        const r = recommendations[interval];
         let planHtml = `<div style="background:#eef3fc; padding:22px; border-radius:28px; margin:20px 0;">
-            <h3>📘 Fərdi İntervensiya Planı (təqribi inkişaf yaşı: ${devAge.toFixed(1)} ay → interval ${interval})</h3>
-            <p><strong>🕒 Faktiki yaş:</strong> ${analysis.factualAge} ay &nbsp;|&nbsp; <strong>Təqribi inkişaf yaşı:</strong> ${analysis.developmentalAge.toFixed(1)} ay &nbsp;|&nbsp; <strong>Geriləmə:</strong> ${analysis.delayMonths.toFixed(1)} ay</p>
-            <p><strong>🧠 Psixoloq qeydləri:</strong><br>${escapeHtml(behavior) || "Qeyd yoxdur."}</p>`;
-        if(analysis.delays.length===0) planHtml += `<p>✅ Heç bir gecikmə yoxdur. Standart fəaliyyətlər kifayətdir.</p>`;
-        else {
-            planHtml += `<div><h4><i class="fas fa-brain"></i> ${r.psych}</h4></div>
-                         <div><h4><i class="fas fa-comments"></i> ${r.speech}</h4></div>
-                         <div><h4><i class="fas fa-hand-peace"></i> ${r.ergo}</h4></div>
-                         <div><h4><i class="fas fa-running"></i> ${r.physio}</h4></div>
-                         <div><h4><i class="fas fa-users"></i> ${r.parent}</h4></div>`;
+            <h3>📘 Fərdi İntervensiya Planı</h3>
+            <p><strong>🕒 Faktiki yaş:</strong> ${age} ay &nbsp;|&nbsp; <strong>Təqribi inkişaf yaşı:</strong> ${devAge.toFixed(1)} ay &nbsp;|&nbsp; <strong>Geriləmə:</strong> ${analysis.delayMonths.toFixed(1)} ay</p>
+            <p><strong>🧠 Psixoloq tərəfindən test anında qeyd olunan davranışlar:</strong><br>${escapeHtml(behavior) || "Qeyd daxil edilməyib."}</p>`;
+        
+        if(delayItems.length === 0) {
+            planHtml += `<p>✅ Heç bir gecikmə aşkarlanmadı. Standart inkişaf fəaliyyətləri (oyun, kitab oxuma, gəzinti, tərif) kifayətdir.</p>`;
+        } else {
+            planHtml += `<p><strong>⚠️ Aşkarlanan gecikmələr (${delayItems.length} maddə):</strong></p><ul>`;
+            delayItems.forEach(d => {
+                planHtml += `<li><strong>${d.item}</strong> (${d.ageCol}) – bu bacarıqda geriləmə var.</li>`;
+            });
+            planHtml += `</ul><p>Aşağıdakı sahələr üzrə mütəxəssis tövsiyələri və valideynlər üçün gündəlik iş planı təqdim olunur:</p>`;
+            
+            // Qruplaşdırma (sadəlik üçün sahələrə görə)
+            const motorItems = delayItems.filter(d => d.item.includes("baş") || d.item.includes("otur") || d.item.includes("qalx") || d.item.includes("yeri") || d.item.includes("qaç") || d.item.includes("tullan") || d.item.includes("pilləkən") || d.item.includes("top"));
+            const fineItems = delayItems.filter(d => d.item.includes("tut") || d.item.includes("kub") || d.item.includes("cımbız") || d.item.includes("çək") || d.item.includes("dairə") || d.item.includes("kvadrat") || d.item.includes("qayçı") || d.item.includes("düymə") || d.item.includes("muncuq"));
+            const langItems = delayItems.filter(d => d.item.includes("səs") || d.item.includes("söz") || d.item.includes("cümlə") || d.item.includes("ad") || d.item.includes("başa düş") || d.item.includes("danış") || d.item.includes("hekayə"));
+            const socialItems = delayItems.filter(d => d.item.includes("gülümsə") || d.item.includes("oyun") || d.item.includes("paylaş") || d.item.includes("təqlid") || d.item.includes("geyin") || d.item.includes("yemək") || d.item.includes("tualet") || d.item.includes("emosiya"));
+            
+            if(motorItems.length) {
+                planHtml += `<div style="margin-top:20px;"><h4><i class="fas fa-running"></i> Kobud motor (Fizioterapevt) tövsiyələri</h4>`;
+                planHtml += `<p><strong>👩‍⚕️ Psixoloq və Fizioterapevt üçün:</strong> ${motorItems.length} ədəd motor bacarığında geriləmə var. Gündəlik 20 dəqiqə hədəflənmiş oyunlar təşkil edin. Məsələn: “Topu təpiklə”, “Pilləkən qalx”, “Bir ayaqda dayan” oyunlarını təkrarlayın. Tarazlıq və koordinasiya üçün evdə sadə maneəli parkur qurun. Hər bacarığı 5-7 dəfə təkrarlayın, müsbət gücləndirmə edin.</p>`;
+                planHtml += `<p><strong>👪 Valideynlər üçün gündəlik tapşırıqlar:</strong> Parkda “Mənim kimi et” oyunu (tullanma, qaçma, əyilmə). Evdə yastıqlarla sürünmə yolu. Hər gün 15 dəqiqə açıq havada aktiv oyun.</p>`;
+                planHtml += `<p><strong>✅ İzlənən konkret bacarıqlar:</strong> ${motorItems.map(d=>d.item).join(", ")}</p></div>`;
+            }
+            if(fineItems.length) {
+                planHtml += `<div><h4><i class="fas fa-hand-peace"></i> İncə motor (Erqoterapevt) tövsiyələri</h4>`;
+                planHtml += `<p><strong>👩‍⚕️ Psixoloq və Erqoterapevt üçün:</strong> ${fineItems.length} ədəd incə motor bacarığında geriləmə var. Mozaika, lego, muncuq dizmə, barmaq boyaları, qayçı ilə kəsmə, cımbızla xırda əşyalar yerləşdirmə kimi fəaliyyətlər tətbiq edin. Hər gün 10 dəqiqə barmaq gimnastikası edin.</p>`;
+                planHtml += `<p><strong>👪 Valideynlər üçün ev üsulları:</strong> Makaronı ipə düzmək, şəkilli kitabda kiçik detalları tapmaq, qum/qarğıdalı unu içində gizlənmiş oyuncaqları çıxarmaq, barmaq boyaları ilə dairə çəkmə.</p>`;
+                planHtml += `<p><strong>✅ Hədəf bacarıqlar:</strong> ${fineItems.map(d=>d.item).join(", ")}</p></div>`;
+            }
+            if(langItems.length) {
+                planHtml += `<div><h4><i class="fas fa-comments"></i> Dil və danışma (Loqoped) tövsiyələri</h4>`;
+                planHtml += `<p><strong>👩‍⚕️ Psixoloq və Loqoped üçün:</strong> ${langItems.length} ədəd dil bacarığında geriləmə var. Hər gün 20 dəqiqə şəkil kartları ilə iş, səs təqlidi, əmrə uyğun hərəkət (“Mənə topu ver”). Reseptiv dil üçün bədən hissələrini göstərmə, ekspressiv dil üçün “Gördüyünü adlandır” oyunları.</p>`;
+                planHtml += `<p><strong>👪 Valideynlər üçün tövsiyələr:</strong> Gündəlik 15 dəqiqə kitab oxuma, şəkilləri göstərib “Bu nə?” deyə soruşma. Uşağın cümlələrini genişləndirmə (məsələn “top” deyəndə “Bəli, böyük qırmızı top”). Gün ərzində nə etdiyinizi danışın.</p>`;
+                planHtml += `<p><strong>✅ İzlənən bacarıqlar:</strong> ${langItems.map(d=>d.item).join(", ")}</p></div>`;
+            }
+            if(socialItems.length) {
+                planHtml += `<div><h4><i class="fas fa-users"></i> Sosial-şəxsi (Psixoloq və valideyn) tövsiyələri</h4>`;
+                planHtml += `<p><strong>👩‍⚕️ Psixoloq üçün metodlar:</strong> ${socialItems.length} ədəd sosial bacarıqda geriləmə var. Rollu oyunlar (ailə, mağaza), emosiya kartları, növbə gözləmə oyunları, gündəlik həyat bacarıqlarının təlimi (geyinmə, yemək, tualet). Qaydaları şəkillərlə izah edin, müsbət tərifləri artırın.</p>`;
+                planHtml += `<p><strong>👪 Valideynlər üçün:</strong> Özü qaşıq tutmağa icazə verin, sadə ev işləri (dəsmal yığmaq), birlikdə stol oyunları (loto). “Xahiş edirəm”, “sağ ol” ifadələrini hər gün modelləşdirin. Uşağın geyinib-soyunmasına vaxt ayırın, tələsməyin.</p>`;
+                planHtml += `<p><strong>✅ Hədəf bacarıqlar:</strong> ${socialItems.map(d=>d.item).join(", ")}</p></div>`;
+            }
         }
-        planHtml += `<hr><p><strong>🌍 Beynəlxalq standartlar (WHO – Ümumdünya Səhiyyə Təşkilatı, UNESCO – BMT Təhsil, Elm və Mədəniyyət Təşkilatı):</strong> Erkən müdaxilə, ailə mərkəzli, oyun əsaslı, müsbət davranış dəstəyi. Hər 3-6 ayda təkrarlayın.</p></div>`;
+        planHtml += `<hr><p><strong>🌍 Beynəlxalq standartlar (Ümumdünya Səhiyyə Təşkilatı – WHO, UNESCO):</strong> Erkən müdaxilə, ailə mərkəzli, oyun əsaslı, müsbət davranış dəstəyi. Hər 3-6 aydan bir test təkrarlanmalıdır.</p>`;
+        planHtml += `</div>`;
         return planHtml;
     }
     
@@ -333,11 +348,11 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <style>body{font-family:Segoe UI;margin:25px;background:#f8faf8;}.report{max-width:1100px;margin:auto;background:white;padding:28px;border-radius:32px;box-shadow:0 8px 24px rgba(0,0,0,0.1);}.info{background:#eef5ea;padding:20px;border-radius:28px;margin-bottom:25px;}</style>
         <body><div class="report"><h1><i class="fas fa-child"></i> Denver II Testi – Peşəkar Hesabat</h1>
-        <div class="info"><p><strong>Uşaq:</strong> ${escapeHtml(name)}</p><p><strong>Doğum:</strong> ${dob} | Faktiki yaş: ${analysis.factualAge} ay</p>
+        <div class="info"><p><strong>Uşaq:</strong> ${escapeHtml(name)}</p><p><strong>Doğum tarixi:</strong> ${dob} | Faktiki yaş: ${analysis.factualAge} ay</p>
         <p><strong>📉 Təqribi inkişaf yaşı:</strong> ${analysis.developmentalAge.toFixed(1)} ay | <strong>Geriləmə: ${analysis.delayMonths.toFixed(1)} ay</strong></p>
         <p><strong>⚠️ Gecikmə sayı:</strong> ${analysis.delayCount} | <strong>🔔 Qiymətləndirmə:</strong> ${analysis.evaluation}</p>
         <p><strong>👩‍⚕️ Mütəxəssis:</strong> ${escapeHtml(specialist) || "Qeyd edilməyib"}</p></div>
-        ${plan}<footer style="margin-top:30px;">Bu hesabat Denver II (120+ maddə) və WHO & UNESCO əsasında yaradılmışdır.</footer></div></body></html>`;
+        ${plan}<footer style="margin-top:30px;">Bu hesabat Denver II (120+ maddə) və Ümumdünya Səhiyyə Təşkilatı (WHO) & UNESCO prinsipləri əsasında avtomatik yaradılmışdır.</footer></div></body></html>`;
     }
     
     function escapeHtml(str) { return str.replace(/[&<>]/g, m=>{if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
@@ -376,7 +391,7 @@
     
     document.getElementById("clearCheckBtn").onclick = () => { updateTable(); msgDiv.innerHTML = "Cədvəl təmizləndi."; };
     
-    // ========== ARXİV (specialist sütunu əlavə edilmiş) ==========
+    // ========== ARXİV (specialist sütunu əlavə edilib) ==========
     let allRecords = [];
     async function loadAllData() {
         try {
@@ -401,15 +416,15 @@
             const count = checksField.split(";").filter(c=>c).length;
             const nameAttr = escapeHtml(row[1]||''), dobAttr = row[2]||'', regAttr = row[3]||'', specAttr = escapeHtml(specialistField);
             html += `<tr class="archive-row" data-name="${nameAttr}" data-dob="${dobAttr}" data-reg="${regAttr}" data-specialist="${specAttr}" data-checks="${escapeHtml(checksField)}">
-                        <td>${(row[0]||'').slice(0,16)}</td>
-                        <td>${nameAttr}</td>
-                        <td>${dobAttr}</td>
-                        <td>${specAttr || "—"}</td>
-                        <td>${count}</td>
-                         </tr><button class="btn-small archive-report-btn" data-name="${nameAttr}" data-dob="${dobAttr}" data-specialist="${specAttr}" data-checks="${encodeURIComponent(checksField)}">📄 Hesabat</button></td>
+                         <td>${(row[0]||'').slice(0,16)}</td>
+                         <td>${nameAttr}</td>
+                         <td>${dobAttr}</td>
+                         <td>${specAttr || "—"}</td>
+                         <td>${count}</td>
+                         <td><button class="btn-small archive-report-btn" data-name="${nameAttr}" data-dob="${dobAttr}" data-specialist="${specAttr}" data-checks="${encodeURIComponent(checksField)}">📄 Hesabat</button></td>
                        </tr>`;
         });
-        html += `</tbody>}</div><p>📌 Ad sətrinə klik → test yüklənir. Hesabat düyməsi ilə ayrı pəncərədə hesabat açılır.</p>`;
+        html += `</tbody></table></div><p>📌 Ad sətrinə klik → test yüklənir. Hesabat düyməsi ilə ayrı pəncərədə hesabat açılır.</p>`;
         container.innerHTML = html;
         
         document.querySelectorAll('.archive-row').forEach(tr=>{
@@ -458,22 +473,41 @@
         <div class="stat-card"><h3>🏆 Top 5 bacarıq</h3><ul>${top.map(t=>`<li>${t[0].slice(0,35)} (${t[1]})</li>`).join('')}</ul></div>`;
     }
     
-    // Təlimat (toxunulmaz)
+    // ========== TƏLİMAT BÖLMƏSİ (GENİŞLƏNDİRİLMİŞ) ==========
     document.getElementById("guidanceText").innerHTML = `
         <h2>📘 Denver II Testi – Tam Orijinal Təlimat</h2>
-        <p><strong>Denver II (DDST)</strong> uşağın doğumdan 6 yaşa qədər inkişafını dörd əsas sahədə (kobud motor, incə motor-adaptiv, dil, sosial-şəxsi) qiymətləndirən, dünyada ən geniş istifadə olunan <strong>tarama (skrininq) testidir</strong>. 125 maddədən ibarətdir (orijinal versiya). Test diaqnoz qoymur, lakin inkişaf gecikmələrini vaxtında aşkarlamağa imkan verir.</p>
+        <p><strong>Denver II (DDST)</strong> uşağın doğumdan 6 yaşa qədər inkişafını dörd əsas sahədə (kobud motor, incə motor-adaptiv, dil, sosial-şəxsi) qiymətləndirən, dünyada ən geniş istifadə olunan <strong>tarama (skrininq) testidir</strong>. 125 maddədən ibarətdir (orijinal versiya). Test <strong>diaqnoz qoymur</strong>, lakin inkişaf gecikmələrini vaxtında aşkarlamağa imkan verir.</p>
+        
         <h3>🎯 Məqsəd</h3>
         <p>Uşağın yaşına uyğun inkişaf bacarıqlarını müəyyən etmək, potensial geriləmələri sənədləşdirmək, erkən müdaxilə üçün yol xəritəsi təqdim etmək.</p>
+        
         <h3>✅ Testin keçirilmə qaydası (orijinal)</h3>
-        <ul><li><strong>Materiallar:</strong> Qırmızı toplu sap, çıngıraq, zınqırov, tennis topu, kağız, qırmızı karandaş, stəkan, kubiklər, kişmiş, oyuncaq kukla, şəkillər dəsti.</li>
-        <li><strong>Yaş xətti:</strong> Doğum tarixinə əsasən kronoloji yaşı hesablanır, cədvəldə şaquli xətt çəkilir. Vaxtından əvvəl doğulanlarda düzəliş edilir.</li>
-        <li><strong>Maddələrin tətbiqi:</strong> Yaş xəttinin solunda qalan bütün maddələr uşağa oyun formatında təqdim olunur. Müşahidəçi işarələri: ✓ (bacarır), ✗ (bacarmır), R (imtina), NO (imkan olmayıb).</li>
-        <li><strong>Qiymətləndirmə:</strong> Yaş xəttinin solunda olub bacarılmayan hər maddə Gecikmə; sağında olub bacarılmayanlar Uyarı hesab olunur. Nəticə: Normal (0 gecikmə, ≤1 uyarı), Şübhəli (1 gecikmə və/ya ≥2 uyarı), Anormal (≥2 gecikmə).</li></ul>
+        <ul>
+            <li><strong>Materiallar:</strong> Qırmızı toplu sap, çıngıraq, zınqırov, tennis topu, kağız, qırmızı karandaş, stəkan, kubiklər, kişmiş, oyuncaq kukla, şəkillər dəsti.</li>
+            <li><strong>Yaş xəttinin çəkilməsi:</strong> Doğum tarixinə əsasən uşağın <strong>kronoloji yaşı</strong> hesablanır, cədvəldə şaquli xətt çəkilir. Vaxtından əvvəl doğulanlarda düzəliş edilir.</li>
+            <li><strong>Maddələrin tətbiqi:</strong> Yaş xəttinin <strong>solunda</strong> qalan bütün maddələr uşağa oyun formatında təqdim olunur. Hər maddə üçün müşahidəçi işarələri: ✓ (bacarır), ✗ (bacarmır), R (imtina), NO (imkan olmayıb).</li>
+            <li><strong>Qiymətləndirmə:</strong> Yaş xəttinin solunda olub bacarılmayan hər maddə <strong>Gecikmə</strong>; sağında olub bacarılmayanlar <strong>Uyarı</strong> hesab olunur. Nəticə kateqoriyaları:
+                <ul><li><strong>Normal:</strong> 0 gecikmə və ≤1 uyarı.</li>
+                <li><strong>Şübhəli:</strong> 1 gecikmə VƏ/YA ≥2 uyarı. Test 2-4 həftə sonra təkrarlanmalıdır.</li>
+                <li><strong>Anormal:</strong> ≥2 gecikmə. Dərhal dərinləşdirilmiş qiymətləndirmə tövsiyə olunur.</li></ul>
+            </li>
+        </ul>
+        
         <h3>🤖 Bu avtomatlaşdırılmış sistemin iş prinsipi</h3>
-        <ul><li>✅ 120+ orijinal maddə.</li><li>✅ Yaşa uyğun dinamik filtr – doğum tarixinə əsasən uyğun maddələr göstərilir.</li><li>✅ Virtual yaş xətti, gecikmə/uyarı avtomatik hesablanır.</li><li>✅ Psixoloq qeydləri hesabata əlavə olunur.</li><li>✅ Yaşa uyğun ətraflı fərdi müdaxilə planı.</li><li>✅ Google Cədvəl arxivi, axtarış, statistika.</li></ul>
-        <p><strong>Beynəlxalq uyğunluq:</strong> Ümumdünya Səhiyyə Təşkilatı (WHO) və UNESCO prinsiplərinə tam uyğundur.</p>
+        <p>Veb-tətbiq Denver II testini rəqəmsal mühitə daşıyır. Aşağıdakı xüsusiyyətlərə malikdir:</p>
+        <ul>
+            <li>✅ <strong>120+ orijinal maddə</strong> – hər maddə üçün normal yaş intervalı göstərilir.</li>
+            <li>✅ <strong>Yaşa uyğun dinamik filtr</strong> – Doğum tarixi daxil edildikdə sistem uşağın yaşını hesablayır və cədvəldə yalnız həmin yaş intervalına uyğun maddələri (həm sütunlar, həm də maddələr) göstərir.</li>
+            <li>✅ <strong>Virtual yaş xətti</strong> – proqram riyazi olaraq yaş indeksini təyin edir, gecikmə və uyarı hesablanması avtomatlaşdırılır.</li>
+            <li>✅ <strong>Psixoloq qeydləri</strong> – test anında uşağın diqqəti, əməkdaşlığı, qorxu reaksiyası üçün ayrıca sahə mövcuddur və bu qeydlər hesabata əlavə olunur.</li>
+            <li>✅ <strong>Avtomatik ətraflı hesabat</strong> – “Hesabat çıxar” düyməsi ilə geriləmə ayı, təqribi inkişaf yaşı, gecikmə sayı, hər gecikmə maddəsi üçün konkret tövsiyələr (psixoloq, loqoped, erqoterapevt, fizioterapevt, valideyn) yaradılır.</li>
+            <li>✅ <strong>Arxiv və statistika</strong> – bütün test nəticələri Google Cədvələ yazılır, uşaq adı ilə axtarış, ümumi statistikalar aparıla bilir.</li>
+            <li>✅ <strong>Mütəxəssis adı</strong> – testi keçirən şəxsin adı qeyd olunur və hesabatda göstərilir.</li>
+        </ul>
+        <p><strong>Beynəlxalq uyğunluq:</strong> Bu sistem Ümumdünya Səhiyyə Təşkilatının (WHO) “Erkən uşaqlıq inkişafı” (ECD) təlimatlarına və UNESCO-nun “İnklüziv təhsil” prinsiplərinə tamamilə uyğundur.</p>
     `;
     
+    // Tab keçid, axtarış, statistika düymələri
     document.querySelectorAll(".tab-btn").forEach(btn=>{
         btn.addEventListener("click",()=>{
             document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
@@ -490,7 +524,7 @@
     document.getElementById("calcStatsBtn").onclick = () => displayStats();
     
     buildFullTable();
-    msgDiv.innerHTML = "✅ Hazır. Mütəxəssis adı əlavə edildi. Suallar və filtrasiya işləyir.";
+    msgDiv.innerHTML = "✅ Hazır. Mütəxəssis adı əlavə edildi. Hesabat genişləndirildi, hər gecikmə maddəsi üçün konkret tövsiyələr var. Təlimat bölməsi ətraflı izah olundu. Suallar, filtr, arxiv, statistika toxunulmazdır.";
 </script>
 </body>
 </html>
