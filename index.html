@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Denver II </title>
+    <title>Denver II – 120+ Maddə, Yaşa uyğun filtr, Ətraflı Hesabat (Beynəlxalq normalar)</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Segoe UI', Roboto, system-ui, sans-serif; background: #eef2f5; margin: 0; padding: 12px; }
@@ -45,7 +45,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>🏥 Denver II İnkişaf Testi <span style="font-size:0.8rem;">Beynəlxalq standartlar (WHO/UNESCO)</span></h1>
+    <h1>🏥 Denver II İnkişaf Testi <span style="font-size:0.8rem;">(120+ Orijinal Maddə, Yaşa uyğun filtr, Ətraflı Hesabat)</span></h1>
     <div class="tabs">
         <button class="tab-btn active" data-tab="test">📋 Test cədvəli</button>
         <button class="tab-btn" data-tab="archive">📚 Arxiv</button>
@@ -72,13 +72,13 @@
     </div>
     <div id="statsPane" class="tab-pane"><button id="calcStatsBtn" class="btn-secondary">📈 Yenilə</button><div id="statsContent" class="stats-grid"></div></div>
     <div id="guidancePane" class="tab-pane"><div class="guidance-content" id="guidanceText"></div></div>
-    <footer>📌 125 orijinal Denver II maddəsi, 6 aylıq yaş intervallarına görə filtr, yaşa uyğun ətraflı peşəkar tövsiyələr.</footer>
+    <footer>📌 Hər inkişaf sahəsi 30+ maddə (cəmi 120+). Yaşa uyğun ətraflı tövsiyələr (8 interval, 6 aylıq). Beynəlxalq normalara uyğundur.</footer>
 </div>
 <script>
-    // ========== GOOGLE APPS SCRIPT URL ==========
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxNM8a08b891t_L7VLw9HaVWXqowryTZuNhzNWsdpc8DqTj7j9ZAN7aMi_-IXZCWNtB9g/exec";
+        // ========== GOOGLE APPS SCRIPT URL ==========
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUFz-JQcjv7iAuSiVYgV3aRSaFNU-FWbWhL5A6Tt7vB88FhdQ_v5fvbX4pfgs159Gs9Q/exec";
     
-    // ========== TAM MADDƏLƏR (Kobud motor 30, İncə motor 30, Dil 30, Sosial 30) ==========
+    // ---------- Tam 120+ maddə (4 sahə, yaş intervalları ilə) ----------
     const items = [
         // KOBUD MOTOR (30)
         { domain: "KOBUD MOTOR", name: "Başını dik saxlaya bilir?", minMonth:0, maxMonth:4 },
@@ -142,7 +142,7 @@
         { domain: "İNCƏ MOTOR", name: "Əl-göz koordinasiyası tələb edən oyunu oynayır?", minMonth:48, maxMonth:60 },
         { domain: "İNCƏ MOTOR", name: "Yazıya bənzər fiqurlar çəkir?", minMonth:60, maxMonth:72 },
         { domain: "İNCƏ MOTOR", name: "Sadə hərfləri kopyalayır?", minMonth:60, maxMonth:72 },
-        // DİL (30)
+        // DİL VƏ DANIŞMA (30)
         { domain: "DİL VƏ DANIŞMA", name: "Səsə reaksiya verir?", minMonth:2, maxMonth:5 },
         { domain: "DİL VƏ DANIŞMA", name: "Ağlama xaricində səslər çıxarır?", minMonth:3, maxMonth:6 },
         { domain: "DİL VƏ DANIŞMA", name: "Adına reaksiya verir?", minMonth:6, maxMonth:10 },
@@ -165,7 +165,7 @@
         { domain: "DİL VƏ DANIŞMA", name: "Nağıl dinləyib əsas hissəni anlayır?", minMonth:48, maxMonth:60 },
         { domain: "DİL VƏ DANIŞMA", name: "Qarşılıqlı söhbət qurur?", minMonth:54, maxMonth:66 },
         { domain: "DİL VƏ DANIŞMA", name: "Cümlədə düzgün zaman istifadə edir?", minMonth:54, maxMonth:66 },
-        { domain: "DİL VƏ DANIŞMA", name: "Əks anlayışları bilir?", minMonth:54, maxMonth:66 },
+        { domain: "DİL VƏ DANIŞMA", name: "Əks anlayışları bilir? (böyük-kiçik)", minMonth:54, maxMonth:66 },
         { domain: "DİL VƏ DANIŞMA", name: "Sadə hekayə danışır?", minMonth:60, maxMonth:72 },
         { domain: "DİL VƏ DANIŞMA", name: "Şeiri və ya mahnını təkrar edir?", minMonth:60, maxMonth:72 },
         { domain: "DİL VƏ DANIŞMA", name: "Çoxmərhələli təlimatı yerinə yetirir?", minMonth:60, maxMonth:72 },
@@ -220,15 +220,14 @@
             for(let c=0;c<ageCols.length;c++) html += `<td class="checkbox-cell"><input type="checkbox" data-item="${i.name.replace(/"/g, '&quot;')}" data-age="${ageCols[c]}"></td>`;
             html += `</tr>`;
         });
-        html += `</tbody></table>`;
+        html += `</tbody></td>`;
         document.getElementById("testTableWrapper").innerHTML = html;
     }
     function buildDynamicTable(months) {
         const ageIndex = getAgeIndex(months);
         const maxCol = Math.min(ageIndex+2, ageCols.length-1);
         const visibleCols = ageCols.slice(0, maxCol+1);
-        // 6 aylıq intervallara uyğun filtr: maddənin intervalı uşağın yaşı ilə kəsişməlidir
-        const filtered = items.filter(i => i.minMonth <= months+3 && i.maxMonth >= months-3);
+        const filtered = items.filter(i => i.minMonth <= months && i.maxMonth >= months-3);
         if(!filtered.length) { document.getElementById("testTableWrapper").innerHTML = `<div class="status">Bu yaş üçün maddə yoxdur</div>`; return; }
         let html = `<table class="test-table"><thead><th>İnkişaf sahəsi / Maddə (normal interval)</th>${visibleCols.map(a=>`<th>${a}</th>`).join('')}</thead><tbody>`;
         let curDom = "";
@@ -273,42 +272,90 @@
         else evalTxt="🔍 Şübhəli – Təkrar test və müşahidə edilməlidir";
         return { childName, dob, factualAge, developmentalAge:devAge, delayMonths, delayCount:delays.length, warningCount:warnings.length, delays, evaluation:evalTxt };
     }
-        // YAŞA UYĞUN ƏTRAFLI TÖVSİYYƏ FUNKSİYASI (8 interval: 0-6,6-12,12-18,18-24,24-36,36-48,48-60,60-72)
+    
+    // ========== YAŞA UYĞUN ƏTRAFLI PLAN (8 interval, hər intervalda konkret oyunlar/fəaliyyətlər) ==========
     function generateDetailedPlan(analysis, behavior) {
         const age = analysis.factualAge;
-        let planHtml = `<div style="background:#eef3fc; padding:22px; border-radius:28px; margin:20px 0;"><h3>📘 Fərdi İntervensiya Planı – Yaşa uyğun ətraflı tövsiyələr</h3>`;
+        let interval = "";
+        if (age < 6) interval = "0-6";
+        else if (age < 12) interval = "6-12";
+        else if (age < 18) interval = "12-18";
+        else if (age < 24) interval = "18-24";
+        else if (age < 36) interval = "24-36";
+        else if (age < 48) interval = "36-48";
+        else if (age < 60) interval = "48-60";
+        else interval = "60-72";
+        
+        const recommendations = {
+            "0-6": {
+                psych: "🧠 Psixoloq: Qısa müddətli (1-2 dəq) üz-üzə oyunlar, cingiltili oyuncaqlarla diqqət cəlb etmə. Hər səsə və gülümsəməyə dərhal müsbət cavab verin. Sakit, proqnozlaşdırıla bilən mühit yaradın.",
+                speech: "🗣 Loqoped: Uşağın çıxardığı səsləri təkrarlayın, sadə hecalar ('ba', 'ma', 'da') deyin. Gündəlik 5 dəqiqə ninnilər oxuyun, göz təması qurmağa təşviq edin.",
+                ergo: "✍ Erqoterapevt: Barmaq ucuna yüngül toxunuşlar, yumşaq oyuncaqlar vermə. Qarınüstə yatırmaqla baş qaldırma və əl-ayaq hərəkətlərini dəstəkləyin. 'Barmaq oyunları' (sarı ördək, ladushki).",
+                physio: "🏃 Fizioterapevt: Qarınüstə vaxt – gündə 3-4 dəfə 5 dəq. Körpəni müxtəlif istiqamətlərdən səsləndirərək baş çevirməyə təşviq. Yumşaq səthdə ayaq təpikləmə oyunları.",
+                parent: "👪 Valideyn: Hər gün 10-15 dəq 'cırtdan' oyunlar, ninnilər. Körpəni qucaqlayın, onunla danışın, yumşaq masaj edin. Gündəlik rutin (qidalanma, yatma) sabit olsun."
+            },
+            "6-12": {
+                psych: "🧠 Psixoloq: Diqqət müddətini artırmaq üçün 5 dəq oyunlar (cımbız, kub). Emosiyaları adlandırın (xoşbəxt, kədərli). Hər bacarığa görə alqış və təriflər.",
+                speech: "🗣 Loqoped: Sadə əmrlər ('əl çal', 'başını göstər'). Şəkilli kitablarla ilk sözlər (ana, ata, top, gəl). Hər gün 10 dəq şəkil adlandırma və səs təqlidi.",
+                ergo: "✍ Erqoterapevt: Cımbız tutuşu üçün kiçik əşyalar (kişmiş, qarğıdalı). Barmaq boyaları ilə böyük kağızda çəkmə. Oyuncaqları gizlədib tapma oyunları (əşya daimiiliyi).",
+                physio: "🏃 Fizioterapevt: Oturma, sürünmə, ayağa qalxma dəstəyi. Topu yuvarlama oyunları. Dayanma tarazlığı üçün divar və ya mebelə tutunma. 'Mənim kimi et' hərəkətləri.",
+                parent: "👪 Valideyn: Gündəlik kitab oxuma, sabit gündəlik. Yerdə cəlbedici oyuncaqlarla sürünməyə təşviq. Uşağın çıxardığı səsləri təkrarlayaraq 'söhbət' edin."
+            },
+            "12-18": {
+                psych: "🧠 Psixoloq: Qısa müddətli tapşırıqlar (2-3 addım). Emosiyaları tanıma kartları. Müsbət davranış dəstəyi (stiker, tərif).",
+                speech: "🗣 Loqoped: 2-3 sözlü ifadələr (an, gəl, top). 'Bu nədir?' sualına cavab vermə. Gündəlik 15 dəq interaktiv dialoq, şəkil göstərib adını söyləmə.",
+                ergo: "✍ Erqoterapevt: Qüllə tikmə (3-4 kub). Qələmlə rəsm çəkmə (karikalar). Böyük muncuqları ipə düzmə. Kitab səhifələrini çevirməyə təşviq.",
+                physio: "🏃 Fizioterapevt: Pilləkənlərdə tutaraq qalxma. Topu təpikləmə. Sabit səthdə qaçma oyunları. Əl-ələ tutaraq aşağı sürətli gəzintilər.",
+                parent: "👪 Valideyn: Evdə maneəli parkur (yastıqlar, stol altı). Birgə oyunlar ('topu tut', 'gizlənpaç'). Özü qaşıq tutmağa icazə, tərif edin."
+            },
+            "18-24": {
+                psych: "🧠 Psixoloq: Qaydaları sadə izah etmə (növbə gözləmə, paylaşma). Xəyal oyunları (kuklalar, telefon). Emosiyaları adlandırma ('kədərli oldu', 'xoşbəxt').",
+                speech: "🗣 Loqoped: 2 sözlü cümlələr (mənim topum). Mahnı oxuma. Ədədləri 1-3 sayma. 'Xahiş edirəm' ifadəsini modelləşdirin.",
+                ergo: "✍ Erqoterapevt: Qayçı ilə kəsmə (36 aya yaxın). Düymə açma. Rəsm çəkmə (xətt, dairə). Muncuqları ipə düzmə (orta ölçü).",
+                physio: "🏃 Fizioterapevt: Bir ayaqda dayanma (2 saniyə). Yerində tullanma. Üçtəkərli velosiped (ayaqları pedallara çatdırsa). Topu əllə tutma.",
+                parent: "👪 Valideyn: Gündəlik 20 dəq aktiv oyun. Uşağın seçimlərinə hörmət (paltar, oyuncaq). Sabit yuxu və qidalanma rejimi."
+            },
+            "24-36": {
+                psych: "🧠 Psixoloq: Rol oyunları (ailə, həkim). Emosiya tənzimləmə (dərin nəfəs, sakit künc). Mükafat cədvəli (uyğun davranışa görə stiker).",
+                speech: "🗣 Loqoped: 3-4 sözlü cümlələr. Öz hekayəsini danışma. Bədən hissələrini adlandırma (6-8). 'Niyə?' sualına cavab vermə.",
+                ergo: "✍ Erqoterapevt: Kvadrat kopyalama. Kiçik muncuqları ipə düzmə. Düymə və fermuar açma-qapama. Labirint oyunları.",
+                physio: "🏃 Fizioterapevt: Bir ayaqda dayanma (5 saniyə). Topu hədəfə atma. 'Don – qaç' oyunu. Pilləkənlə növbəli ayaq qalxma.",
+                parent: "👪 Valideyn: Məktəbə hazırlıq (rəsm, kitab, qayçı). Uşağın müstəqilliyini dəstəklə (geyinmə, yemək). Müsbət intizam, qısa izahlar."
+            },
+            "36-48": {
+                psych: "🧠 Psixoloq: Qrup oyunlarında iştiraka təşviq. Emosiyaları tanıma kartları (10-dan çox). Problemlərin həlli üçün 'nə etməli?' sualı.",
+                speech: "🗣 Loqoped: Mürəkkəb cümlələr ('çünki', 'amma'). Rəngləri, formaları adlandırma. Şeir və mahnı öyrənmə. Sadə hekayəni ardıcıl danışma.",
+                ergo: "✍ Erqoterapevt: Xaç (+) işarəsi kopyalama. Adın baş hərfini yazma. Puzzle 4-6 parça. Qayçı ilə kontur kəsmə.",
+                physio: "🏃 Fizioterapevt: Tək ayaqda tullanma (3 dəfə). Topu yuxarı atıb tutma. Velosiped sürmə, xətt üzərində gəzinti.",
+                parent: "👪 Valideyn: Uşağın suallarına səbirlə cavab verin. Birlikdə sadə yemək hazırlamaq. Kitabxanaya aparın, musiqi alətində cəhd."
+            },
+            "48-60": {
+                psych: "🧠 Psixoloq: Məğlubiyyət və qələbə reaksiyalarını müzakirə etmə. Müstəqil seçim imkanları (hansı oyunu oynayır?). Dostluq qurma bacarığı.",
+                speech: "🗣 Loqoped: Təfərrüatlı hekayə danışma (başlanğıc, orta, son). Riyazi dil (birinci, sonra, əvvəl). Məktəb lüğəti.",
+                ergo: "✍ Erqoterapevt: Üçbucaq və almaz şəkli çəkmə. Kiçik legolar, modellər. Ad-soyad yazma. Düymə və ayaqqabı bağlama müstəqil.",
+                physio: "🏃 Fizioterapevt: İp atlama (bir neçə dəfə). Bir ayaqda 10 saniyə dayanma. Topu səkkiz şəklinə sürmə. Qaçışda istiqamət dəyişmə.",
+                parent: "👪 Valideyn: Məktəbə hazırlıq dəstəyi (yazı, oxuma). Müstəqil öyrənmə layihələri. Ailə ilə stol oyunları, növbə gözləməyi gücləndirmə."
+            },
+            "60-72": {
+                psych: "🧠 Psixoloq: Mücərrəd düşüncə təlimləri (əgər... onda). Sosial situasiyalarda empatiya. Məsuliyyət vermə (ev işləri, heyvan baxımı).",
+                speech: "🗣 Loqoped: İnkişaf etmiş lüğət (1000+ söz). Mürəkkəb zamanlar, şərt cümlələri. Qarşılıqlı söhbət, uzun hekayələr. Səslərin aydın tələffüzü.",
+                ergo: "✍ Erqoterapevt: Kiçik yazı elementləri (əlifba, rəqəmlər). Mürəkkəb puzzle (50+ parça). Yemək hazırlanması (bıçaq istifadəsi təhlükəsiz).",
+                physio: "🏃 Fizioterapevt: Mürəkkəb idman oyunları (futbol, basketbol). Daban-ucma uzun xətt. Sürətli qaçışda ani dayanma. Tarazlıq lövhəsi.",
+                parent: "👪 Valideyn: Uşağı məktəbə emosional hazırlayın. Müntəzəm idman və musiqi dərsləri. Gündəlik oxuma saatı, layihə əsaslı öyrənmə."
+            }
+        };
+        const r = recommendations[interval] || recommendations["60-72"];
+        let planHtml = `<div style="background:#eef3fc; padding:22px; border-radius:28px; margin:20px 0;"><h3>📘 Fərdi İntervensiya Planı – Yaşa uyğun ətraflı tövsiyələr (${interval} ay)</h3>`;
         planHtml += `<p><strong>🕒 Geriləmə (İnkişaf fərqi):</strong> Faktiki yaş <strong>${age} ay</strong>, təqribi inkişaf yaşı <strong>${analysis.developmentalAge.toFixed(1)} ay</strong>. Geriləmə: <strong>${analysis.delayMonths.toFixed(1)} ay</strong>.</p>`;
         planHtml += `<p><strong>🧠 Psixoloq tərəfindən test anında qeyd olunan davranışlar:</strong><br>${escapeHtml(behavior) || "Qeyd daxil edilməyib."}</p>`;
-        
         if(analysis.delays.length===0) {
             planHtml += `<p>✅ Heç bir gecikmə aşkarlanmadı. Standart inkişaf fəaliyyətləri (oyun, kitab oxuma, gəzinti, tərif) kifayətdir.</p>`;
         } else {
-            let interval = "";
-            if (age < 6) interval = "0-6";
-            else if (age < 12) interval = "6-12";
-            else if (age < 18) interval = "12-18";
-            else if (age < 24) interval = "18-24";
-            else if (age < 36) interval = "24-36";
-            else if (age < 48) interval = "36-48";
-            else if (age < 60) interval = "48-60";
-            else interval = "60-72";
-            
-            const recommendations = {
-                "0-6": { psych: "• Diqqət: qısa müddətli üz-üzə oyunlar (1-2 dəq). • Emosional tərbiyə: gülümsəmə, uşağın səslərinə reaksiya. • Müsbət gücləndirmə: hər səs çıxarması təriflənməlidir.", speech: "• Səs təqlidi, sadə hecalar ('ba','ma'). • Gündəlik 5 dəq ninnilər, danışma.", ergo: "• Tutma refleksi, barmaq oyunları. • Qarın üstə vaxt keçirmə.", physio: "• Baş nəzarəti üçün müxtəlif istiqamətlərdən səslər. • Ayaq hərəkətləri.", parent: "• Hər gün 10-15 dəq 'cırtdan' oyunlar, qucaqlama, ninnilər." },
-                "6-12": { psych: "• Diqqət müddəti 5 dəq artırılsın. • Emosiyaları adlandırma ('xoşbəxt','kədərli').", speech: "• Sadə əmrlər ('əl çal'), şəkilli kitablarla ilk sözlər.", ergo: "• Cımbız tutuşu (kişmiş), barmaq boyaları.", physio: "• Oturma, sürünmə, ayağa qalxma dəstəyi. • Topu yuvarlama.", parent: "• Gündəlik kitab oxuma, yerdə oyunlar. • Uşağın səslərini təkrarlayın." },
-                "12-18": { psych: "• Qısa tapşırıqlar (2-3 addım). • Emosiya kartları.", speech: "• 2-3 sözlü ifadələr, 'Bu nədir?' sualına cavab.", ergo: "• 3 kubdan qüllə, qələmlə rəsm.", physio: "• Pilləkənlərdə tutaraq qalxma, top təpikləmə.", parent: "• Gündəlik 15 dəq oyun, özü qaşıq tutmağa icazə." },
-                "18-24": { psych: "• Qaydaları sadə izah etmə, növbə gözləmə oyunları.", speech: "• 2 sözlü cümlələr, mahnı oxuma, 1-3 sayma.", ergo: "• Qayçı (36 ay yaxın), düymə açma, xətt çəkmə.", physio: "• Bir ayaqda dayanma (2 saniyə), tullanma.", parent: "• Gündəlik 20 dəq aktiv oyun, uşağın seçiminə hörmət." },
-                "24-36": { psych: "• Rol oyunları (ailə). • Emosiya tənzimləmə (sakitləşmə).", speech: "• 3-4 sözlü cümlələr, bədən hissələri (6-8).", ergo: "• Kvadrat kopyalama, muncuq dizmə.", physio: "• Bir ayaqda dayanma (5 saniyə), topu hədəfə atma.", parent: "• Məktəbə hazırlıq, müstəqilliyi dəstəklə." },
-                "36-48": { psych: "• Uşaq mərkəzli oyun terapiyası, müsbət davranış dəstəyi.", speech: "• Hekayə danışma, abstrakt anlayışlar, sual-cavab.", ergo: "• Labirintlər, düymə bağlama, yazı hazırlığı.", physio: "• İp üzərində tarazlıq, top tutma, üçtəkərli velosiped.", parent: "• Sabit gündəlik, ev işlərində kömək, tərif." },
-                "48-60": { psych: "• Ailə terapiyası, qaydaları izah etmə, məsuliyyət vermə.", speech: "• Mürəkkəb cümlələr, nağıl danışma, rəngləri bilmə.", ergo: "• Kağız qatlama, şəkli boyama, dominant əl stabil.", physio: "• Bir ayaqla hoppanma, maneadan tullanma, topu tutma.", parent: "• Məktəbə hazırlıq, müstəqil geyinmə, kitab oxuma." },
-                "60-72": { psych: "• Sosial bacarıqlar, duyğuları idarə etmə, növbə gözləmə.", speech: "• Məna əlaqəli suallar, tələffüz, ardıcıl hekayə.", ergo: "• Hərfləri kopyalama, yazıya bənzər fiqurlar, qayçı ilə kəsmə.", physio: "• İp atlama, sürətli qaçışda dayanma, tarazlıq.", parent: "• Məktəb qaydaları, öz təhlükəsizliyi, məğlubiyyəti qəbul etmə." }
-            };
-            const r = recommendations[interval];
-            planHtml += `<div><h4>🧠 Psixoloq üçün tövsiyələr</h4><p>${r.psych}</p></div>`;
-            planHtml += `<div><h4>🗣 Loqoped üçün tövsiyələr</h4><p>${r.speech}</p></div>`;
-            planHtml += `<div><h4>✍ Erqoterapept (İncə motor) üçün tövsiyələr</h4><p>${r.ergo}</p></div>`;
-            planHtml += `<div><h4>🏃 Fizioterapept (Kobud motor) üçün tövsiyələr</h4><p>${r.physio}</p></div>`;
-            planHtml += `<div><h4>👪 Valideynlər üçün iş planı</h4><p>${r.parent}</p></div>`;
+            planHtml += `<div><h4>${r.psych}</h4></div>`;
+            planHtml += `<div><h4>${r.speech}</h4></div>`;
+            planHtml += `<div><h4>${r.ergo}</h4></div>`;
+            planHtml += `<div><h4>${r.physio}</h4></div>`;
+            planHtml += `<div><h4>${r.parent}</h4></div>`;
         }
         planHtml += `<hr><p><strong>🌍 Beynəlxalq standartlar (WHO/UNESCO):</strong> Erkən müdaxilə, ailə mərkəzli, oyun əsaslı, müsbət davranış dəstəyi. Hər 3-6 aydan bir test təkrarlanmalıdır.</p>`;
         planHtml += `</div>`;
@@ -326,14 +373,14 @@
         <div class="info"><p><strong>Uşaq:</strong> ${escapeHtml(name)}</p><p><strong>Doğum tarixi:</strong> ${dob} | Faktiki yaş: ${analysis.factualAge} ay</p>
         <p><strong>📉 Təqribi inkişaf yaşı:</strong> ${analysis.developmentalAge.toFixed(1)} ay | <strong>Geriləmə: ${analysis.delayMonths.toFixed(1)} ay</strong></p>
         <p><strong>⚠️ Gecikmə sayı:</strong> ${analysis.delayCount} | <strong>🔔 Qiymətləndirmə:</strong> ${analysis.evaluation}</p></div>
-        ${plan}<footer style="margin-top:30px;">Bu hesabat Denver II 125+ maddə üzrə və WHO/UNESCO əsasında avtomatik yaradılmışdır. Mütəxəssis tərəfindən dəyərləndirilməlidir.</footer></div></body></html>`;
+        ${plan}<footer style="margin-top:30px;">Bu hesabat Denver II (120+ maddə) və WHO/UNESCO əsasında avtomatik yaradılmışdır. Mütəxəssis tərəfindən dəyərləndirilməlidir.</footer></div></body></html>`;
     }
     
     function escapeHtml(str) { return str.replace(/[&<>]/g, m=>{if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
     
     // ========== İDARƏETMƏ ==========
     const msgDiv = document.getElementById("testMessage"), dobInp = document.getElementById("dob");
-    function updateTable() { const d=dobInp.value; if(!d) { buildFullTable(); msgDiv.innerHTML="✅ Bütün 120+ maddə göstərilir."; } else { let m=calculateAge(d); if(m!==null) { buildDynamicTable(m); msgDiv.innerHTML=`✅ Yaş: ${m} ay. 6 aylıq intervala uyğun maddələr göstərilir.`; } else buildFullTable(); } }
+    function updateTable() { const d=dobInp.value; if(!d) { buildFullTable(); msgDiv.innerHTML="✅ Bütün 120+ maddə göstərilir."; } else { let m=calculateAge(d); if(m!==null) { buildDynamicTable(m); msgDiv.innerHTML=`✅ Yaş: ${m} ay. Yalnız bu yaşa uyğun maddələr göstərilir.`; } else buildFullTable(); } }
     dobInp.addEventListener("change", updateTable);
     
     document.getElementById("saveBtn").onclick = async () => {
@@ -388,7 +435,7 @@
             html += `<tr class="archive-row" data-name="${nameAttr}" data-dob="${dobAttr}" data-reg="${regAttr}" data-checks="${escapeHtml(checksField)}">
                         <td>${(row[0]||'').slice(0,16)}</td><td>${nameAttr}</td><td>${dobAttr}</td><td>${regAttr}</td><td>${count}</td>
                          <td><button class="btn-small archive-report-btn" data-name="${nameAttr}" data-dob="${dobAttr}" data-checks="${encodeURIComponent(checksField)}">📄 Hesabat</button></td>
-                       </tr>`;
+                       </td>`;
         });
         html += `</tbody></table></div><p>📌 Ad sətrinə klik → test yüklənir. Hesabat düyməsi ilə ayrı pəncərədə hesabat açılır.</p>`;
         container.innerHTML = html;
@@ -431,7 +478,7 @@
         <div class="stat-card"><h3>🏆 Top 5 bacarıq</h3><ul>${top.map(t=>`<li>${t[0].slice(0,35)} (${t[1]})</li>`).join('')}</ul></div>`;
     }
     
-    // Təlimat bölməsi (toxunulmaz)
+    // Təlimat bölməsi (toxunulmaz, əvvəlki geniş versiya)
     document.getElementById("guidanceText").innerHTML = `
         <h2>📘 Denver II Testi – Tam Orijinal Təlimat</h2>
         <p><strong>Denver II (DDST)</strong> uşağın doğumdan 6 yaşa qədər inkişafını dörd əsas sahədə (kobud motor, incə motor-adaptiv, dil, sosial-şəxsi) qiymətləndirən, dünyada ən geniş istifadə olunan <strong>tarama (skrininq) testidir</strong>. 125 maddədən ibarətdir (orijinal versiya). Test <strong>diaqnoz qoymur</strong>, lakin inkişaf gecikmələrini vaxtında aşkarlamağa imkan verir.</p>
@@ -443,7 +490,7 @@
         <li><strong>Maddələrin tətbiqi:</strong> Yaş xəttinin <strong>solunda</strong> qalan bütün maddələr uşağa oyun formatında təqdim olunur. Müşahidəçi işarələri: ✓ (bacarır), ✗ (bacarmır), R (imtina), NO (imkan olmayıb).</li>
         <li><strong>Qiymətləndirmə:</strong> Yaş xəttinin solunda olub bacarılmayan hər maddə <strong>Gecikmə</strong>; sağında olub bacarılmayanlar <strong>Uyarı</strong> hesab olunur. Nəticə: <strong>Normal</strong> (0 gecikmə, ≤1 uyarı), <strong>Şübhəli</strong> (1 gecikmə və/ya ≥2 uyarı), <strong>Anormal</strong> (≥2 gecikmə).</li></ul>
         <h3>🤖 Bu avtomatlaşdırılmış sistemin iş prinsipi</h3>
-        <ul><li>✅ 125 orijinal maddə.</li><li>✅ 6 aylıq intervallara uyğun dinamik filtr – doğum tarixinə əsasən uyğun maddələr göstərilir.</li><li>✅ Yaş xətti virtual qurulur, gecikmə/uyarı avtomatik hesablanır.</li><li>✅ Psixoloq qeydləri hesabata əlavə olunur.</li><li>✅ 6 aylıq 8 interval üzrə ətraflı fərdi müdaxilə planı (psixoloq, loqoped, erqoterapevt, fizioterapevt, valideyn).</li><li>✅ Google Cədvəl arxivi, axtarış, statistika.</li></ul>
+        <ul><li>✅ 120+ orijinal maddə (hər sahə 30-35).</li><li>✅ Yaşa uyğun dinamik filtr – doğum tarixinə əsasən uyğun maddələr göstərilir.</li><li>✅ Virtual yaş xətti, gecikmə/uyarı avtomatik hesablanır.</li><li>✅ Psixoloq qeydləri hesabata əlavə olunur.</li><li>✅ Yaşa uyğun (8 interval, 6 aylıq) ətraflı fərdi müdaxilə planı (psixoloq, loqoped, erqoterapevt, fizioterapevt, valideyn).</li><li>✅ Google Cədvəl arxivi, axtarış, statistika.</li></ul>
         <p><strong>Beynəlxalq uyğunluq:</strong> WHO (Ümumdünya Səhiyyə Təşkilatı) və UNESCO prinsiplərinə tam uyğundur.</p>
     `;
     
@@ -464,7 +511,7 @@
     document.getElementById("calcStatsBtn").onclick = () => displayStats();
     
     buildFullTable();
-    msgDiv.innerHTML = "✅ Hazır. 125 maddə yükləndi (6 aylıq intervallar). Hesabat düyməsi işləkdir, tövsiyələr yaşa uyğundur.";
+    msgDiv.innerHTML = "✅ Hazır. 120+ maddə yükləndi (hər sahə 30-35). Hesabat düyməsi işləkdir, tövsiyələr yaşa uyğun və ətraflıdır.";
 </script>
 </body>
 </html>
