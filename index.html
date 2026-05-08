@@ -2,111 +2,246 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <title>Denver II Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denver II Test – Tam Arxiv və Statistika</title>
     <style>
-        body { font-family: Arial; padding: 20px; background: #f0f4f0; }
-        .container { max-width: 1300px; margin: auto; background: white; padding: 20px; border-radius: 20px; }
-        button { background: #2b6e2f; color: white; padding: 10px 20px; border: none; border-radius: 30px; cursor: pointer; margin: 5px; }
-        .status { background: #e8f0e8; padding: 10px; border-radius: 12px; margin: 15px 0; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid #bbb; padding: 6px; font-size: 12px; }
-        .item-name { background: #fef5e0; text-align: left; }
-        input[type="checkbox"] { transform: scale(1.2); }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background: #eef2f5; margin: 0; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 28px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); padding: 24px; }
+        h1 { font-size: 1.8rem; color: #1e6b3b; border-left: 6px solid #1e6b3b; padding-left: 20px; margin-top: 0; }
+        .tabs { display: flex; gap: 12px; margin: 20px 0; border-bottom: 1px solid #ccc; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; padding: 10px 20px; font-size: 1rem; cursor: pointer; border-radius: 30px 30px 0 0; color: #2c5a2e; font-weight: bold; transition: 0.2s; }
+        .tab-btn.active { background: #1e6b3b; color: white; }
+        .tab-pane { display: none; animation: fade 0.3s; }
+        .tab-pane.active { display: block; }
+        @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+        .info-panel { background: #e8f3ec; padding: 15px 20px; border-radius: 20px; display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; align-items: flex-end; }
+        .info-field { flex: 1; min-width: 140px; }
+        .info-field label { display: block; font-weight: bold; font-size: 0.7rem; color: #1e6b3b; margin-bottom: 4px; }
+        .info-field input, .info-field select { width: 100%; padding: 8px 12px; border-radius: 24px; border: 1px solid #cbdcc2; background: white; }
+        button { background: #1e6b3b; color: white; border: none; padding: 8px 20px; border-radius: 40px; font-weight: bold; cursor: pointer; margin: 5px 5px 0 0; transition: 0.2s; }
+        button:hover { background: #0f4a28; transform: scale(1.02); }
+        .btn-secondary { background: #4a6a5e; }
+        .status { background: #fcf8e8; padding: 12px; border-radius: 16px; margin: 15px 0; border-left: 5px solid #e9b35f; }
+        .table-wrapper { overflow-x: auto; border: 1px solid #d4dfe3; border-radius: 20px; margin-top: 20px; max-height: 500px; overflow-y: auto; }
+        .test-table { width: 100%; border-collapse: collapse; font-size: 0.7rem; min-width: 1000px; }
+        .test-table th, .test-table td { border: 1px solid #d0dbdf; padding: 7px 4px; vertical-align: middle; text-align: center; }
+        .test-table th { background: #d9e8da; font-weight: 800; position: sticky; top: 0; }
+        .domain-row { background: #cbddce; font-weight: bold; text-align: left; }
+        .item-name { text-align: left; background: #fefaf0; font-weight: 500; width: 220px; font-size: 0.7rem; }
+        .checkbox-cell input { width: 16px; height: 16px; cursor: pointer; accent-color: #1e6b3b; }
+        .search-box { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+        .search-box input { flex: 2; padding: 10px; border-radius: 30px; border: 1px solid #ccc; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .stat-card { background: #f0f7f0; padding: 16px; border-radius: 24px; text-align: center; }
+        .stat-card h3 { margin: 0 0 8px 0; color: #1e6b3b; }
+        footer { font-size: 0.7rem; text-align: center; margin-top: 30px; color: #5e7c6b; }
+        @media (max-width: 700px) { .container { padding: 16px; } .item-name { font-size: 0.65rem; } }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>🏥 Denver II Gelişim Testi (Ortaq cədvəl)</h2>
+    <h1>🏥 Denver II Gelişim Tarama Testi <span style="font-size:0.9rem;">(Tam versiya + Arxiv)</span></h1>
     
-    <div class="status">
-        <label>👶 Uşaq adı: <input type="text" id="childName" style="width:150px"></label>
-        <label>📅 Doğum tarixi: <input type="date" id="dob"></label>
-        <label>🆔 Qeydiyyat №: <input type="text" id="regNo" style="width:120px"></label>
-        <label>📊 Persentil: <input type="range" id="perc" min="0" max="100" value="50"><span id="percVal">50</span></label>
-        <button id="saveBtn">💾 Yadda saxla</button>
-        <button id="loadBtn">📂 Keçmiş testlər</button>
-        <button id="clearBtn">🗑 Təmizlə</button>
+    <!-- Tab menyu -->
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="test">📋 Test cədvəli</button>
+        <button class="tab-btn" data-tab="archive">📚 Arxiv & Axtarış</button>
+        <button class="tab-btn" data-tab="stats">📊 Statistika</button>
     </div>
-    
-    <div id="message" style="background:#fcf8e0; padding:8px; border-radius:10px; margin-bottom:15px;"></div>
-    
-    <div style="overflow-x:auto">
-        <table id="testTable">
-            <thead><tr><th>Bacarıqlar</th><th>2a</th><th>4a</th><th>6a</th><th>9a</th><th>12a</th><th>15a</th><th>18a</th><th>24a</th><th>3y</th><th>4y</th><th>5y</th><th>6y</th></tr></thead>
-            <tbody id="tableBody"></tbody>
-        </table>
+
+    <!-- TEST PANELİ -->
+    <div id="testPane" class="tab-pane active">
+        <div class="info-panel">
+            <div class="info-field"><label>👶 Uşağın adı</label><input type="text" id="childName" placeholder="Ad Soyad"></div>
+            <div class="info-field"><label>🎂 Doğum tarixi</label><input type="date" id="dob"></div>
+            <div class="info-field"><label>🆔 Qeydiyyat №</label><input type="text" id="regNo" placeholder="Qeydiyyat"></div>
+            <div class="info-field"><label>📊 Persentil</label><input type="range" id="perc" min="0" max="100" value="50"><span id="percVal">50</span></div>
+            <div><button id="saveBtn">💾 Yadda saxla</button><button id="clearCheckBtn" class="btn-secondary">🗑 Təmizlə</button></div>
+        </div>
+        <div id="testMessage" class="status">✅ Düymələr aktiv. İşarələnmiş bacarıqlar Google Cədvələ yazılır.</div>
+        <div class="table-wrapper" id="testTableWrapper"></div>
     </div>
+
+    <!-- ARXIV PANELİ (axtarış) -->
+    <div id="archivePane" class="tab-pane">
+        <div class="search-box">
+            <input type="text" id="searchName" placeholder="Uşaq adı ilə axtar... (boş = hamısı)">
+            <button id="searchBtn">🔍 Axtar</button>
+            <button id="refreshArchiveBtn" class="btn-secondary">🔄 Yenilə</button>
+        </div>
+        <div id="archiveList" style="max-height: 500px; overflow-y: auto;"></div>
+    </div>
+
+    <!-- STATİSTİKA PANELİ -->
+    <div id="statsPane" class="tab-pane">
+        <button id="calcStatsBtn" class="btn-secondary">📈 Yenilə statistika</button>
+        <div id="statsContent" class="stats-grid" style="margin-top:20px;"></div>
+    </div>
+    <footer>⚕️ Denver II testi – bütün məlumatlar ortaq Google Cədvəldə saxlanır. Hər bir istifadəçi eyni arxivi görür.</footer>
 </div>
 
 <script>
-// ========== BURAYA ÖZ APPS SCRIPT URL-İNİZİ YAZIN (MÜTLƏQ YENİ OLMALIDIR) ==========
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUFz-JQcjv7iAuSiVYgV3aRSaFNU-FWbWhL5A6Tt7vB88FhdQ_v5fvbX4pfgs159Gs9Q/exec";
+    // ======================= SİZİN APPS SCRIPT URL =======================
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUFz-JQcjv7iAuSiVYgV3aRSaFNU-FWbWhL5A6Tt7vB88FhdQ_v5fvbX4pfgs159Gs9Q/exec";
+    
+    // ======================= TAM DENVER II MADDƏLƏRİ (4 sahə) =======================
+    const domains = [
+        { name: "🏃 KOBUD MOTOR", items: [
+            "Başını 1-2 dəq düz tutur","Üstüstə yatarkən başını qaldırır","Ayaqları ilə təpikləyir","Baş və döşü qaldırır",
+            "Başını düz saxlayır","Dayaqlı oturur","Qarından kürəyə dönür","Sürünməyə çalışır","Stabil oturur",
+            "Qaldırılanda ayaq üstə durur","Tutub qalxır","Kreslo ətrafında addımlayır","Müstəqil dayanır",
+            "Təkbaşına yeriyir","Pilləkənlərə dırmaşır","Arabaları itələyir","Kresloya dırmaşır","Arxaya doğru yeriyir",
+            "Pilləkənlə enib-qalxır","Tullanır","Qaçır","Özü stula oturur","Top atır","Düz qaçır, dırmaşır",
+            "Bir ayaqda dayanır, özü geyinir","Bir ayaqda dayanır, tullanır, velosiped"
+        ] },
+        { name: "✍ İNCƏ MOTOR", items: [
+            "İşığı izləyir","Zəngi yuxarı-aşağı izləyir","Nəzərini obyektdən obyektə keçirir","Kubu tutur",
+            "Əşyaları ağzına aparır","Kubu masadan qaldırır","Düşmüş əşyanı axtarır","Oyuncağı əlindən-ələ keçirir",
+            "İki əşya ilə oynayır","Kubları bir-birinə vurur","Cımbız tutuşu","Üç kiçik əşya saxlayır","Bir əl üstünlüyü",
+            "Dörd kub tutur","Əşyaları üst-üstə qoyur","Qaralamalar çəkir","3 kubdan qüllə","4 kubdan qüllə","5+ kubdan qüllə",
+            "Şaquli xətt kopyalayır","Üfüqi xətt kopyalayır","Dairə çəkir","Sancaq qaldırır","Bir göz qapalı detalları tanıyır",
+            "9 kubdan qüllə","Kərpicdən körpü","Kvadrat + dairə çəkir","Qələmi düzgün tutur"
+        ] },
+        { name: "🗣 DİL VƏ DANIŞMA", items: [
+            "Səslərdən qorxur","Zəng səsini dinləyir","Səs mənbəyini gözlə axtarır","Səsə baş çevirir",
+            "Musiqi eşidəndə səslənir","Vokalizasiyalar","Diqqət çəkmək üçün qışqırır","Mama/dada deyir",
+            "Saat tıqqıltısını dinləyir","2 söz bilir","3 söz bilir","Şəkilə baxır","Öz adını bilir","4-5 söz","6-7 söz",
+            "Cümlələşir","Şəkilli kitabları sevir","9 söz","12 söz","2 sözlü cümlələr","Nağıl dinləyir","20+ söz",
+            "4 oyuncağın adını çəkir","Nə? Harada? sualları","Bədən hissələrini adlandırır","Təmiz danışır, geniş cümlələr",
+            "Suallara cavab verir"
+        ] },
+        { name: "🧸 SOSIAL-ŞƏXSİ", items: [
+            "Qucağa alanda sakitləşir","Gülümsəyir","İnsanı izləyir","Müayinəçiyə qarşılıqlı gülümsəmə","Oyuna reaksiya",
+            "Danışana baş çevirir","Kassadan içir","Güzgüyə baxır","Fincanı tutmağa kömək edir","Güzgüdə təbəssüm",
+            "Barmaqları ilə yeyir","Əl çalır, yelləyir","Fincanı tutur","Qaşıqdan istifadə edir","Ayaqqabılarını göstərir",
+            "Qapı dəstəyini çevirir","Kubokla bacarır","Corab/ayaqqabı çıxarır","Bir bədən hissəsini tanıyır",
+            "Tualet istədiyini bildirir","Gündüz sidik nəzarəti","Başına gələni danışır","İki bədən hissəsini bilir",
+            "Dörd bədən hissəsi + qaşıq","Şalvarını tualet üçün endirir","Özü yeyir, yuyunur","Adını deyir, ev işlərində kömək edir",
+            "Əməkdaşlıq edir","Geyinir/təmizlənir"
+        ] }
+    ];
+    const ageCols = ["2ay","4ay","6ay","9am","12ay","15ay","18ay","24ay","3yas","4yas","5yas","6yas"];
 
-const items = [
-    "Başını düz tutur", "Gülümsəyir", "Əlini tanıyır", "Oturur", 
-    "Sürünür", "Dayanır", "Yeriyir", "Qaçır", "Kubla oynayır",
-    "Söz deyir", "Bədən hissələrini göstərir", "Özü yeyir"
-];
+    // Cədvəli qur
+    function buildFullTable() {
+        let html = `<table class="test-table"><thead><tr><th class="item-name">İnkişaf sahəsi / Maddələr</th>${ageCols.map(a=>`<th>${a}</th>`).join('')}</tr></thead><tbody>`;
+        domains.forEach(domain => {
+            html += `<tr><th class="domain-row" colspan="${ageCols.length+1}">${domain.name}</th></tr>`;
+            domain.items.forEach(item => {
+                html += `<tr><td class="item-name">${item}</td>`;
+                for(let i=0;i<ageCols.length;i++) html += `<td class="checkbox-cell"><input type="checkbox" data-item="${item.replace(/"/g, '&quot;')}" data-age="${ageCols[i]}"></td>`;
+                html += `</tr>`;
+            });
+        });
+        html += `</tbody></table>`;
+        document.getElementById("testTableWrapper").innerHTML = html;
+    }
+    buildFullTable();
 
-function buildTable() {
-    let html = "";
-    items.forEach(item => {
-        html += "<tr><td class='item-name'>"+item+"</td>";
-        for(let i=0;i<12;i++) html += "<td><input type='checkbox' class='chk' data-item='"+item+"' data-col='"+i+"'></td>";
-        html += "</tr>";
+    function getAllChecks() {
+        let checks = [];
+        document.querySelectorAll("#testTableWrapper input[type=checkbox]:checked").forEach(cb => {
+            checks.push(cb.getAttribute("data-item") + "|" + cb.getAttribute("data-age"));
+        });
+        return checks.join(";");
+    }
+
+    // Mesaj göstəricisi
+    function showTestMessage(msg, color) { const div = document.getElementById("testMessage"); div.innerHTML = msg; div.style.borderLeftColor = color || "#e9b35f"; }
+    function showArchiveMessage(msg) { document.getElementById("archiveList").innerHTML = `<div class="status">${msg}</div>`; }
+
+    // SAVE
+    document.getElementById("saveBtn").onclick = async () => {
+        const name = document.getElementById("childName").value.trim();
+        if(!name) { showTestMessage("❌ Uşaq adını yazın!", "red"); return; }
+        const checks = getAllChecks();
+        const url = `${SCRIPT_URL}?action=save&name=${encodeURIComponent(name)}&dob=${document.getElementById("dob").value}&reg=${encodeURIComponent(document.getElementById("regNo").value)}&checks=${encodeURIComponent(checks)}&perc=${document.getElementById("perc").value}`;
+        showTestMessage("Göndərilir...", "blue");
+        try {
+            const resp = await fetch(url);
+            const txt = await resp.text();
+            if(txt === "OK") showTestMessage("✅ Məlumatlar yadda saxlanıldı! Arxiv və statistika yenilənə bilər.", "green");
+            else showTestMessage("⚠️ Xəta: " + txt, "red");
+        } catch(e) { showTestMessage("❌ Şəbəkə xətası: " + e.message, "red"); }
+    };
+    document.getElementById("clearCheckBtn").onclick = () => { document.querySelectorAll("#testTableWrapper input[type=checkbox]").forEach(cb => cb.checked=false); showTestMessage("🧹 Bütün işarələr təmizləndi.", "blue"); };
+    document.getElementById("perc").oninput = () => document.getElementById("percVal").innerText = document.getElementById("perc").value;
+
+    // ========== ARXIV VƏ STATİSTİKA (load + local emal) ==========
+    let allRecords = []; // bütün cədvəl məlumatlarını saxlayır
+
+    async function loadAllData() {
+        const url = `${SCRIPT_URL}?action=load`;
+        try {
+            const resp = await fetch(url);
+            const data = await resp.json();
+            if(Array.isArray(data)) allRecords = data;
+            else allRecords = [];
+            return allRecords;
+        } catch(e) { console.error(e); return []; }
+    }
+
+    // Arxiv göstərmək (axtarış)
+    async function displayArchive(searchTerm = "") {
+        const records = await loadAllData();
+        if(!records.length) { showArchiveMessage("⚠️ Heç bir test məlumatı tapılmadı."); return; }
+        let filtered = records;
+        if(searchTerm.trim() !== "") {
+            filtered = records.filter(row => row[1] && row[1].toLowerCase().includes(searchTerm.toLowerCase()));
+        }
+        if(filtered.length === 0) { showArchiveMessage(`🔍 "${searchTerm}" uyğun heç bir test yoxdur.`); return; }
+        let html = `<div class="table-wrapper"><table class="test-table" style="min-width:600px;"><thead><tr><th>Tarix</th><th>Uşaq adı</th><th>Doğum</th><th>Qeydiyyat</th><th>Persentil</th><th>İşarələnmiş bacarıqlar (say)</th></tr></thead><tbody>`;
+        filtered.slice().reverse().forEach(row => {
+            const checksField = row[4] || "";
+            const count = checksField.split(";").filter(c => c).length;
+            html += `<tr><td>${row[0]?.slice(0,16) || ""}</td><td>${row[1] || ""}</td><td>${row[2] || ""}</td><td>${row[3] || ""}</td><td>${row[5] || ""}</td><td>${count}</td></tr>`;
+        });
+        html += `</tbody></table></div>`;
+        document.getElementById("archiveList").innerHTML = html;
+    }
+
+    // Statistika
+    async function displayStats() {
+        const records = await loadAllData();
+        if(!records.length) { document.getElementById("statsContent").innerHTML = `<div class="stat-card">Məlumat yoxdur</div>`; return; }
+        const totalTests = records.length;
+        const uniqueChildren = new Set(records.map(r => r[1])).size;
+        // ən çox istifadə olunan bacarıqlar (bütün testlərdəki checks birləşdirilir)
+        let skillCount = {};
+        records.forEach(row => {
+            const checks = row[4] || "";
+            checks.split(";").forEach(c => { if(c) skillCount[c] = (skillCount[c] || 0) + 1; });
+        });
+        const topSkills = Object.entries(skillCount).sort((a,b)=>b[1]-a[1]).slice(0,5);
+        const avgPercentile = records.reduce((sum, r) => sum + (parseInt(r[5]) || 0), 0) / totalTests;
+        const html = `
+            <div class="stat-card"><h3>📋 Ümumi testlər</h3><p style="font-size:2rem;">${totalTests}</p></div>
+            <div class="stat-card"><h3>👶 Fərqli uşaqlar</h3><p style="font-size:2rem;">${uniqueChildren}</p></div>
+            <div class="stat-card"><h3>📊 Orta persentil</h3><p>${avgPercentile.toFixed(1)}</p></div>
+            <div class="stat-card"><h3>🏆 Ən çox işarələnən bacarıqlar</h3><ul style="text-align:left;">${topSkills.map(s=>`<li>${s[0].slice(0,40)} (${s[1]})</li>`).join('')}</ul></div>
+        `;
+        document.getElementById("statsContent").innerHTML = html;
+    }
+
+    // Tab keçidləri
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            document.querySelectorAll(".tab-pane").forEach(pane => pane.classList.remove("active"));
+            const tabId = btn.getAttribute("data-tab");
+            document.getElementById(`${tabId}Pane`).classList.add("active");
+            if(tabId === "archive") displayArchive(document.getElementById("searchName").value);
+            if(tabId === "stats") displayStats();
+        });
     });
-    document.getElementById("tableBody").innerHTML = html;
-}
-buildTable();
+    document.getElementById("searchBtn").onclick = () => displayArchive(document.getElementById("searchName").value);
+    document.getElementById("refreshArchiveBtn").onclick = () => displayArchive(document.getElementById("searchName").value);
+    document.getElementById("calcStatsBtn").onclick = () => displayStats();
 
-function getChecks() {
-    let checks = [];
-    document.querySelectorAll(".chk:checked").forEach(cb => {
-        checks.push(cb.getAttribute("data-item") + "|" + cb.getAttribute("data-col"));
-    });
-    return checks.join(";");
-}
-
-document.getElementById("saveBtn").onclick = async () => {
-    const name = document.getElementById("childName").value.trim();
-    if(!name) { showMessage("❌ Uşaq adını yazın!", "red"); return; }
-    const url = `${SCRIPT_URL}?action=save&name=${encodeURIComponent(name)}&dob=${document.getElementById("dob").value}&reg=${document.getElementById("regNo").value}&checks=${encodeURIComponent(getChecks())}&perc=${document.getElementById("perc").value}`;
-    showMessage("Göndərilir...", "blue");
-    try {
-        const resp = await fetch(url, { mode: 'cors' });
-        const txt = await resp.text();
-        if(txt === "OK") showMessage("✅ Məlumatlar yadda saxlanıldı!", "green");
-        else showMessage("⚠️ Xəta: " + txt, "red");
-    } catch(e) { showMessage("❌ Şəbəkə xətası: " + e.message, "red"); }
-};
-
-document.getElementById("loadBtn").onclick = async () => {
-    const url = `${SCRIPT_URL}?action=load`;
-    try {
-        const resp = await fetch(url, { mode: 'cors' });
-        const data = await resp.json();
-        if(Array.isArray(data) && data.length) {
-            let msg = `📋 ${data.length} test qeydi yükləndi.<br>Son 3:<br>`;
-            data.slice(-3).reverse().forEach(row => msg += `👉 ${row.slice(1,5).join(" | ")}<br>`);
-            showMessage(msg, "green");
-        } else showMessage("⚠️ Heç bir məlumat yoxdur.", "orange");
-    } catch(e) { showMessage("❌ Xəta: " + e.message, "red"); }
-};
-
-document.getElementById("clearBtn").onclick = () => {
-    document.querySelectorAll(".chk").forEach(cb => cb.checked = false);
-    showMessage("🧹 Bütün işarələr silindi.", "blue");
-};
-
-document.getElementById("perc").oninput = () => {
-    document.getElementById("percVal").innerText = document.getElementById("perc").value;
-};
-
-function showMessage(msg, color) {
-    const msgDiv = document.getElementById("message");
-    msgDiv.innerHTML = msg;
-    msgDiv.style.borderLeft = `5px solid ${color}`;
-}
+    // İlkin yükləmədə test cədvəli göstərilir
+    buildFullTable();
 </script>
 </body>
 </html>
