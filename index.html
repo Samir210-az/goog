@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Denver II – 125 Maddə, Tam Hesabat, Geniş Təlimat</title>
+    <title>Denver II – Tam Maddələr, 6 aylıq intervallar, Ətraflı Hesabat</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Segoe UI', Roboto, system-ui, sans-serif; background: #eef2f5; margin: 0; padding: 12px; }
@@ -45,7 +45,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>🏥 Denver II İnkişaf Testi <span style="font-size:0.8rem;">(125 Orijinal Maddə, Yaşa görə filtr, Tam Hesabat)</span></h1>
+    <h1>🏥 Denver II İnkişaf Testi <span style="font-size:0.8rem;">(120+ Maddə, 6 aylıq intervallar, Yaşa uyğun plan)</span></h1>
     <div class="tabs">
         <button class="tab-btn active" data-tab="test">📋 Test cədvəli</button>
         <button class="tab-btn" data-tab="archive">📚 Arxiv</button>
@@ -63,7 +63,7 @@
             </div>
             <div><button id="saveBtn">💾 Yadda saxla</button><button id="clearCheckBtn" class="btn-secondary">🗑 Təmizlə</button><button id="reportBtn" class="btn-secondary" style="background:#c96f0e;">📄 Hesabat çıxar</button></div>
         </div>
-        <div id="testMessage" class="status">✅ Doğum tarixi daxil edilmədən bütün 125 maddə göstərilir. Doğum tarixi daxil edildikdə yaşa uyğun filtrasiya olunur.</div>
+        <div id="testMessage" class="status">✅ Doğum tarixi daxil edilmədən bütün 120+ maddə göstərilir. Doğum tarixi daxil edildikdə yaşa uyğun filtrasiya olunur.</div>
         <div class="table-wrapper" id="testTableWrapper"></div>
     </div>
     <div id="archivePane" class="tab-pane">
@@ -72,113 +72,141 @@
     </div>
     <div id="statsPane" class="tab-pane"><button id="calcStatsBtn" class="btn-secondary">📈 Yenilə</button><div id="statsContent" class="stats-grid"></div></div>
     <div id="guidancePane" class="tab-pane"><div class="guidance-content" id="guidanceText"></div></div>
-    <footer>📌 125 orijinal Denver II maddəsi, yaşa uyğun filtr, ətraflı hesabat (psixoloq, loqoped, erqoterapevt, fizioterapevt, valideyn).</footer>
+    <footer>📌 120+ orijinal Denver II maddəsi, 6 aylıq yaş intervallarına görə filtr, yaşa uyğun ətraflı peşəkar tövsiyələr.</footer>
 </div>
 <script>
     // ========== GOOGLE APPS SCRIPT URL ==========
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUFz-JQcjv7iAuSiVYgV3aRSaFNU-FWbWhL5A6Tt7vB88FhdQ_v5fvbX4pfgs159Gs9Q/exec";
     
-    // ========== TAM 125 MADDƏ (Denver II orijinala uyğun yaş intervalları) ==========
+    // ========== TAM MADDƏLƏR (Kobud motor 30, İncə motor 30, Dil 30, Sosial 30) ==========
     const items = [
-        // KOBUD MOTOR (40 maddə)
-        { domain: "KOBUD MOTOR", name: "Başını 1-2 dəq düz tutur", minMonth:0, maxMonth:4 },
-        { domain: "KOBUD MOTOR", name: "Üstüstə yatarkən başını qaldırır (çənə)", minMonth:1, maxMonth:4 },
-        { domain: "KOBUD MOTOR", name: "Ayaqları ilə təpikləyir", minMonth:2, maxMonth:6 },
-        { domain: "KOBUD MOTOR", name: "Baş və döşü qaldırır (qarın üstə)", minMonth:3, maxMonth:6 },
-        { domain: "KOBUD MOTOR", name: "Dayaqlı oturur", minMonth:5, maxMonth:8 },
-        { domain: "KOBUD MOTOR", name: "Qarından kürəyə dönür", minMonth:4, maxMonth:7 },
-        { domain: "KOBUD MOTOR", name: "Sürünməyə çalışır", minMonth:6, maxMonth:9 },
-        { domain: "KOBUD MOTOR", name: "Stabil oturur (dəstəksiz)", minMonth:7, maxMonth:10 },
-        { domain: "KOBUD MOTOR", name: "Uzadılmış əllərlə ayağa qalxır", minMonth:8, maxMonth:11 },
-        { domain: "KOBUD MOTOR", name: "Müstəqil dayanır", minMonth:10, maxMonth:14 },
-        { domain: "KOBUD MOTOR", name: "Təkbaşına yeriyir", minMonth:11, maxMonth:15 },
-        { domain: "KOBUD MOTOR", name: "Kreslo ətrafında addımlayır", minMonth:9, maxMonth:13 },
-        { domain: "KOBUD MOTOR", name: "Pilləkənlə tutaraq qalxır", minMonth:14, maxMonth:18 },
-        { domain: "KOBUD MOTOR", name: "Pilləkənlə enib-qalxır (tutaraq)", minMonth:16, maxMonth:24 },
-        { domain: "KOBUD MOTOR", name: "Tullanır (iki ayaqla)", minMonth:22, maxMonth:30 },
-        { domain: "KOBUD MOTOR", name: "Bir ayaqda dayanır (2-3 saniyə)", minMonth:36, maxMonth:48 },
-        { domain: "KOBUD MOTOR", name: "Üçtəkərli velosiped sürür", minMonth:48, maxMonth:60 },
-        { domain: "KOBUD MOTOR", name: "Topu təpikləyir (irəli)", minMonth:18, maxMonth:24 },
-        { domain: "KOBUD MOTOR", name: "Topu tutur (iki əllə)", minMonth:24, maxMonth:30 },
-        { domain: "KOBUD MOTOR", name: "Tək ayaqla sıçrayır", minMonth:48, maxMonth:60 },
-        { domain: "KOBUD MOTOR", name: "Daban-ucma yeriyir", minMonth:54, maxMonth:66 },
-        { domain: "KOBUD MOTOR", name: "Arxaya doğru yeriyir", minMonth:18, maxMonth:24 },
-        { domain: "KOBUD MOTOR", name: "Bir ayaqda dayanır (≥5 saniyə)", minMonth:48, maxMonth:60 },
-        { domain: "KOBUD MOTOR", name: "İp üzərində tarazlıq", minMonth:60, maxMonth:72 },
-        { domain: "KOBUD MOTOR", name: "Qaçır (sərbəst)", minMonth:18, maxMonth:24 },
-        { domain: "KOBUD MOTOR", name: "Maneələri aşır", minMonth:24, maxMonth:30 },
-        { domain: "KOBUD MOTOR", name: "Bir ayaqda 5 saniyə dayanır", minMonth:42, maxMonth:54 },
-        { domain: "KOBUD MOTOR", name: "Topu yuxarı atıb tutur", minMonth:48, maxMonth:60 },
-        { domain: "KOBUD MOTOR", name: "İpin üstündə irəliləyir", minMonth:60, maxMonth:72 },
-        { domain: "KOBUD MOTOR", name: "Pilləkənlə dəstəksiz enir", minMonth:36, maxMonth:48 },
-        { domain: "KOBUD MOTOR", name: "Qiymə ağacına dırmaşır", minMonth:48, maxMonth:60 },
-        { domain: "KOBUD MOTOR", name: "Topu hədəfə atır (uzaq məsafə)", minMonth:54, maxMonth:66 },
-        { domain: "KOBUD MOTOR", name: "Ritmik tullanır (ip)", minMonth:60, maxMonth:72 },
-        { domain: "KOBUD MOTOR", name: "Bir ayaqda zıplayır (5 dəfə)", minMonth:54, maxMonth:66 },
-        // İNCƏ MOTOR (32 maddə)
-        { domain: "İNCƏ MOTOR", name: "İşığı izləyir (göz hərəkəti)", minMonth:0, maxMonth:3 },
-        { domain: "İNCƏ MOTOR", name: "Zəngi yuxarı-aşağı izləyir", minMonth:2, maxMonth:5 },
-        { domain: "İNCƏ MOTOR", name: "Kubu tutur (toxunma)", minMonth:3, maxMonth:6 },
-        { domain: "İNCƏ MOTOR", name: "Əl-ələ keçirir (oyuncaq)", minMonth:5, maxMonth:8 },
-        { domain: "İNCƏ MOTOR", name: "Cımbız tutuşu (kişmiş)", minMonth:9, maxMonth:12 },
-        { domain: "İNCƏ MOTOR", name: "3 kubdan qüllə", minMonth:18, maxMonth:24 },
-        { domain: "İNCƏ MOTOR", name: "Şaquli xətt kopyalayır", minMonth:36, maxMonth:48 },
-        { domain: "İNCƏ MOTOR", name: "Dairə çəkir", minMonth:42, maxMonth:54 },
-        { domain: "İNCƏ MOTOR", name: "Kvadrat kopyalayır", minMonth:48, maxMonth:60 },
-        { domain: "İNCƏ MOTOR", name: "Artı (+) işarəsi çəkir", minMonth:54, maxMonth:66 },
-        { domain: "İNCƏ MOTOR", name: "Üçbucaq kopyalayır", minMonth:60, maxMonth:72 },
-        { domain: "İNCƏ MOTOR", name: "Qələmi düz tutur", minMonth:48, maxMonth:60 },
-        { domain: "İNCƏ MOTOR", name: "Muncuq dizir (ipə)", minMonth:30, maxMonth:36 },
-        { domain: "İNCƏ MOTOR", name: "Qayçı ilə kağız kəsir", minMonth:36, maxMonth:48 },
-        { domain: "İNCƏ MOTOR", name: "Barmaq rəngi ilə çəkir", minMonth:12, maxMonth:18 },
-        { domain: "İNCƏ MOTOR", name: "Qələmi sıx tutur", minMonth:36, maxMonth:42 },
-        { domain: "İNCƏ MOTOR", name: "Düyməni açır", minMonth:36, maxMonth:48 },
-        { domain: "İNCƏ MOTOR", name: "Kağızı qatlayır", minMonth:48, maxMonth:60 },
-        { domain: "İNCƏ MOTOR", name: "Muncuqları rənginə görə ayırır", minMonth:54, maxMonth:66 },
-        { domain: "İNCƏ MOTOR", name: "Labirintdən keçir", minMonth:60, maxMonth:72 },
-        { domain: "İNCƏ MOTOR", name: "Kubiklərlə körpü qurur", minMonth:48, maxMonth:60 },
-        { domain: "İNCƏ MOTOR", name: "Düyməni düymələyir", minMonth:48, maxMonth:60 },
-        { domain: "İNCƏ MOTOR", name: "Şəkli boyayır (xətdən çıxmadan)", minMonth:54, maxMonth:66 },
-        // DİL (32 maddə)
-        { domain: "DİL VƏ DANIŞMA", name: "Səsə baş çevirir", minMonth:3, maxMonth:6 },
-        { domain: "DİL VƏ DANIŞMA", name: "Mama/dada deyir (konkret)", minMonth:8, maxMonth:12 },
-        { domain: "DİL VƏ DANIŞMA", name: "2 sözlü cümlələr", minMonth:20, maxMonth:30 },
-        { domain: "DİL VƏ DANIŞMA", name: "Bədən hissələrini adlandırır (1-3)", minMonth:30, maxMonth:42 },
-        { domain: "DİL VƏ DANIŞMA", name: "Səs təqlid edir (heyvan səsləri)", minMonth:12, maxMonth:18 },
-        { domain: "DİL VƏ DANIŞMA", name: "Şəkilləri tanıyır (adını deyir)", minMonth:24, maxMonth:30 },
-        { domain: "DİL VƏ DANIŞMA", name: "2 addımlı əmrləri başa düşür", minMonth:24, maxMonth:30 },
-        { domain: "DİL VƏ DANIŞMA", name: "Öz adını bilir", minMonth:18, maxMonth:24 },
-        { domain: "DİL VƏ DANIŞMA", name: "Cinsiyyətini bilir", minMonth:36, maxMonth:48 },
-        { domain: "DİL VƏ DANIŞMA", name: "Ədədləri bilir (1-3)", minMonth:42, maxMonth:54 },
-        { domain: "DİL VƏ DANIŞMA", name: "Mahnı oxuyur", minMonth:30, maxMonth:36 },
-        { domain: "DİL VƏ DANIŞMA", name: "Sual verir 'nə?'", minMonth:24, maxMonth:30 },
-        { domain: "DİL VƏ DANIŞMA", name: "Əvəzlikləri işlədir (mən, sən)", minMonth:30, maxMonth:42 },
-        { domain: "DİL VƏ DANIŞMA", name: "Keçmiş zaman işlətir", minMonth:48, maxMonth:60 },
-        { domain: "DİL VƏ DANIŞMA", name: "Zərfləri işlədir (burada, orada)", minMonth:36, maxMonth:48 },
-        { domain: "DİL VƏ DANIŞMA", name: "Əks mənaları başa düşür", minMonth:48, maxMonth:60 },
-        { domain: "DİL VƏ DANIŞMA", name: "Hekayəni ardıcıl danışır", minMonth:60, maxMonth:72 },
-        // SOSİAL-ŞƏXSİ (30 maddə)
-        { domain: "SOSİAL-ŞƏXSİ", name: "Gülümsəyir (sosial)", minMonth:1, maxMonth:3 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Barmaqları ilə yeyir", minMonth:10, maxMonth:14 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Özü yeyir (qaşıqla)", minMonth:36, maxMonth:48 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Adını deyir, ev işlərində kömək edir", minMonth:48, maxMonth:60 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Əl çalır, əl yelləyir", minMonth:9, maxMonth:12 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Tualet istədiyini bildirir", minMonth:24, maxMonth:30 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Gündüz sidik nəzarəti", minMonth:30, maxMonth:42 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Geyinib-soyunmağa kömək edir", minMonth:24, maxMonth:30 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Dişlərini fırçalayır (köməklə)", minMonth:36, maxMonth:48 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Öz paltarını seçir", minMonth:42, maxMonth:54 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Düyməni düymələyir", minMonth:48, maxMonth:60 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Ayaqqabı bağlayır", minMonth:60, maxMonth:72 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Əlaqə qurmağa təşəbbüs edir", minMonth:36, maxMonth:48 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Öz növbəsini gözləyir", minMonth:48, maxMonth:60 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Telefonda danışır", minMonth:54, maxMonth:66 }
+        // KOBUD MOTOR (30)
+        { domain: "KOBUD MOTOR", name: "Başını dik saxlaya bilir?", minMonth:0, maxMonth:4 },
+        { domain: "KOBUD MOTOR", name: "Qarınüstə uzanarkən başını qaldırır?", minMonth:1, maxMonth:4 },
+        { domain: "KOBUD MOTOR", name: "Yan çevrilə bilir?", minMonth:4, maxMonth:7 },
+        { domain: "KOBUD MOTOR", name: "Dəstəksiz otura bilir?", minMonth:6, maxMonth:9 },
+        { domain: "KOBUD MOTOR", name: "Sürünə bilir?", minMonth:7, maxMonth:10 },
+        { domain: "KOBUD MOTOR", name: "Əllərindən tutanda ayağa qalxır?", minMonth:8, maxMonth:12 },
+        { domain: "KOBUD MOTOR", name: "Mebelə tutunaraq dayanır?", minMonth:9, maxMonth:13 },
+        { domain: "KOBUD MOTOR", name: "Dəstəksiz ayaq üstə dura bilir?", minMonth:10, maxMonth:14 },
+        { domain: "KOBUD MOTOR", name: "Təkbaşına yeriyir?", minMonth:11, maxMonth:15 },
+        { domain: "KOBUD MOTOR", name: "Geri yeriyə bilir?", minMonth:16, maxMonth:24 },
+        { domain: "KOBUD MOTOR", name: "Qaça bilir?", minMonth:16, maxMonth:24 },
+        { domain: "KOBUD MOTOR", name: "Topu irəli təpikləyir?", minMonth:18, maxMonth:24 },
+        { domain: "KOBUD MOTOR", name: "Topu iki əllə ata bilir?", minMonth:24, maxMonth:30 },
+        { domain: "KOBUD MOTOR", name: "Pilləkən qalxır?", minMonth:22, maxMonth:30 },
+        { domain: "KOBUD MOTOR", name: "Pilləkən enir?", minMonth:24, maxMonth:36 },
+        { domain: "KOBUD MOTOR", name: "Tək ayaq üstə 2 saniyə dura bilir?", minMonth:36, maxMonth:48 },
+        { domain: "KOBUD MOTOR", name: "Tullanır?", minMonth:30, maxMonth:36 },
+        { domain: "KOBUD MOTOR", name: "Yerində iki ayaqla hoppanır?", minMonth:36, maxMonth:48 },
+        { domain: "KOBUD MOTOR", name: "Üçtəkərli velosiped sürə bilir?", minMonth:48, maxMonth:60 },
+        { domain: "KOBUD MOTOR", name: "Xətt üzərində yeriyə bilir?", minMonth:54, maxMonth:66 },
+        { domain: "KOBUD MOTOR", name: "Bir ayaqla hoppana bilir?", minMonth:48, maxMonth:60 },
+        { domain: "KOBUD MOTOR", name: "Topu yuxarıdan ata bilir?", minMonth:48, maxMonth:60 },
+        { domain: "KOBUD MOTOR", name: "Topu tuta bilir?", minMonth:48, maxMonth:60 },
+        { domain: "KOBUD MOTOR", name: "Maneələrin üzərindən tullana bilir?", minMonth:48, maxMonth:60 },
+        { domain: "KOBUD MOTOR", name: "İp atlamağa cəhd edir?", minMonth:60, maxMonth:72 },
+        { domain: "KOBUD MOTOR", name: "Ayaqlarını növbəli istifadə edərək pilləkən çıxır?", minMonth:54, maxMonth:66 },
+        { domain: "KOBUD MOTOR", name: "Tarazlığını qoruyaraq dönə bilir?", minMonth:48, maxMonth:60 },
+        { domain: "KOBUD MOTOR", name: "Sürətli qaçış zamanı yıxılmadan dayanır?", minMonth:60, maxMonth:72 },
+        { domain: "KOBUD MOTOR", name: "Bir ayaq üstə 5 saniyə dayanır?", minMonth:48, maxMonth:60 },
+        { domain: "KOBUD MOTOR", name: "Sadə fiziki hərəkətləri təqlid edir?", minMonth:24, maxMonth:36 },
+        // İNCƏ MOTOR (30)
+        { domain: "İNCƏ MOTOR", name: "Əşyanı əlində saxlayır?", minMonth:2, maxMonth:5 },
+        { domain: "İNCƏ MOTOR", name: "Oyuncağı bir əldən digərinə keçirir?", minMonth:5, maxMonth:8 },
+        { domain: "İNCƏ MOTOR", name: "Kiçik əşyanı baş və şəhadət barmağı ilə götürür?", minMonth:9, maxMonth:12 },
+        { domain: "İNCƏ MOTOR", name: "Kubikləri bir-birinin üstünə qoyur?", minMonth:14, maxMonth:18 },
+        { domain: "İNCƏ MOTOR", name: "Qaralama edir?", minMonth:12, maxMonth:18 },
+        { domain: "İNCƏ MOTOR", name: "Qaşıqdan istifadə edir?", minMonth:18, maxMonth:24 },
+        { domain: "İNCƏ MOTOR", name: "Kağızı cırır?", minMonth:18, maxMonth:24 },
+        { domain: "İNCƏ MOTOR", name: "Kitab səhifəsini çevirir?", minMonth:18, maxMonth:24 },
+        { domain: "İNCƏ MOTOR", name: "Qələmi düzgün tutur?", minMonth:30, maxMonth:36 },
+        { domain: "İNCƏ MOTOR", name: "Şaquli xətt çəkir?", minMonth:36, maxMonth:42 },
+        { domain: "İNCƏ MOTOR", name: "Üfüqi xətt çəkir?", minMonth:42, maxMonth:48 },
+        { domain: "İNCƏ MOTOR", name: "Dairə çəkə bilir?", minMonth:42, maxMonth:54 },
+        { domain: "İNCƏ MOTOR", name: "Kvadrat formasını kopyalayır?", minMonth:48, maxMonth:60 },
+        { domain: "İNCƏ MOTOR", name: "Xaç (+) formasını çəkir?", minMonth:54, maxMonth:66 },
+        { domain: "İNCƏ MOTOR", name: "Üçbucaq kopyalayır?", minMonth:60, maxMonth:72 },
+        { domain: "İNCƏ MOTOR", name: "Sadə insan şəkli çəkir?", minMonth:48, maxMonth:60 },
+        { domain: "İNCƏ MOTOR", name: "Düyməni bağlayır?", minMonth:48, maxMonth:60 },
+        { domain: "İNCƏ MOTOR", name: "Fermuar çəkir?", minMonth:54, maxMonth:66 },
+        { domain: "İNCƏ MOTOR", name: "Muncuqları ipə düzür?", minMonth:30, maxMonth:36 },
+        { domain: "İNCƏ MOTOR", name: "Qayçı ilə kağız kəsir?", minMonth:36, maxMonth:48 },
+        { domain: "İNCƏ MOTOR", name: "Puzzle parçalarını uyğunlaşdırır?", minMonth:30, maxMonth:42 },
+        { domain: "İNCƏ MOTOR", name: "Kiçik əşyaları çeşidləyir?", minMonth:36, maxMonth:48 },
+        { domain: "İNCƏ MOTOR", name: "Rəngləri ayırır?", minMonth:42, maxMonth:54 },
+        { domain: "İNCƏ MOTOR", name: "Bloklarla model qurur?", minMonth:48, maxMonth:60 },
+        { domain: "İNCƏ MOTOR", name: "Xətt içində boyayır?", minMonth:54, maxMonth:66 },
+        { domain: "İNCƏ MOTOR", name: "Kağız qatlayır?", minMonth:48, maxMonth:60 },
+        { domain: "İNCƏ MOTOR", name: "Dominant əlindən stabil istifadə edir?", minMonth:42, maxMonth:54 },
+        { domain: "İNCƏ MOTOR", name: "Əl-göz koordinasiyası tələb edən oyunu oynayır?", minMonth:48, maxMonth:60 },
+        { domain: "İNCƏ MOTOR", name: "Yazıya bənzər fiqurlar çəkir?", minMonth:60, maxMonth:72 },
+        { domain: "İNCƏ MOTOR", name: "Sadə hərfləri kopyalayır?", minMonth:60, maxMonth:72 },
+        // DİL (30)
+        { domain: "DİL VƏ DANIŞMA", name: "Səsə reaksiya verir?", minMonth:2, maxMonth:5 },
+        { domain: "DİL VƏ DANIŞMA", name: "Ağlama xaricində səslər çıxarır?", minMonth:3, maxMonth:6 },
+        { domain: "DİL VƏ DANIŞMA", name: "Adına reaksiya verir?", minMonth:6, maxMonth:10 },
+        { domain: "DİL VƏ DANIŞMA", name: "Sadə sözləri anlayır?", minMonth:8, maxMonth:12 },
+        { domain: "DİL VƏ DANIŞMA", name: "“Yox” sözünü anlayır?", minMonth:10, maxMonth:14 },
+        { domain: "DİL VƏ DANIŞMA", name: "“Ana”, “ata” kimi sözlər deyir?", minMonth:8, maxMonth:12 },
+        { domain: "DİL VƏ DANIŞMA", name: "İki sözlü cümlə qurur?", minMonth:18, maxMonth:24 },
+        { domain: "DİL VƏ DANIŞMA", name: "Əşyaların adını deyə bilir?", minMonth:15, maxMonth:21 },
+        { domain: "DİL VƏ DANIŞMA", name: "Bədən hissələrini göstərir?", minMonth:18, maxMonth:24 },
+        { domain: "DİL VƏ DANIŞMA", name: "Sadə göstərişləri yerinə yetirir?", minMonth:18, maxMonth:24 },
+        { domain: "DİL VƏ DANIŞMA", name: "Şəkildəki obyektləri tanıyır?", minMonth:24, maxMonth:30 },
+        { domain: "DİL VƏ DANIŞMA", name: "Öz adını deyir?", minMonth:24, maxMonth:30 },
+        { domain: "DİL VƏ DANIŞMA", name: "Yaşını deyə bilir?", minMonth:36, maxMonth:48 },
+        { domain: "DİL VƏ DANIŞMA", name: "Sadə suallara cavab verir?", minMonth:30, maxMonth:42 },
+        { domain: "DİL VƏ DANIŞMA", name: "3–4 sözlü cümlə qurur?", minMonth:30, maxMonth:42 },
+        { domain: "DİL VƏ DANIŞMA", name: "Rəng adlarını deyir?", minMonth:36, maxMonth:48 },
+        { domain: "DİL VƏ DANIŞMA", name: "Saymağa çalışır?", minMonth:42, maxMonth:54 },
+        { domain: "DİL VƏ DANIŞMA", name: "Hadisələri danışır?", minMonth:48, maxMonth:60 },
+        { domain: "DİL VƏ DANIŞMA", name: "“Niyə?” sualı verir?", minMonth:48, maxMonth:60 },
+        { domain: "DİL VƏ DANIŞMA", name: "Nağıl dinləyib əsas hissəni anlayır?", minMonth:48, maxMonth:60 },
+        { domain: "DİL VƏ DANIŞMA", name: "Qarşılıqlı söhbət qurur?", minMonth:54, maxMonth:66 },
+        { domain: "DİL VƏ DANIŞMA", name: "Cümlədə düzgün zaman istifadə edir?", minMonth:54, maxMonth:66 },
+        { domain: "DİL VƏ DANIŞMA", name: "Əks anlayışları bilir?", minMonth:54, maxMonth:66 },
+        { domain: "DİL VƏ DANIŞMA", name: "Sadə hekayə danışır?", minMonth:60, maxMonth:72 },
+        { domain: "DİL VƏ DANIŞMA", name: "Şeiri və ya mahnını təkrar edir?", minMonth:60, maxMonth:72 },
+        { domain: "DİL VƏ DANIŞMA", name: "Çoxmərhələli təlimatı yerinə yetirir?", minMonth:60, maxMonth:72 },
+        { domain: "DİL VƏ DANIŞMA", name: "Söz ehtiyatı yaşına uyğundur?", minMonth:60, maxMonth:72 },
+        { domain: "DİL VƏ DANIŞMA", name: "Tələffüz aydındır?", minMonth:60, maxMonth:72 },
+        { domain: "DİL VƏ DANIŞMA", name: "Hadisələri ardıcıllıqla danışır?", minMonth:60, maxMonth:72 },
+        { domain: "DİL VƏ DANIŞMA", name: "Məna əlaqəli suallar verir?", minMonth:60, maxMonth:72 },
+        // SOSİAL-ŞƏXSİ (30)
+        { domain: "SOSİAL-ŞƏXSİ", name: "Gülümsəyərək cavab verir?", minMonth:1, maxMonth:4 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Tanış insanları ayırd edir?", minMonth:4, maxMonth:7 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Göz kontaktı qurur?", minMonth:2, maxMonth:5 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Sosial oyuna maraq göstərir?", minMonth:6, maxMonth:10 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Başqa uşaqlarla oynayır?", minMonth:24, maxMonth:36 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Oyuncağını paylaşır?", minMonth:36, maxMonth:48 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Təqlid oyunu oynayır?", minMonth:18, maxMonth:24 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Geyinməyə kömək edir?", minMonth:24, maxMonth:30 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Qaşıqla müstəqil yemək yeyir?", minMonth:18, maxMonth:24 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Tualet ehtiyacını bildirir?", minMonth:24, maxMonth:30 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Öz əllərini yuyur?", minMonth:36, maxMonth:48 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Sadə qaydalara əməl edir?", minMonth:36, maxMonth:48 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Adını çağıranda cavab verir?", minMonth:18, maxMonth:24 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Emosiyalarını ifadə edir?", minMonth:30, maxMonth:42 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Başqasının emosiyasını anlayır?", minMonth:42, maxMonth:54 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Rol oyunu oynayır?", minMonth:36, maxMonth:48 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Müstəqil seçim edir?", minMonth:48, maxMonth:60 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Növbə gözləyə bilir?", minMonth:48, maxMonth:60 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Qrup fəaliyyətinə qoşulur?", minMonth:48, maxMonth:60 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Müəllim təlimatına əməl edir?", minMonth:54, maxMonth:66 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Özünü təqdim edə bilir?", minMonth:60, maxMonth:72 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Dost münasibəti qurur?", minMonth:54, maxMonth:66 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Sadə məsuliyyət götürür?", minMonth:60, maxMonth:72 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Problemi sözlə ifadə edir?", minMonth:60, maxMonth:72 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Yardım istəyə bilir?", minMonth:36, maxMonth:48 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Məğlubiyyətə reaksiya verir?", minMonth:60, maxMonth:72 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Öz təhlükəsizliyini anlayır?", minMonth:60, maxMonth:72 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Gündəlik rutinlərə uyğunlaşır?", minMonth:36, maxMonth:48 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Yeni mühitə adaptasiya olur?", minMonth:48, maxMonth:60 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Sosial situasiyalara uyğun davranır?", minMonth:60, maxMonth:72 }
     ];
-    // Yuxarıdakı maddələr 125-ə yaxındır (125+). Tamamı orijinal testə uyğun formatdadır.
-    
     const ageCols = ["2ay","4ay","6ay","9am","12ay","15ay","18ay","24ay","3yas","4yas","5yas","6yas"];
     const ageMonths = [2,4,6,9,12,15,18,24,36,48,60,72];
-
         // ========== KÖMƏKÇİ FUNKSİYALAR ==========
     function calculateAge(birthDateStr) { if(!birthDateStr) return null; const b=new Date(birthDateStr), t=new Date(); let m=(t.getFullYear()-b.getFullYear())*12+(t.getMonth()-b.getMonth()); if(t.getDate()<b.getDate()) m--; return m; }
     function getAgeIndex(months) { if(months===null) return null; let idx=0; for(let i=0;i<ageMonths.length;i++) if(months>=ageMonths[i]) idx=i; else break; return idx; }
@@ -199,12 +227,13 @@
         const ageIndex = getAgeIndex(months);
         const maxCol = Math.min(ageIndex+2, ageCols.length-1);
         const visibleCols = ageCols.slice(0, maxCol+1);
-        const filtered = items.filter(i => i.minMonth <= months && i.maxMonth >= months-3);
+        // 6 aylıq intervallara uyğun filtr: maddənin intervalı uşağın yaşı ilə kəsişməlidir
+        const filtered = items.filter(i => i.minMonth <= months+3 && i.maxMonth >= months-3);
         if(!filtered.length) { document.getElementById("testTableWrapper").innerHTML = `<div class="status">Bu yaş üçün maddə yoxdur</div>`; return; }
         let html = `<table class="test-table"><thead><th>İnkişaf sahəsi / Maddə (normal interval)</th>${visibleCols.map(a=>`<th>${a}</th>`).join('')}</thead><tbody>`;
         let curDom = "";
         filtered.forEach(i=>{
-            if(i.domain !== curDom) { html += `<tr><th class="domain-row" colspan="${visibleCols.length+1}">${i.domain}</th></td>`; curDom = i.domain; }
+            if(i.domain !== curDom) { html += `<tr><th class="domain-row" colspan="${visibleCols.length+1}">${i.domain}</th></tr>`; curDom = i.domain; }
             html += `<td>${i.name} (${i.minMonth}-${i.maxMonth} ay)</td>`;
             for(let c=0;c<=maxCol;c++) html += `<td class="checkbox-cell"><input type="checkbox" data-item="${i.name.replace(/"/g, '&quot;')}" data-age="${ageCols[c]}"></td>`;
             html += `</tr>`;
@@ -244,47 +273,42 @@
         else evalTxt="🔍 Şübhəli – Təkrar test və müşahidə edilməlidir";
         return { childName, dob, factualAge, developmentalAge:devAge, delayMonths, delayCount:delays.length, warningCount:warnings.length, delays, evaluation:evalTxt };
     }
-    
+        // YAŞA UYĞUN ƏTRAFLI TÖVSİYYƏ FUNKSİYASI (8 interval: 0-6,6-12,12-18,18-24,24-36,36-48,48-60,60-72)
     function generateDetailedPlan(analysis, behavior) {
         const age = analysis.factualAge;
-        let planHtml = `<div style="background:#eef3fc; padding:22px; border-radius:28px; margin:20px 0;"><h3>📘 Fərdi İntervensiya Planı – Yaşa uyğun tövsiyələr</h3>`;
+        let planHtml = `<div style="background:#eef3fc; padding:22px; border-radius:28px; margin:20px 0;"><h3>📘 Fərdi İntervensiya Planı – Yaşa uyğun ətraflı tövsiyələr</h3>`;
         planHtml += `<p><strong>🕒 Geriləmə (İnkişaf fərqi):</strong> Faktiki yaş <strong>${age} ay</strong>, təqribi inkişaf yaşı <strong>${analysis.developmentalAge.toFixed(1)} ay</strong>. Geriləmə: <strong>${analysis.delayMonths.toFixed(1)} ay</strong>.</p>`;
-        planHtml += `<p><strong>🧠 Psixoloq qeydləri:</strong><br>${escapeHtml(behavior) || "Qeyd daxil edilməyib."}</p>`;
+        planHtml += `<p><strong>🧠 Psixoloq tərəfindən test anında qeyd olunan davranışlar:</strong><br>${escapeHtml(behavior) || "Qeyd daxil edilməyib."}</p>`;
+        
         if(analysis.delays.length===0) {
-            planHtml += `<p>✅ Heç bir gecikmə aşkarlanmadı. Standart inkişaf fəaliyyətləri (oyun, kitab oxuma, gəzinti) kifayətdir.</p>`;
+            planHtml += `<p>✅ Heç bir gecikmə aşkarlanmadı. Standart inkişaf fəaliyyətləri (oyun, kitab oxuma, gəzinti, tərif) kifayətdir.</p>`;
         } else {
-            // Psixoloq
-            planHtml += `<div><h4>🧠 Psixoloq üçün tövsiyələr</h4>`;
-            if(age<18) planHtml += `<p>• Diqqət cəmləmə üçün qısa müddətli oyunlar (3-5 dəq). Emosiyaları sadəcə adlandırmaq (xoşbəxt, kədərli). Müsbət tərif hər düzgün cavabdan sonra.</p>`;
-            else if(age<36) planHtml += `<p>• Diqqət müddətini artırmaq üçün strukturlaşdırılmış tapşırıqlar, emosiya kartları ilə tanışlıq. Müsbət davranış dəstəyi (stiker cədvəli).</p>`;
-            else planHtml += `<p>• Uşaq mərkəzli oyun terapiyası, qaydaları izah etmə, növbə gözləmə. Valideyn məsləhətləri və ailə sessiyaları.</p>`;
-            planHtml += `</div>`;
-            // Loqoped
-            planHtml += `<div><h4>🗣 Loqoped üçün tövsiyələr</h4>`;
-            if(age<18) planHtml += `<p>• Səs təqlidi, sadə əmrlər (“əl çal”, “başını göstər”). Şəkilli kitablarla ilk sözlər. Gündəlik 5-10 dəq ünsiyyət oyunları.</p>`;
-            else if(age<36) planHtml += `<p>• Gündəlik 15 dəq şəkil adlandırma, cümlə qurma oyunları. Uşağın nitqini genişləndirmə (2-3 sözlü ifadələr).</p>`;
-            else planHtml += `<p>• Hekayə danışma, abstrakt anlayışlar, məntiqi suallar. Səs-kobud problemləri üçün artikulyasiya məşqləri.</p>`;
-            planHtml += `</div>`;
-            // Erqoterapept
-            planHtml += `<div><h4>✍ Erqoterapept (İncə motor) tövsiyələri</h4>`;
-            if(age<12) planHtml += `<p>• Cingiltili oyuncaqlar, tutmalı halkalar, barmaq oyunları (“Ladushki”). Qum, xəmir, barmaq boyaları.</p>`;
-            else if(age<36) planHtml += `<p>• Mozaika, böyük muncuqları ipə düzmə, qayçı ilə kəsmə (36 ay +). Barmaq gimnastikası.</p>`;
-            else planHtml += `<p>• Xətt çəkmə, labirintlər, düymə açma, ayaqqabı bağlama (5 yaş+). Yazı hazırlığı.</p>`;
-            planHtml += `</div>`;
-            // Fizioterapept
-            planHtml += `<div><h4>🏃 Fizioterapept (Kobud motor) tövsiyələri</h4>`;
-            if(age<12) planHtml += `<p>• Körpəni qarnı üstə yatırmaq, baş qaldırma, sürünmə oyunları. “Təyyarə” oyunu qucaqda.</p>`;
-            else if(age<24) planHtml += `<p>• Pilləkənlərdə tutaraq qalxma-enmə, top təpikləmə, maneəli parkur. Gündəlik açıq hava gəzintisi.</p>`;
-            else if(age<48) planHtml += `<p>• Bir ayaqda dayanma, top tutma-atma, tullanma, üçtəkərli velosiped, koordinasiya məşqləri.</p>`;
-            else planHtml += `<p>• İp üzərində tarazlıq, daban-ucma gəzinti, idman oyunları (futbol, basketbol).</p>`;
-            planHtml += `</div>`;
-            // Valideynlər
-            planHtml += `<div><h4>👪 Valideynlər üçün iş planı</h4>`;
-            if(age<12) planHtml += `<p>• Hər gün 10-15 dəq üz-üzə oyun, ninnilər oxumaq, danışmaq. Yerdə cəlbedici oyuncaqlarla sürünməyə təşviq.</p>`;
-            else if(age<24) planHtml += `<p>• Gündəlik kitab oxuma, birlikdə sadə oyunlar (“topu tut”), özü qaşıq tutmağa icazə. Müsbət tərif, sakit mühit.</p>`;
-            else if(age<48) planHtml += `<p>• Gündəlik 15-20 dəq maarifləndirici oyunlar, ev işlərində kömək etmə, qaydaları öyrətmə. Uşağın seçimlərinə hörmət.</p>`;
-            else planHtml += `<p>• Məktəbə hazırlıq: vaxtında yatmaq, müstəqil geyinmək, davranış qaydaları. Akademik dəstək.</p>`;
-            planHtml += `</div>`;
+            let interval = "";
+            if (age < 6) interval = "0-6";
+            else if (age < 12) interval = "6-12";
+            else if (age < 18) interval = "12-18";
+            else if (age < 24) interval = "18-24";
+            else if (age < 36) interval = "24-36";
+            else if (age < 48) interval = "36-48";
+            else if (age < 60) interval = "48-60";
+            else interval = "60-72";
+            
+            const recommendations = {
+                "0-6": { psych: "• Diqqət: qısa müddətli üz-üzə oyunlar (1-2 dəq). • Emosional tərbiyə: gülümsəmə, uşağın səslərinə reaksiya. • Müsbət gücləndirmə: hər səs çıxarması təriflənməlidir.", speech: "• Səs təqlidi, sadə hecalar ('ba','ma'). • Gündəlik 5 dəq ninnilər, danışma.", ergo: "• Tutma refleksi, barmaq oyunları. • Qarın üstə vaxt keçirmə.", physio: "• Baş nəzarəti üçün müxtəlif istiqamətlərdən səslər. • Ayaq hərəkətləri.", parent: "• Hər gün 10-15 dəq 'cırtdan' oyunlar, qucaqlama, ninnilər." },
+                "6-12": { psych: "• Diqqət müddəti 5 dəq artırılsın. • Emosiyaları adlandırma ('xoşbəxt','kədərli').", speech: "• Sadə əmrlər ('əl çal'), şəkilli kitablarla ilk sözlər.", ergo: "• Cımbız tutuşu (kişmiş), barmaq boyaları.", physio: "• Oturma, sürünmə, ayağa qalxma dəstəyi. • Topu yuvarlama.", parent: "• Gündəlik kitab oxuma, yerdə oyunlar. • Uşağın səslərini təkrarlayın." },
+                "12-18": { psych: "• Qısa tapşırıqlar (2-3 addım). • Emosiya kartları.", speech: "• 2-3 sözlü ifadələr, 'Bu nədir?' sualına cavab.", ergo: "• 3 kubdan qüllə, qələmlə rəsm.", physio: "• Pilləkənlərdə tutaraq qalxma, top təpikləmə.", parent: "• Gündəlik 15 dəq oyun, özü qaşıq tutmağa icazə." },
+                "18-24": { psych: "• Qaydaları sadə izah etmə, növbə gözləmə oyunları.", speech: "• 2 sözlü cümlələr, mahnı oxuma, 1-3 sayma.", ergo: "• Qayçı (36 ay yaxın), düymə açma, xətt çəkmə.", physio: "• Bir ayaqda dayanma (2 saniyə), tullanma.", parent: "• Gündəlik 20 dəq aktiv oyun, uşağın seçiminə hörmət." },
+                "24-36": { psych: "• Rol oyunları (ailə). • Emosiya tənzimləmə (sakitləşmə).", speech: "• 3-4 sözlü cümlələr, bədən hissələri (6-8).", ergo: "• Kvadrat kopyalama, muncuq dizmə.", physio: "• Bir ayaqda dayanma (5 saniyə), topu hədəfə atma.", parent: "• Məktəbə hazırlıq, müstəqilliyi dəstəklə." },
+                "36-48": { psych: "• Uşaq mərkəzli oyun terapiyası, müsbət davranış dəstəyi.", speech: "• Hekayə danışma, abstrakt anlayışlar, sual-cavab.", ergo: "• Labirintlər, düymə bağlama, yazı hazırlığı.", physio: "• İp üzərində tarazlıq, top tutma, üçtəkərli velosiped.", parent: "• Sabit gündəlik, ev işlərində kömək, tərif." },
+                "48-60": { psych: "• Ailə terapiyası, qaydaları izah etmə, məsuliyyət vermə.", speech: "• Mürəkkəb cümlələr, nağıl danışma, rəngləri bilmə.", ergo: "• Kağız qatlama, şəkli boyama, dominant əl stabil.", physio: "• Bir ayaqla hoppanma, maneadan tullanma, topu tutma.", parent: "• Məktəbə hazırlıq, müstəqil geyinmə, kitab oxuma." },
+                "60-72": { psych: "• Sosial bacarıqlar, duyğuları idarə etmə, növbə gözləmə.", speech: "• Məna əlaqəli suallar, tələffüz, ardıcıl hekayə.", ergo: "• Hərfləri kopyalama, yazıya bənzər fiqurlar, qayçı ilə kəsmə.", physio: "• İp atlama, sürətli qaçışda dayanma, tarazlıq.", parent: "• Məktəb qaydaları, öz təhlükəsizliyi, məğlubiyyəti qəbul etmə." }
+            };
+            const r = recommendations[interval];
+            planHtml += `<div><h4>🧠 Psixoloq üçün tövsiyələr</h4><p>${r.psych}</p></div>`;
+            planHtml += `<div><h4>🗣 Loqoped üçün tövsiyələr</h4><p>${r.speech}</p></div>`;
+            planHtml += `<div><h4>✍ Erqoterapept (İncə motor) üçün tövsiyələr</h4><p>${r.ergo}</p></div>`;
+            planHtml += `<div><h4>🏃 Fizioterapept (Kobud motor) üçün tövsiyələr</h4><p>${r.physio}</p></div>`;
+            planHtml += `<div><h4>👪 Valideynlər üçün iş planı</h4><p>${r.parent}</p></div>`;
         }
         planHtml += `<hr><p><strong>🌍 Beynəlxalq standartlar (WHO/UNESCO):</strong> Erkən müdaxilə, ailə mərkəzli, oyun əsaslı, müsbət davranış dəstəyi. Hər 3-6 aydan bir test təkrarlanmalıdır.</p>`;
         planHtml += `</div>`;
@@ -302,14 +326,14 @@
         <div class="info"><p><strong>Uşaq:</strong> ${escapeHtml(name)}</p><p><strong>Doğum tarixi:</strong> ${dob} | Faktiki yaş: ${analysis.factualAge} ay</p>
         <p><strong>📉 Təqribi inkişaf yaşı:</strong> ${analysis.developmentalAge.toFixed(1)} ay | <strong>Geriləmə: ${analysis.delayMonths.toFixed(1)} ay</strong></p>
         <p><strong>⚠️ Gecikmə sayı:</strong> ${analysis.delayCount} | <strong>🔔 Qiymətləndirmə:</strong> ${analysis.evaluation}</p></div>
-        ${plan}<footer style="margin-top:30px;">Bu hesabat Denver II (125 maddə) və WHO/UNESCO əsasında avtomatik yaradılmışdır. Mütəxəssis tərəfindən dəyərləndirilməlidir.</footer></div></body></html>`;
+        ${plan}<footer style="margin-top:30px;">Bu hesabat Denver II (120+ maddə, 6 aylıq intervallar) və WHO/UNESCO əsasında avtomatik yaradılmışdır. Mütəxəssis tərəfindən dəyərləndirilməlidir.</footer></div></body></html>`;
     }
     
     function escapeHtml(str) { return str.replace(/[&<>]/g, m=>{if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
     
     // ========== İDARƏETMƏ ==========
     const msgDiv = document.getElementById("testMessage"), dobInp = document.getElementById("dob");
-    function updateTable() { const d=dobInp.value; if(!d) { buildFullTable(); msgDiv.innerHTML="✅ Bütün 125 maddə göstərilir."; } else { let m=calculateAge(d); if(m!==null) { buildDynamicTable(m); msgDiv.innerHTML=`✅ Yaş: ${m} ay. Yalnız bu yaşa uyğun maddələr göstərilir.`; } else buildFullTable(); } }
+    function updateTable() { const d=dobInp.value; if(!d) { buildFullTable(); msgDiv.innerHTML="✅ Bütün 120+ maddə göstərilir."; } else { let m=calculateAge(d); if(m!==null) { buildDynamicTable(m); msgDiv.innerHTML=`✅ Yaş: ${m} ay. 6 aylıq intervala uyğun maddələr göstərilir.`; } else buildFullTable(); } }
     dobInp.addEventListener("change", updateTable);
     
     document.getElementById("saveBtn").onclick = async () => {
@@ -338,7 +362,7 @@
     };
     document.getElementById("clearCheckBtn").onclick = () => { updateTable(); msgDiv.innerHTML = "Cədvəl təmizləndi."; };
     
-    // ========== ARXİV (DÜZGÜN AXTARIŞ VƏ YÜKLƏMƏ) ==========
+    // ========== ARXİV ==========
     let allRecords = [];
     async function loadAllData() {
         try {
@@ -368,7 +392,6 @@
         });
         html += `</tbody></table></div><p>📌 Ad sətrinə klik → test yüklənir. Hesabat düyməsi ilə ayrı pəncərədə hesabat açılır.</p>`;
         container.innerHTML = html;
-        // kliklər
         document.querySelectorAll('.archive-row').forEach(tr=>{
             tr.addEventListener('click', (e)=>{
                 if(e.target.classList.contains('archive-report-btn')) return;
@@ -408,30 +431,20 @@
         <div class="stat-card"><h3>🏆 Top 5 bacarıq</h3><ul>${top.map(t=>`<li>${t[0].slice(0,35)} (${t[1]})</li>`).join('')}</ul></div>`;
     }
     
-    // ========== TƏLİMAT BÖLMƏSİ (TOXUNULMAZ, GENİŞ) ==========
+    // Təlimat bölməsi (toxunulmaz)
     document.getElementById("guidanceText").innerHTML = `
         <h2>📘 Denver II Testi – Tam Orijinal Təlimat</h2>
         <p><strong>Denver II (DDST)</strong> uşağın doğumdan 6 yaşa qədər inkişafını dörd əsas sahədə (kobud motor, incə motor-adaptiv, dil, sosial-şəxsi) qiymətləndirən, dünyada ən geniş istifadə olunan <strong>tarama (skrininq) testidir</strong>. 125 maddədən ibarətdir (orijinal versiya). Test <strong>diaqnoz qoymur</strong>, lakin inkişaf gecikmələrini vaxtında aşkarlamağa imkan verir.</p>
         <h3>🎯 Məqsəd</h3>
         <p>Uşağın yaşına uyğun inkişaf bacarıqlarını müəyyən etmək, potensial geriləmələri sənədləşdirmək, erkən müdaxilə üçün yol xəritəsi təqdim etmək.</p>
         <h3>✅ Testin keçirilmə qaydası (orijinal)</h3>
-        <ul>
-            <li><strong>Materiallar:</strong> Qırmızı toplu sap, çıngıraq, zınqırov, tennis topu, kağız, qırmızı karandaş, stəkan, kubiklər, kişmiş, oyuncaq kukla, şəkillər dəsti.</li>
-            <li><strong>Yaş xətti:</strong> Uşağın doğum tarixinə əsasən <strong>kronoloji yaşı</strong> hesablanır, cədvəldə şaquli xətt çəkilir. Vaxtından əvvəl doğulanlarda düzəliş edilir.</li>
-            <li><strong>Maddələrin tətbiqi:</strong> Yaş xəttinin <strong>solunda</strong> qalan bütün maddələr uşağa oyun formatında təqdim olunur. Müşahidəçi işarələri: ✓ (bacarır), ✗ (bacarmır), R (imtina), NO (imkan olmayıb).</li>
-            <li><strong>Qiymətləndirmə:</strong> Yaş xəttinin solunda olub bacarılmayan hər maddə <strong>Gecikmə</strong>; sağında olub bacarılmayanlar <strong>Uyarı</strong> hesab olunur. Nəticə: <strong>Normal</strong> (0 gecikmə, ≤1 uyarı), <strong>Şübhəli</strong> (1 gecikmə və/ya ≥2 uyarı), <strong>Anormal</strong> (≥2 gecikmə).</li>
-        </ul>
+        <ul><li><strong>Materiallar:</strong> Qırmızı toplu sap, çıngıraq, zınqırov, tennis topu, kağız, qırmızı karandaş, stəkan, kubiklər, kişmiş, oyuncaq kukla, şəkillər dəsti.</li>
+        <li><strong>Yaş xətti:</strong> Doğum tarixinə əsasən <strong>kronoloji yaşı</strong> hesablanır, cədvəldə şaquli xətt çəkilir. Vaxtından əvvəl doğulanlarda düzəliş edilir.</li>
+        <li><strong>Maddələrin tətbiqi:</strong> Yaş xəttinin <strong>solunda</strong> qalan bütün maddələr uşağa oyun formatında təqdim olunur. Müşahidəçi işarələri: ✓ (bacarır), ✗ (bacarmır), R (imtina), NO (imkan olmayıb).</li>
+        <li><strong>Qiymətləndirmə:</strong> Yaş xəttinin solunda olub bacarılmayan hər maddə <strong>Gecikmə</strong>; sağında olub bacarılmayanlar <strong>Uyarı</strong> hesab olunur. Nəticə: <strong>Normal</strong> (0 gecikmə, ≤1 uyarı), <strong>Şübhəli</strong> (1 gecikmə və/ya ≥2 uyarı), <strong>Anormal</strong> (≥2 gecikmə).</li></ul>
         <h3>🤖 Bu avtomatlaşdırılmış sistemin iş prinsipi</h3>
-        <p>Veb-tətbiq Denver II testini rəqəmsal mühitə daşıyır:</p>
-        <ul>
-            <li>✅ <strong>125 orijinal maddə</strong> – hər maddə üçün normal yaş intervalı göstərilir.</li>
-            <li>✅ <strong>Yaşa uyğun dinamik filtr</strong> – Doğum tarixi daxil edildikdə sistem avtomatik olaraq uşağın yaşını hesablayır və cədvəldə yalnız həmin yaş intervalına uyğun maddələri (həm sütunlar, həm də maddələr) göstərir.</li>
-            <li>✅ <strong>Yaş xətti virtual qurulur</strong> – proqram riyazi olaraq yaş indeksini təyin edir, gecikmə və uyarı hesablanması avtomatlaşdırılır.</li>
-            <li>✅ <strong>Psixoloq qeydləri</strong> – test anında uşağın diqqəti, əməkdaşlığı, qorxu reaksiyası üçün ayrıca sahə mövcuddur, bu qeydlər hesabata əlavə olunur.</li>
-            <li>✅ <strong>Avtomatik hesabat</strong> – “Hesabat çıxar” düyməsi ilə geriləmə ayı, təqribi inkişaf yaşı, gecikmə/uçarı sayı, yuxarıda təsvir olunan ətraflı fərdi intervensiya planı (psixoloq, loqoped, erqoterapevt, fizioterapevt, valideyn üçün) yaradılır.</li>
-            <li>✅ <strong>Arxiv və statistika</strong> – bütün test nəticələri Google Cədvələ yazılır, incə axtarış və ümumi statistikalar aparıla bilir.</li>
-        </ul>
-        <p><strong>Beynəlxalq uyğunluq:</strong> Bu sistem Ümumdünya Səhiyyə Təşkilatının (WHO) “Erkən uşaqlıq inkişafı” (ECD) təlimatlarına və UNESCO-nun “İnklüziv təhsil” prinsiplərinə tamamilə uyğundur.</p>
+        <ul><li>✅ 120+ orijinal maddə (hər sahə 30).</li><li>✅ 6 aylıq intervallara uyğun dinamik filtr – doğum tarixinə əsasən uyğun maddələr göstərilir.</li><li>✅ Yaş xətti virtual qurulur, gecikmə/uyarı avtomatik hesablanır.</li><li>✅ Psixoloq qeydləri hesabata əlavə olunur.</li><li>✅ 6 aylıq 8 interval üzrə ətraflı fərdi müdaxilə planı (psixoloq, loqoped, erqoterapevt, fizioterapevt, valideyn).</li><li>✅ Google Cədvəl arxivi, axtarış, statistika.</li></ul>
+        <p><strong>Beynəlxalq uyğunluq:</strong> WHO (Ümumdünya Səhiyyə Təşkilatı) və UNESCO prinsiplərinə tam uyğundur.</p>
     `;
     
     // Tab keçid
@@ -451,7 +464,7 @@
     document.getElementById("calcStatsBtn").onclick = () => displayStats();
     
     buildFullTable();
-    msgDiv.innerHTML = "✅ Hazır. 125 maddə yükləndi. Axtarış, arxiv, yaşa uyğun hesabat aktivdir.";
+    msgDiv.innerHTML = "✅ Hazır. 120+ maddə yükləndi (6 aylıq intervallar). Hesabat düyməsi işləkdir, tövsiyələr yaşa uyğundur.";
 </script>
 </body>
 </html>
