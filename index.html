@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Denver II – Tam Maddələr, 6 aylıq intervallar, Ətraflı Hesabat</title>
+    <title>Denver II </title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Segoe UI', Roboto, system-ui, sans-serif; background: #eef2f5; margin: 0; padding: 12px; }
@@ -45,7 +45,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>🏥 Denver II İnkişaf Testi <span style="font-size:0.8rem;">(120+ Maddə, 6 aylıq intervallar, Yaşa uyğun plan)</span></h1>
+    <h1>🏥 Denver II İnkişaf Testi <span style="font-size:0.8rem;">Beynəlxalq standartlar (WHO/UNESCO)</span></h1>
     <div class="tabs">
         <button class="tab-btn active" data-tab="test">📋 Test cədvəli</button>
         <button class="tab-btn" data-tab="archive">📚 Arxiv</button>
@@ -326,7 +326,7 @@
         <div class="info"><p><strong>Uşaq:</strong> ${escapeHtml(name)}</p><p><strong>Doğum tarixi:</strong> ${dob} | Faktiki yaş: ${analysis.factualAge} ay</p>
         <p><strong>📉 Təqribi inkişaf yaşı:</strong> ${analysis.developmentalAge.toFixed(1)} ay | <strong>Geriləmə: ${analysis.delayMonths.toFixed(1)} ay</strong></p>
         <p><strong>⚠️ Gecikmə sayı:</strong> ${analysis.delayCount} | <strong>🔔 Qiymətləndirmə:</strong> ${analysis.evaluation}</p></div>
-        ${plan}<footer style="margin-top:30px;">Bu hesabat Denver II (120+ maddə, 6 aylıq intervallar) və WHO/UNESCO əsasında avtomatik yaradılmışdır. Mütəxəssis tərəfindən dəyərləndirilməlidir.</footer></div></body></html>`;
+        ${plan}<footer style="margin-top:30px;">Bu hesabat Denver II 125+ maddə üzrə və WHO/UNESCO əsasında avtomatik yaradılmışdır. Mütəxəssis tərəfindən dəyərləndirilməlidir.</footer></div></body></html>`;
     }
     
     function escapeHtml(str) { return str.replace(/[&<>]/g, m=>{if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
@@ -443,7 +443,7 @@
         <li><strong>Maddələrin tətbiqi:</strong> Yaş xəttinin <strong>solunda</strong> qalan bütün maddələr uşağa oyun formatında təqdim olunur. Müşahidəçi işarələri: ✓ (bacarır), ✗ (bacarmır), R (imtina), NO (imkan olmayıb).</li>
         <li><strong>Qiymətləndirmə:</strong> Yaş xəttinin solunda olub bacarılmayan hər maddə <strong>Gecikmə</strong>; sağında olub bacarılmayanlar <strong>Uyarı</strong> hesab olunur. Nəticə: <strong>Normal</strong> (0 gecikmə, ≤1 uyarı), <strong>Şübhəli</strong> (1 gecikmə və/ya ≥2 uyarı), <strong>Anormal</strong> (≥2 gecikmə).</li></ul>
         <h3>🤖 Bu avtomatlaşdırılmış sistemin iş prinsipi</h3>
-        <ul><li>✅ 120+ orijinal maddə (hər sahə 30).</li><li>✅ 6 aylıq intervallara uyğun dinamik filtr – doğum tarixinə əsasən uyğun maddələr göstərilir.</li><li>✅ Yaş xətti virtual qurulur, gecikmə/uyarı avtomatik hesablanır.</li><li>✅ Psixoloq qeydləri hesabata əlavə olunur.</li><li>✅ 6 aylıq 8 interval üzrə ətraflı fərdi müdaxilə planı (psixoloq, loqoped, erqoterapevt, fizioterapevt, valideyn).</li><li>✅ Google Cədvəl arxivi, axtarış, statistika.</li></ul>
+        <ul><li>✅ 125 orijinal maddə.</li><li>✅ 6 aylıq intervallara uyğun dinamik filtr – doğum tarixinə əsasən uyğun maddələr göstərilir.</li><li>✅ Yaş xətti virtual qurulur, gecikmə/uyarı avtomatik hesablanır.</li><li>✅ Psixoloq qeydləri hesabata əlavə olunur.</li><li>✅ 6 aylıq 8 interval üzrə ətraflı fərdi müdaxilə planı (psixoloq, loqoped, erqoterapevt, fizioterapevt, valideyn).</li><li>✅ Google Cədvəl arxivi, axtarış, statistika.</li></ul>
         <p><strong>Beynəlxalq uyğunluq:</strong> WHO (Ümumdünya Səhiyyə Təşkilatı) və UNESCO prinsiplərinə tam uyğundur.</p>
     `;
     
@@ -464,7 +464,7 @@
     document.getElementById("calcStatsBtn").onclick = () => displayStats();
     
     buildFullTable();
-    msgDiv.innerHTML = "✅ Hazır. 120+ maddə yükləndi (6 aylıq intervallar). Hesabat düyməsi işləkdir, tövsiyələr yaşa uyğundur.";
+    msgDiv.innerHTML = "✅ Hazır. 125 maddə yükləndi (6 aylıq intervallar). Hesabat düyməsi işləkdir, tövsiyələr yaşa uyğundur.";
 </script>
 </body>
 </html>
