@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Denver II – 120+ Maddə, Yaşa uyğun filtr, Ətraflı Hesabat</title>
+    <title>Denver II </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -53,7 +53,7 @@
 </head>
 <body>
 <div class="container">
-    <h1><i class="fas fa-child"></i> Denver II İnkişaf Testi <span style="font-size:0.8rem;">(120+ Maddə, Yaşa uyğun filtr, Ətraflı Hesabat)</span></h1>
+    <h1><i class="fas fa-child"></i> Denver II İnkişaf Testi <span style="font-size:0.8rem;">(125 Maddə, Yaşa uyğun filtr, Ətraflı Hesabat)</span></h1>
     <div class="tabs">
         <button class="tab-btn active" data-tab="test"><i class="fas fa-table-list"></i> Test cədvəli</button>
         <button class="tab-btn" data-tab="archive"><i class="fas fa-archive"></i> Arxiv</button>
@@ -72,7 +72,7 @@
             </div>
             <div><button id="saveBtn"><i class="fas fa-save"></i> Yadda saxla</button><button id="clearCheckBtn" class="btn-secondary"><i class="fas fa-eraser"></i> Təmizlə</button><button id="reportBtn" class="btn-secondary" style="background:#c96f0e;"><i class="fas fa-file-alt"></i> Hesabat çıxar</button></div>
         </div>
-        <div id="testMessage" class="status"><i class="fas fa-info-circle"></i> ✅ Doğum tarixi daxil edilmədən bütün 120+ maddə göstərilir. Doğum tarixi daxil edildikdə yaşa uyğun filtrasiya olunur.</div>
+        <div id="testMessage" class="status"><i class="fas fa-info-circle"></i> ✅ Doğum tarixi daxil edilmədən bütün 125 maddə göstərilir. Doğum tarixi daxil edildikdə yaşa uyğun filtrasiya olunur.</div>
         <div class="table-wrapper" id="testTableWrapper"></div>
     </div>
     <div id="archivePane" class="tab-pane">
@@ -88,9 +88,9 @@
 </div>
 <script>
         // ========== GOOGLE APPS SCRIPT URL ==========
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUFz-JQcjv7iAuSiVYgV3aRSaFNU-FWbWhL5A6Tt7vB88FhdQ_v5fvbX4pfgs159Gs9Q/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwgEOECX7j1ye1fcRbhPxkDwopZDaYmpB9lj6w71TuVjlARZeJzFOq5wGI0Ul9kJQYvoA/exec";
     
-    // ---------- 120+ maddə (əvvəlki tam siyahı, dəyişməz) ----------
+    // ---------- 125 maddə (əvvəlki tam siyahı, dəyişməz) ----------
     const items = [
         { domain: "KOBUD MOTOR", name: "Başını dik saxlaya bilir?", minMonth:0, maxMonth:4 },
         { domain: "KOBUD MOTOR", name: "Qarınüstə uzanarkən başını qaldırır?", minMonth:1, maxMonth:4 },
@@ -346,7 +346,7 @@
         <p><strong>📉 Təqribi inkişaf yaşı:</strong> ${analysis.developmentalAge.toFixed(1)} ay | <strong>Geriləmə: ${analysis.delayMonths.toFixed(1)} ay</strong></p>
         <p><strong>⚠️ Gecikmə sayı:</strong> ${analysis.delayCount} | <strong>🔔 Qiymətləndirmə:</strong> ${analysis.evaluation}</p>
         <p><strong>👩‍⚕️ Mütəxəssis:</strong> ${escapeHtml(specialist) || "Qeyd edilməyib"}</p></div>
-        ${plan}<footer style="margin-top:30px;">Bu hesabat Denver II (120+ maddə) və Ümumdünya Səhiyyə Təşkilatı (WHO) & UNESCO prinsipləri əsasında avtomatik yaradılmışdır.</footer></div></body></html>`;
+        ${plan}<footer style="margin-top:30px;">Bu hesabat Denver II (125 maddə) və Ümumdünya Səhiyyə Təşkilatı (WHO) & UNESCO prinsipləri əsasında avtomatik yaradılmışdır.</footer></div></body></html>`;
     }
     
     function escapeHtml(str) { return str.replace(/[&<>]/g, m=>{if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
@@ -490,7 +490,7 @@
         <h3>🤖 Bu avtomatlaşdırılmış sistemin iş prinsipi</h3>
         <p>Veb-tətbiq Denver II testini rəqəmsal mühitə daşıyır. Aşağıdakı xüsusiyyətlərə malikdir:</p>
         <ul>
-            <li>✅ <strong>120+ orijinal maddə</strong> – hər maddə üçün normal yaş intervalı göstərilir.</li>
+            <li>✅ <strong>125 orijinal maddə</strong> – hər maddə üçün normal yaş intervalı göstərilir.</li>
             <li>✅ <strong>Yaşa uyğun dinamik filtr</strong> – Doğum tarixi daxil edildikdə sistem uşağın yaşını hesablayır və cədvəldə yalnız həmin yaş intervalına uyğun maddələri (həm sütunlar, həm də maddələr) göstərir.</li>
             <li>✅ <strong>Virtual yaş xətti</strong> – proqram riyazi olaraq yaş indeksini təyin edir, gecikmə və uyarı hesablanması avtomatlaşdırılır.</li>
             <li>✅ <strong>Psixoloq qeydləri</strong> – test anında uşağın diqqəti, əməkdaşlığı, qorxu reaksiyası üçün ayrıca sahə mövcuddur və bu qeydlər hesabata əlavə olunur.</li>
