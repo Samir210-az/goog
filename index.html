@@ -88,7 +88,7 @@
 </div>
 <script>
         // ========== GOOGLE APPS SCRIPT URL ==========
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwgEOECX7j1ye1fcRbhPxkDwopZDaYmpB9lj6w71TuVjlARZeJzFOq5wGI0Ul9kJQYvoA/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUFz-JQcjv7iAuSiVYgV3aRSaFNU-FWbWhL5A6Tt7vB88FhdQ_v5fvbX4pfgs159Gs9Q/exec";
     
     // ---------- 120+ maddə (əvvəlki tam siyahı, dəyişməz) ----------
     const items = [
@@ -218,7 +218,7 @@
     ];
     const ageCols = ["2ay","4ay","6ay","9am","12ay","15ay","18ay","24ay","3yas","4yas","5yas","6yas"];
     const ageMonths = [2,4,6,9,12,15,18,24,36,48,60,72];
-        // ========== KÖMƏKÇİ FUNKSİYALAR (toxunulmaz) ==========
+        // ========== KÖMƏKÇİ FUNKSİYALAR ==========
     function calculateAge(birthDateStr) { if(!birthDateStr) return null; const b=new Date(birthDateStr), t=new Date(); let m=(t.getFullYear()-b.getFullYear())*12+(t.getMonth()-b.getMonth()); if(t.getDate()<b.getDate()) m--; return m; }
     function getAgeIndex(months) { if(months===null) return null; let idx=0; for(let i=0;i<ageMonths.length;i++) if(months>=ageMonths[i]) idx=i; else break; return idx; }
     
@@ -231,7 +231,7 @@
             for(let c=0;c<ageCols.length;c++) html += `<td class="checkbox-cell"><input type="checkbox" data-item="${i.name.replace(/"/g, '&quot;')}" data-age="${ageCols[c]}"></td>`;
             html += `</tr>`;
         });
-        html += `</tbody></table>`;
+        html += `</tbody><tr>`;
         document.getElementById("testTableWrapper").innerHTML = html;
     }
     function buildDynamicTable(months) {
@@ -243,12 +243,12 @@
         let html = `<table class="test-table"><thead><th>İnkişaf sahəsi / Maddə (normal interval)</th>${visibleCols.map(a=>`<th>${a}</th>`).join('')}</thead><tbody>`;
         let curDom = "";
         filtered.forEach(i=>{
-            if(i.domain !== curDom) { html += `<tr><th class="domain-row" colspan="${visibleCols.length+1}">${i.domain}</th></tr>`; curDom = i.domain; }
-            html += `<td>${i.name} (${i.minMonth}-${i.maxMonth} ay)</td>`;
+            if(i.domain !== curDom) { html += `<tr><th class="domain-row" colspan="${visibleCols.length+1}">${i.domain}</th><tr>`; curDom = i.domain; }
+            html += `<td>${i.name} (${i.minMonth}-${i.maxMonth} ay)<td>`;
             for(let c=0;c<=maxCol;c++) html += `<td class="checkbox-cell"><input type="checkbox" data-item="${i.name.replace(/"/g, '&quot;')}" data-age="${ageCols[c]}"></td>`;
-            html += `<tr>`;
+            html += `</tr>`;
         });
-        html += `</tbody></td>`;
+        html += `</tbody></table>`;
         document.getElementById("testTableWrapper").innerHTML = html;
     }
     function getAllChecks() { let ch=[]; document.querySelectorAll("#testTableWrapper input:checked").forEach(cb=>ch.push(cb.dataset.item+"|"+cb.dataset.age)); return ch; }
@@ -283,7 +283,7 @@
         else evalTxt="🔍 Şübhəli – Təkrar test və müşahidə edilməlidir";
         return { childName, dob, factualAge, developmentalAge:devAge, delayMonths, delayCount:delays.length, warningCount:warnings.length, delays, evaluation:evalTxt };
     }
-        // ========== ƏTRAFLI TÖVSİYYƏ FUNKSİYASI (hər gecikən maddə üçün izah) ==========
+        // ========== ƏTRAFLI TÖVSİYYƏ FUNKSİYASI ==========
     function generateDetailedPlan(analysis, behavior) {
         const age = analysis.factualAge;
         const devAge = analysis.developmentalAge;
@@ -297,41 +297,35 @@
         if(delayItems.length === 0) {
             planHtml += `<p>✅ Heç bir gecikmə aşkarlanmadı. Standart inkişaf fəaliyyətləri (oyun, kitab oxuma, gəzinti, tərif) kifayətdir.</p>`;
         } else {
-            planHtml += `<p><strong>⚠️ Aşkarlanan gecikmələr (${delayItems.length} maddə):</strong></p><ul>`;
-            delayItems.forEach(d => {
-                planHtml += `<li><strong>${d.item}</strong> (${d.ageCol}) – bu bacarıqda geriləmə var.</li>`;
-            });
-            planHtml += `</ul><p>Aşağıdakı sahələr üzrə mütəxəssis tövsiyələri və valideynlər üçün gündəlik iş planı təqdim olunur:</p>`;
+            // Qruplaşdırma (unikal maddələr üçün Set istifadə edirik ki, təkrar olmasın)
+            const uniqueMotor = [...new Map(delayItems.filter(d => d.item.includes("baş") || d.item.includes("otur") || d.item.includes("qalx") || d.item.includes("yeri") || d.item.includes("qaç") || d.item.includes("tullan") || d.item.includes("pilləkən") || d.item.includes("top")).map(d => [d.item, d])).values()];
+            const uniqueFine = [...new Map(delayItems.filter(d => d.item.includes("tut") || d.item.includes("kub") || d.item.includes("cımbız") || d.item.includes("çək") || d.item.includes("dairə") || d.item.includes("kvadrat") || d.item.includes("qayçı") || d.item.includes("düymə") || d.item.includes("muncuq")).map(d => [d.item, d])).values()];
+            const uniqueLang = [...new Map(delayItems.filter(d => d.item.includes("səs") || d.item.includes("söz") || d.item.includes("cümlə") || d.item.includes("ad") || d.item.includes("başa düş") || d.item.includes("danış") || d.item.includes("hekayə")).map(d => [d.item, d])).values()];
+            const uniqueSocial = [...new Map(delayItems.filter(d => d.item.includes("gülümsə") || d.item.includes("oyun") || d.item.includes("paylaş") || d.item.includes("təqlid") || d.item.includes("geyin") || d.item.includes("yemək") || d.item.includes("tualet") || d.item.includes("emosiya")).map(d => [d.item, d])).values()];
             
-            // Qruplaşdırma (sadəlik üçün sahələrə görə)
-            const motorItems = delayItems.filter(d => d.item.includes("baş") || d.item.includes("otur") || d.item.includes("qalx") || d.item.includes("yeri") || d.item.includes("qaç") || d.item.includes("tullan") || d.item.includes("pilləkən") || d.item.includes("top"));
-            const fineItems = delayItems.filter(d => d.item.includes("tut") || d.item.includes("kub") || d.item.includes("cımbız") || d.item.includes("çək") || d.item.includes("dairə") || d.item.includes("kvadrat") || d.item.includes("qayçı") || d.item.includes("düymə") || d.item.includes("muncuq"));
-            const langItems = delayItems.filter(d => d.item.includes("səs") || d.item.includes("söz") || d.item.includes("cümlə") || d.item.includes("ad") || d.item.includes("başa düş") || d.item.includes("danış") || d.item.includes("hekayə"));
-            const socialItems = delayItems.filter(d => d.item.includes("gülümsə") || d.item.includes("oyun") || d.item.includes("paylaş") || d.item.includes("təqlid") || d.item.includes("geyin") || d.item.includes("yemək") || d.item.includes("tualet") || d.item.includes("emosiya"));
-            
-            if(motorItems.length) {
+            if(uniqueMotor.length) {
                 planHtml += `<div style="margin-top:20px;"><h4><i class="fas fa-running"></i> Kobud motor (Fizioterapevt) tövsiyələri</h4>`;
-                planHtml += `<p><strong>👩‍⚕️ Psixoloq və Fizioterapevt üçün:</strong> ${motorItems.length} ədəd motor bacarığında geriləmə var. Gündəlik 20 dəqiqə hədəflənmiş oyunlar təşkil edin. Məsələn: “Topu təpiklə”, “Pilləkən qalx”, “Bir ayaqda dayan” oyunlarını təkrarlayın. Tarazlıq və koordinasiya üçün evdə sadə maneəli parkur qurun. Hər bacarığı 5-7 dəfə təkrarlayın, müsbət gücləndirmə edin.</p>`;
+                planHtml += `<p><strong>👩‍⚕️ Psixoloq və Fizioterapevt üçün:</strong> ${uniqueMotor.length} ədəd motor bacarığında geriləmə var. Gündəlik 20 dəqiqə hədəflənmiş oyunlar təşkil edin. Məsələn: “Topu təpiklə”, “Pilləkən qalx”, “Bir ayaqda dayan” oyunlarını təkrarlayın. Tarazlıq və koordinasiya üçün evdə sadə maneəli parkur qurun. Hər bacarığı 5-7 dəfə təkrarlayın, müsbət gücləndirmə edin.</p>`;
                 planHtml += `<p><strong>👪 Valideynlər üçün gündəlik tapşırıqlar:</strong> Parkda “Mənim kimi et” oyunu (tullanma, qaçma, əyilmə). Evdə yastıqlarla sürünmə yolu. Hər gün 15 dəqiqə açıq havada aktiv oyun.</p>`;
-                planHtml += `<p><strong>✅ İzlənən konkret bacarıqlar:</strong> ${motorItems.map(d=>d.item).join(", ")}</p></div>`;
+                planHtml += `<p><strong>✅ İzlənən konkret bacarıqlar:</strong> ${uniqueMotor.map(d=>d.item).join(", ")}</p></div>`;
             }
-            if(fineItems.length) {
+            if(uniqueFine.length) {
                 planHtml += `<div><h4><i class="fas fa-hand-peace"></i> İncə motor (Erqoterapevt) tövsiyələri</h4>`;
-                planHtml += `<p><strong>👩‍⚕️ Psixoloq və Erqoterapevt üçün:</strong> ${fineItems.length} ədəd incə motor bacarığında geriləmə var. Mozaika, lego, muncuq dizmə, barmaq boyaları, qayçı ilə kəsmə, cımbızla xırda əşyalar yerləşdirmə kimi fəaliyyətlər tətbiq edin. Hər gün 10 dəqiqə barmaq gimnastikası edin.</p>`;
+                planHtml += `<p><strong>👩‍⚕️ Psixoloq və Erqoterapevt üçün:</strong> ${uniqueFine.length} ədəd incə motor bacarığında geriləmə var. Mozaika, lego, muncuq dizmə, barmaq boyaları, qayçı ilə kəsmə, cımbızla xırda əşyalar yerləşdirmə kimi fəaliyyətlər tətbiq edin. Hər gün 10 dəqiqə barmaq gimnastikası edin.</p>`;
                 planHtml += `<p><strong>👪 Valideynlər üçün ev üsulları:</strong> Makaronı ipə düzmək, şəkilli kitabda kiçik detalları tapmaq, qum/qarğıdalı unu içində gizlənmiş oyuncaqları çıxarmaq, barmaq boyaları ilə dairə çəkmə.</p>`;
-                planHtml += `<p><strong>✅ Hədəf bacarıqlar:</strong> ${fineItems.map(d=>d.item).join(", ")}</p></div>`;
+                planHtml += `<p><strong>✅ Hədəf bacarıqlar:</strong> ${uniqueFine.map(d=>d.item).join(", ")}</p></div>`;
             }
-            if(langItems.length) {
+            if(uniqueLang.length) {
                 planHtml += `<div><h4><i class="fas fa-comments"></i> Dil və danışma (Loqoped) tövsiyələri</h4>`;
-                planHtml += `<p><strong>👩‍⚕️ Psixoloq və Loqoped üçün:</strong> ${langItems.length} ədəd dil bacarığında geriləmə var. Hər gün 20 dəqiqə şəkil kartları ilə iş, səs təqlidi, əmrə uyğun hərəkət (“Mənə topu ver”). Reseptiv dil üçün bədən hissələrini göstərmə, ekspressiv dil üçün “Gördüyünü adlandır” oyunları.</p>`;
+                planHtml += `<p><strong>👩‍⚕️ Psixoloq və Loqoped üçün:</strong> ${uniqueLang.length} ədəd dil bacarığında geriləmə var. Hər gün 20 dəqiqə şəkil kartları ilə iş, səs təqlidi, əmrə uyğun hərəkət (“Mənə topu ver”). Reseptiv dil üçün bədən hissələrini göstərmə, ekspressiv dil üçün “Gördüyünü adlandır” oyunları.</p>`;
                 planHtml += `<p><strong>👪 Valideynlər üçün tövsiyələr:</strong> Gündəlik 15 dəqiqə kitab oxuma, şəkilləri göstərib “Bu nə?” deyə soruşma. Uşağın cümlələrini genişləndirmə (məsələn “top” deyəndə “Bəli, böyük qırmızı top”). Gün ərzində nə etdiyinizi danışın.</p>`;
-                planHtml += `<p><strong>✅ İzlənən bacarıqlar:</strong> ${langItems.map(d=>d.item).join(", ")}</p></div>`;
+                planHtml += `<p><strong>✅ İzlənən bacarıqlar:</strong> ${uniqueLang.map(d=>d.item).join(", ")}</p></div>`;
             }
-            if(socialItems.length) {
+            if(uniqueSocial.length) {
                 planHtml += `<div><h4><i class="fas fa-users"></i> Sosial-şəxsi (Psixoloq və valideyn) tövsiyələri</h4>`;
-                planHtml += `<p><strong>👩‍⚕️ Psixoloq üçün metodlar:</strong> ${socialItems.length} ədəd sosial bacarıqda geriləmə var. Rollu oyunlar (ailə, mağaza), emosiya kartları, növbə gözləmə oyunları, gündəlik həyat bacarıqlarının təlimi (geyinmə, yemək, tualet). Qaydaları şəkillərlə izah edin, müsbət tərifləri artırın.</p>`;
+                planHtml += `<p><strong>👩‍⚕️ Psixoloq üçün metodlar:</strong> ${uniqueSocial.length} ədəd sosial bacarıqda geriləmə var. Rollu oyunlar (ailə, mağaza), emosiya kartları, növbə gözləmə oyunları, gündəlik həyat bacarıqlarının təlimi (geyinmə, yemək, tualet). Qaydaları şəkillərlə izah edin, müsbət tərifləri artırın.</p>`;
                 planHtml += `<p><strong>👪 Valideynlər üçün:</strong> Özü qaşıq tutmağa icazə verin, sadə ev işləri (dəsmal yığmaq), birlikdə stol oyunları (loto). “Xahiş edirəm”, “sağ ol” ifadələrini hər gün modelləşdirin. Uşağın geyinib-soyunmasına vaxt ayırın, tələsməyin.</p>`;
-                planHtml += `<p><strong>✅ Hədəf bacarıqlar:</strong> ${socialItems.map(d=>d.item).join(", ")}</p></div>`;
+                planHtml += `<p><strong>✅ Hədəf bacarıqlar:</strong> ${uniqueSocial.map(d=>d.item).join(", ")}</p></div>`;
             }
         }
         planHtml += `<hr><p><strong>🌍 Beynəlxalq standartlar (Ümumdünya Səhiyyə Təşkilatı – WHO, UNESCO):</strong> Erkən müdaxilə, ailə mərkəzli, oyun əsaslı, müsbət davranış dəstəyi. Hər 3-6 aydan bir test təkrarlanmalıdır.</p>`;
@@ -424,7 +418,7 @@
                          <td><button class="btn-small archive-report-btn" data-name="${nameAttr}" data-dob="${dobAttr}" data-specialist="${specAttr}" data-checks="${encodeURIComponent(checksField)}">📄 Hesabat</button></td>
                        </tr>`;
         });
-        html += `</tbody></table></div><p>📌 Ad sətrinə klik → test yüklənir. Hesabat düyməsi ilə ayrı pəncərədə hesabat açılır.</p>`;
+        html += `</tbody>}</div><p>📌 Ad sətrinə klik → test yüklənir. Hesabat düyməsi ilə ayrı pəncərədə hesabat açılır.</p>`;
         container.innerHTML = html;
         
         document.querySelectorAll('.archive-row').forEach(tr=>{
@@ -507,7 +501,6 @@
         <p><strong>Beynəlxalq uyğunluq:</strong> Bu sistem Ümumdünya Səhiyyə Təşkilatının (WHO) “Erkən uşaqlıq inkişafı” (ECD) təlimatlarına və UNESCO-nun “İnklüziv təhsil” prinsiplərinə tamamilə uyğundur.</p>
     `;
     
-    // Tab keçid, axtarış, statistika düymələri
     document.querySelectorAll(".tab-btn").forEach(btn=>{
         btn.addEventListener("click",()=>{
             document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
