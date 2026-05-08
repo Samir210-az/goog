@@ -4,81 +4,227 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Denver II – 120+ Maddə, Yaşa uyğun filtr, Ətraflı Hesabat (Beynəlxalq normalar)</title>
+    <!-- Font Awesome İkonlar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Segoe UI', Roboto, system-ui, sans-serif; background: #eef2f5; margin: 0; padding: 12px; }
-        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); padding: 16px 20px 24px; }
-        h1 { font-size: 1.5rem; color: #1e6b3b; border-left: 5px solid #1e6b3b; padding-left: 18px; margin-top: 0; }
-        .tabs { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; border-bottom: 1px solid #ccc; }
-        .tab-btn { background: none; border: none; padding: 8px 20px; font-size: 0.9rem; font-weight: bold; cursor: pointer; border-radius: 30px 30px 0 0; color: #2c5a2e; }
-        .tab-btn.active { background: #1e6b3b; color: white; }
-        .tab-pane { display: none; animation: fade 0.2s; }
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: linear-gradient(135deg, #eef2f5 0%, #d9e4ec 100%);
+            margin: 0;
+            padding: 12px;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.98);
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            padding: 16px 20px 24px;
+            backdrop-filter: blur(0px);
+            transition: all 0.3s;
+        }
+        h1 {
+            font-size: 1.7rem;
+            background: linear-gradient(135deg, #1e6b3b, #2b9e4a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            border-left: 5px solid #1e6b3b;
+            padding-left: 18px;
+            margin-top: 0;
+            display: inline-block;
+        }
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #ccc;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 8px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 40px 40px 0 0;
+            color: #2c5a2e;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tab-btn i { font-size: 1.1rem; }
+        .tab-btn.active {
+            background: #1e6b3b;
+            color: white;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+        }
+        .tab-pane { display: none; animation: fade 0.2s ease; }
         .tab-pane.active { display: block; }
         @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
-        .info-panel { background: #e8f3ec; padding: 12px 16px; border-radius: 26px; display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; align-items: flex-end; }
+        .info-panel {
+            background: #e8f3ec;
+            padding: 12px 20px;
+            border-radius: 32px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: flex-end;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
         .info-field { flex: 1; min-width: 130px; }
-        .info-field label { font-weight: bold; font-size: 0.7rem; color: #1e6b3b; display: block; margin-bottom: 4px; }
-        .info-field input, .info-field textarea { width: 100%; padding: 8px 12px; border-radius: 28px; border: 1px solid #cbdcc2; background: white; font-size: 0.85rem; font-family: inherit; }
-        .info-field textarea { border-radius: 18px; resize: vertical; }
-        button { background: #1e6b3b; color: white; border: none; padding: 8px 18px; border-radius: 40px; font-weight: bold; cursor: pointer; margin: 4px 4px 0 0; font-size: 0.8rem; transition: 0.1s; }
-        button:active { transform: scale(0.97); }
+        .info-field label { font-weight: bold; font-size: 0.75rem; color: #1e6b3b; display: block; margin-bottom: 5px; }
+        .info-field input, .info-field textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 40px;
+            border: 1px solid #cbdcc2;
+            background: white;
+            font-size: 0.85rem;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+        .info-field input:focus, .info-field textarea:focus { border-color: #1e6b3b; outline: none; box-shadow: 0 0 0 2px rgba(30,107,59,0.2); }
+        button {
+            background: #1e6b3b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 4px 4px 0 0;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        button i { font-size: 1rem; }
+        button:hover { background: #0f4a28; transform: scale(1.02); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
         .btn-secondary { background: #4a6a5e; }
-        .status { background: #fcf8e8; padding: 10px 14px; border-radius: 18px; margin: 12px 0; border-left: 5px solid #e9b35f; font-size: 0.85rem; }
-        .table-wrapper { overflow-x: auto; overflow-y: auto; border: 1px solid #d4dfe3; border-radius: 20px; margin-top: 20px; max-height: 70vh; }
+        .status {
+            background: #fcf8e8;
+            padding: 12px 16px;
+            border-radius: 28px;
+            margin: 12px 0;
+            border-left: 5px solid #e9b35f;
+            font-size: 0.85rem;
+        }
+        .table-wrapper {
+            overflow-x: auto;
+            overflow-y: auto;
+            border: 1px solid #d4dfe3;
+            border-radius: 24px;
+            margin-top: 20px;
+            max-height: 70vh;
+            background: white;
+        }
         .test-table { width: 100%; border-collapse: collapse; font-size: 0.72rem; min-width: 900px; }
         .test-table th, .test-table td { border: 1px solid #d0dbdf; padding: 8px 5px; text-align: center; vertical-align: middle; }
         .test-table thead th { position: sticky; top: 0; background: #d9e8da; z-index: 20; }
         .domain-row { background: #cbddce; font-weight: bold; text-align: left; }
         .checkbox-cell input { width: 18px; height: 18px; cursor: pointer; accent-color: #1e6b3b; margin: 0; }
-        .search-box { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
-        .search-box input { flex: 2; padding: 10px 16px; border-radius: 32px; border: 1px solid #ccc; }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-top: 20px; }
-        .stat-card { background: #f0f7f0; padding: 12px; border-radius: 20px; text-align: center; }
+        .search-box { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+        .search-box input { flex: 2; padding: 10px 18px; border-radius: 40px; border: 1px solid #ccc; transition: 0.2s; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 20px; }
+        .stat-card { background: #f0f7f0; padding: 16px; border-radius: 28px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05); transition: 0.2s; }
+        .stat-card:hover { transform: translateY(-3px); background: #e8f4e8; }
         .archive-row { cursor: pointer; transition: 0.1s; }
         .archive-row:hover { background: #e0f0e0; }
-        .btn-small { padding: 4px 12px; font-size: 0.7rem; margin: 0; }
-        .guidance-content { background: #f9faf6; padding: 20px; border-radius: 24px; line-height: 1.5; font-size: 0.9rem; margin-top: 20px; }
+        .btn-small { padding: 6px 14px; font-size: 0.7rem; margin: 0; border-radius: 30px; }
+        .guidance-content { background: #f9faf6; padding: 20px; border-radius: 28px; line-height: 1.5; font-size: 0.9rem; margin-top: 20px; }
         .guidance-content h3 { color: #1e6b3b; margin-top: 20px; }
-        footer { margin-top: 25px; text-align: center; font-size: 0.8rem; border-top: 1px solid #ddd; padding-top: 20px; }
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.8rem;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .social-link {
+            background: #ffffff;
+            border: 2px solid #e4405f;
+            color: #e4405f;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 20px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .social-link:hover {
+            background: #e4405f;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 6px 14px rgba(228,64,95,0.3);
+        }
+        .copyright { color: #5e7c6b; }
         @media (max-width: 700px) { .container { padding: 12px; } .test-table { font-size: 0.65rem; } button { padding: 6px 14px; } }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🏥 Denver II İnkişaf Testi <span style="font-size:0.8rem;">(120+ Orijinal Maddə, Yaşa uyğun filtr, Ətraflı Hesabat)</span></h1>
+    <h1><i class="fas fa-child"></i> Denver II İnkişaf Testi <span style="font-size:0.8rem;">(120+ Orijinal Maddə, Yaşa uyğun filtr, Ətraflı Hesabat)</span></h1>
     <div class="tabs">
-        <button class="tab-btn active" data-tab="test">📋 Test cədvəli</button>
-        <button class="tab-btn" data-tab="archive">📚 Arxiv</button>
-        <button class="tab-btn" data-tab="stats">📊 Statistika</button>
-        <button class="tab-btn" data-tab="guidance">📖 Təlimat</button>
+        <button class="tab-btn active" data-tab="test"><i class="fas fa-table-list"></i> Test cədvəli</button>
+        <button class="tab-btn" data-tab="archive"><i class="fas fa-archive"></i> Arxiv</button>
+        <button class="tab-btn" data-tab="stats"><i class="fas fa-chart-line"></i> Statistika</button>
+        <button class="tab-btn" data-tab="guidance"><i class="fas fa-book-open"></i> Təlimat</button>
     </div>
     <div id="testPane" class="tab-pane active">
         <div class="info-panel">
-            <div class="info-field"><label>👶 Uşağın adı</label><input type="text" id="childName" placeholder="Ad Soyad"></div>
-            <div class="info-field"><label>🎂 Doğum tarixi</label><input type="date" id="dob"></div>
-            <div class="info-field"><label>🆔 Qeydiyyat №</label><input type="text" id="regNo" placeholder="Qeydiyyat"></div>
+            <div class="info-field"><label><i class="fas fa-user"></i> Uşağın adı</label><input type="text" id="childName" placeholder="Ad Soyad"></div>
+            <div class="info-field"><label><i class="fas fa-calendar-alt"></i> Doğum tarixi</label><input type="date" id="dob"></div>
+            <div class="info-field"><label><i class="fas fa-id-card"></i> Qeydiyyat №</label><input type="text" id="regNo" placeholder="Qeydiyyat"></div>
             <div class="info-field" style="flex:2; min-width:200px;">
-                <label>🧠 Psixoloq qeydləri (diqqət, əməkdaşlıq, qorxu)</label>
+                <label><i class="fas fa-brain"></i> Psixoloq qeydləri (diqqət, əməkdaşlıq, qorxu)</label>
                 <textarea rows="2" id="behaviorNotes" placeholder="Test anında uşağın diqqəti, əməkdaşlıq səviyyəsi, qorxu/narahatlıq reaksiyaları..."></textarea>
             </div>
-            <div><button id="saveBtn">💾 Yadda saxla</button><button id="clearCheckBtn" class="btn-secondary">🗑 Təmizlə</button><button id="reportBtn" class="btn-secondary" style="background:#c96f0e;">📄 Hesabat çıxar</button></div>
+            <div>
+                <button id="saveBtn"><i class="fas fa-save"></i> Yadda saxla</button>
+                <button id="clearCheckBtn" class="btn-secondary"><i class="fas fa-eraser"></i> Təmizlə</button>
+                <button id="reportBtn" class="btn-secondary" style="background:#c96f0e;"><i class="fas fa-file-alt"></i> Hesabat çıxar</button>
+            </div>
         </div>
-        <div id="testMessage" class="status">✅ Doğum tarixi daxil edilmədən bütün 120+ maddə göstərilir. Doğum tarixi daxil edildikdə yaşa uyğun filtrasiya olunur.</div>
+        <div id="testMessage" class="status"><i class="fas fa-info-circle"></i> ✅ Doğum tarixi daxil edilmədən bütün 120+ maddə göstərilir. Doğum tarixi daxil edildikdə yaşa uyğun filtrasiya olunur.</div>
         <div class="table-wrapper" id="testTableWrapper"></div>
     </div>
     <div id="archivePane" class="tab-pane">
-        <div class="search-box"><input type="text" id="searchName" placeholder="Uşaq adı ilə axtar..."><button id="searchBtn">🔍 Axtar</button><button id="refreshArchiveBtn" class="btn-secondary">🔄 Yenilə</button></div>
+        <div class="search-box"><input type="text" id="searchName" placeholder="Uşaq adı ilə axtar..."><button id="searchBtn"><i class="fas fa-search"></i> Axtar</button><button id="refreshArchiveBtn" class="btn-secondary"><i class="fas fa-sync-alt"></i> Yenilə</button></div>
         <div id="archiveList"></div>
     </div>
-    <div id="statsPane" class="tab-pane"><button id="calcStatsBtn" class="btn-secondary">📈 Yenilə</button><div id="statsContent" class="stats-grid"></div></div>
+    <div id="statsPane" class="tab-pane"><button id="calcStatsBtn" class="btn-secondary"><i class="fas fa-chart-simple"></i> Yenilə</button><div id="statsContent" class="stats-grid"></div></div>
     <div id="guidancePane" class="tab-pane"><div class="guidance-content" id="guidanceText"></div></div>
-    <footer>📌 Hər inkişaf sahəsi 30+ maddə (cəmi 120+). Yaşa uyğun ətraflı tövsiyələr (8 interval, 6 aylıq). Beynəlxalq normalara uyğundur.</footer>
+    <footer>
+        <a href="https://www.instagram.com/s_akhundoff" target="_blank" rel="noopener noreferrer" class="social-link">
+            <i class="fab fa-instagram"></i> by s_akhundoff
+        </a>
+        <div class="copyright">Bütün hüquqları qorunur. 2026</div>
+    </footer>
 </div>
 <script>
         // ========== GOOGLE APPS SCRIPT URL ==========
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxNM8a08b891t_L7VLw9HaVWXqowryTZuNhzNWsdpc8DqTj7j9ZAN7aMi_-IXZCWNtB9g/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUFz-JQcjv7iAuSiVYgV3aRSaFNU-FWbWhL5A6Tt7vB88FhdQ_v5fvbX4pfgs159Gs9Q/exec";
     
-    // ---------- Tam 120+ maddə (4 sahə, yaş intervalları ilə) ----------
+    // ---------- Tam 120+ maddə (4 sahə, yaş intervalları ilə) – DƏYİŞMƏYİB ----------
     const items = [
         // KOBUD MOTOR (30)
         { domain: "KOBUD MOTOR", name: "Başını dik saxlaya bilir?", minMonth:0, maxMonth:4 },
@@ -207,7 +353,7 @@
     ];
     const ageCols = ["2ay","4ay","6ay","9am","12ay","15ay","18ay","24ay","3yas","4yas","5yas","6yas"];
     const ageMonths = [2,4,6,9,12,15,18,24,36,48,60,72];
-        // ========== KÖMƏKÇİ FUNKSİYALAR ==========
+        // ========== KÖMƏKÇİ FUNKSİYALAR (toxunulmaz) ==========
     function calculateAge(birthDateStr) { if(!birthDateStr) return null; const b=new Date(birthDateStr), t=new Date(); let m=(t.getFullYear()-b.getFullYear())*12+(t.getMonth()-b.getMonth()); if(t.getDate()<b.getDate()) m--; return m; }
     function getAgeIndex(months) { if(months===null) return null; let idx=0; for(let i=0;i<ageMonths.length;i++) if(months>=ageMonths[i]) idx=i; else break; return idx; }
     
@@ -220,7 +366,7 @@
             for(let c=0;c<ageCols.length;c++) html += `<td class="checkbox-cell"><input type="checkbox" data-item="${i.name.replace(/"/g, '&quot;')}" data-age="${ageCols[c]}"></td>`;
             html += `</tr>`;
         });
-        html += `</tbody></td>`;
+        html += `</tbody></table>`;
         document.getElementById("testTableWrapper").innerHTML = html;
     }
     function buildDynamicTable(months) {
@@ -273,91 +419,93 @@
         return { childName, dob, factualAge, developmentalAge:devAge, delayMonths, delayCount:delays.length, warningCount:warnings.length, delays, evaluation:evalTxt };
     }
     
-    // ========== YAŞA UYĞUN ƏTRAFLI PLAN (8 interval, hər intervalda konkret oyunlar/fəaliyyətlər) ==========
+    // ========== YENİLƏNMİŞ VƏ ƏTRAFLI TÖVSİYYƏ FUNKSİYASI (developmentalAge əsasında interval seçimi, konkret planlar) ==========
     function generateDetailedPlan(analysis, behavior) {
-        const age = analysis.factualAge;
+        // Təqribi inkişaf yaşına (developmentalAge) uyğun interval seçilir – bu, əsas düzəlişdir
+        const devAge = analysis.developmentalAge;
         let interval = "";
-        if (age < 6) interval = "0-6";
-        else if (age < 12) interval = "6-12";
-        else if (age < 18) interval = "12-18";
-        else if (age < 24) interval = "18-24";
-        else if (age < 36) interval = "24-36";
-        else if (age < 48) interval = "36-48";
-        else if (age < 60) interval = "48-60";
+        if (devAge < 6) interval = "0-6";
+        else if (devAge < 12) interval = "6-12";
+        else if (devAge < 18) interval = "12-18";
+        else if (devAge < 24) interval = "18-24";
+        else if (devAge < 36) interval = "24-36";
+        else if (devAge < 48) interval = "36-48";
+        else if (devAge < 60) interval = "48-60";
         else interval = "60-72";
         
+        // Hər interval üçün geniş, konkret, beynəlxalq normalara uyğun tövsiyələr (psixoloq, loqoped, erqoterapevt, fizioterapevt, valideyn)
         const recommendations = {
             "0-6": {
-                psych: "🧠 Psixoloq: Qısa müddətli (1-2 dəq) üz-üzə oyunlar, cingiltili oyuncaqlarla diqqət cəlb etmə. Hər səsə və gülümsəməyə dərhal müsbət cavab verin. Sakit, proqnozlaşdırıla bilən mühit yaradın.",
-                speech: "🗣 Loqoped: Uşağın çıxardığı səsləri təkrarlayın, sadə hecalar ('ba', 'ma', 'da') deyin. Gündəlik 5 dəqiqə ninnilər oxuyun, göz təması qurmağa təşviq edin.",
-                ergo: "✍ Erqoterapevt: Barmaq ucuna yüngül toxunuşlar, yumşaq oyuncaqlar vermə. Qarınüstə yatırmaqla baş qaldırma və əl-ayaq hərəkətlərini dəstəkləyin. 'Barmaq oyunları' (sarı ördək, ladushki).",
-                physio: "🏃 Fizioterapevt: Qarınüstə vaxt – gündə 3-4 dəfə 5 dəq. Körpəni müxtəlif istiqamətlərdən səsləndirərək baş çevirməyə təşviq. Yumşaq səthdə ayaq təpikləmə oyunları.",
-                parent: "👪 Valideyn: Hər gün 10-15 dəq 'cırtdan' oyunlar, ninnilər. Körpəni qucaqlayın, onunla danışın, yumşaq masaj edin. Gündəlik rutin (qidalanma, yatma) sabit olsun."
+                psych: "🧠 Psixoloq: Gündəlik 1-2 dəqiqəlik üz-üzə oyunlarla diqqət cəlb edin. Uşağın çıxardığı hər səsə və gülümsəməyə dərhal müsbət cavab verin. Mühit sakit və proqnozlaşdırıla bilən olmalıdır. Məqsəd: körpənin ətrafa etibar hissini artırmaq.",
+                speech: "🗣 Loqoped: Uşağın səslərini təkrarlayın, sadə hecalar (ba, ma, da) işlədin. Hər gün 5 dəqiqə ninnilər oxuyun, göz təması qurmağa təşviq edin. İlk sosial səslərin formalaşması üçün dodaq hərəkətlərini yavaş-yavaş göstərin.",
+                ergo: "✍ Erqoterapevt: Barmaq uclarına yüngül toxunuşlar edin, yumşaq oyuncaqlar verin. Qarınüstə yatırmaqla baş və əl-ayaq hərəkətlərini dəstəkləyin. 'Ladushki' (barmaq oyunları) və kiçik çınqıllarla tutma refleksini gücləndirin.",
+                physio: "🏃 Fizioterapevt: Körpəni gündə 3-4 dəfə 5 dəqiqə qarınüstə yatırın. Müxtəlif istiqamətlərdən səs çıxararaq baş çevirməyə təşviq edin. Yumşaq səthdə ayaq təpikləmə oyunları (ayaqlarına toxunma).",
+                parent: "👪 Valideyn: Hər gün 10-15 dəqiqə qucaqda oyun, ninnilər. Körpənin qarnını yüngülcə masaj edin. Sabit yatma, yemək vaxtları yaradın. Hər ağlamasında dərhal reaksiya verin – bu, təhlükəsiz bağlanma üçün vacibdir."
             },
             "6-12": {
-                psych: "🧠 Psixoloq: Diqqət müddətini artırmaq üçün 5 dəq oyunlar (cımbız, kub). Emosiyaları adlandırın (xoşbəxt, kədərli). Hər bacarığa görə alqış və təriflər.",
-                speech: "🗣 Loqoped: Sadə əmrlər ('əl çal', 'başını göstər'). Şəkilli kitablarla ilk sözlər (ana, ata, top, gəl). Hər gün 10 dəq şəkil adlandırma və səs təqlidi.",
-                ergo: "✍ Erqoterapevt: Cımbız tutuşu üçün kiçik əşyalar (kişmiş, qarğıdalı). Barmaq boyaları ilə böyük kağızda çəkmə. Oyuncaqları gizlədib tapma oyunları (əşya daimiiliyi).",
-                physio: "🏃 Fizioterapevt: Oturma, sürünmə, ayağa qalxma dəstəyi. Topu yuvarlama oyunları. Dayanma tarazlığı üçün divar və ya mebelə tutunma. 'Mənim kimi et' hərəkətləri.",
-                parent: "👪 Valideyn: Gündəlik kitab oxuma, sabit gündəlik. Yerdə cəlbedici oyuncaqlarla sürünməyə təşviq. Uşağın çıxardığı səsləri təkrarlayaraq 'söhbət' edin."
+                psych: "🧠 Psixoloq: Diqqət müddətini 5 dəqiqəyə qədər artırmaq üçün cımbız, kub oyunları. Emosiyaları adlandırın (xoşbəxt, kədərli). Hər bacarığa alqış və tərif. Sadə qaydalar oyunlarla öyrədilir (gizlənpaç).",
+                speech: "🗣 Loqoped: Sadə əmrlər ('əl çal', 'başını göstər') verin. Şəkilli kitablarla ilk sözlər (ana, ata, top, gəl). Gündəlik 10 dəqiqə şəkil adlandırma və səs təqlidi. 'Mənim kimi et' oyunu ilə səsləri təkrarlayın.",
+                ergo: "✍ Erqoterapevt: Cımbız tutuşu üçün kiçik əşyalar (kişmiş, qarğıdalı) verin. Barmaq boyaları ilə böyük kağızda çəkmə. Oyuncaqları gizlədib tapma oyunları – əşya daimiiliyini gücləndirir.",
+                physio: "🏃 Fizioterapevt: Oturma, sürünmə, ayağa qalxma dəstəyi. Topu yuvarlama oyunları. Dayanma tarazlığı üçün divar və ya mebelə tutunma. 'Mənim kimi et' hərəkətləri (baş, qol, ayaq qaldırma).",
+                parent: "👪 Valideyn: Gündəlik kitab oxuma, sabit gündəlik. Yerdə cəlbedici oyuncaqlarla sürünməyə təşviq. Uşağın çıxardığı səsləri təkrarlayaraq 'söhbət' edin. Onun sürünməsini və dayanmasını tərifləyin."
             },
             "12-18": {
-                psych: "🧠 Psixoloq: Qısa müddətli tapşırıqlar (2-3 addım). Emosiyaları tanıma kartları. Müsbət davranış dəstəyi (stiker, tərif).",
-                speech: "🗣 Loqoped: 2-3 sözlü ifadələr (an, gəl, top). 'Bu nədir?' sualına cavab vermə. Gündəlik 15 dəq interaktiv dialoq, şəkil göstərib adını söyləmə.",
-                ergo: "✍ Erqoterapevt: Qüllə tikmə (3-4 kub). Qələmlə rəsm çəkmə (karikalar). Böyük muncuqları ipə düzmə. Kitab səhifələrini çevirməyə təşviq.",
-                physio: "🏃 Fizioterapevt: Pilləkənlərdə tutaraq qalxma. Topu təpikləmə. Sabit səthdə qaçma oyunları. Əl-ələ tutaraq aşağı sürətli gəzintilər.",
-                parent: "👪 Valideyn: Evdə maneəli parkur (yastıqlar, stol altı). Birgə oyunlar ('topu tut', 'gizlənpaç'). Özü qaşıq tutmağa icazə, tərif edin."
+                psych: "🧠 Psixoloq: Qısa müddətli tapşırıqlar (2-3 addım). Emosiyaları tanıma kartları. Müsbət davranış dəstəyi (stiker, tərif). 'Yox' və 'saxla' kimi sadə qadağalar başa salınır.",
+                speech: "🗣 Loqoped: 2-3 sözlü ifadələr (an, gəl, top). 'Bu nədir?' sualına cavab vermə. Gündəlik 15 dəqiqə interaktiv dialoq, şəkil göstərib adını söyləmə. Heyvan səslərini təqlid edin.",
+                ergo: "✍ Erqoterapevt: Qüllə tikmə (3-4 kub). Qələmlə rəsm çəkmə (karikalar). Böyük muncuqları ipə düzmə. Kitab səhifələrini çevirməyə təşviq. Oyuncaqları qutuya yığmaq.",
+                physio: "🏃 Fizioterapevt: Pilləkənlərdə tutaraq qalxma. Topu təpikləmə. Sabit səthdə qaçma oyunları. Əl-ələ tutaraq aşağı sürətli gəzintilər. 'Topu tut' oyunu.",
+                parent: "👪 Valideyn: Evdə maneəli parkur (yastıqlar, stol altı). Birgə oyunlar ('topu tut', 'gizlənpaç'). Özü qaşıq tutmağa icazə, tərif edin. Sakit tonla danışın, müsbət nümunə olun."
             },
             "18-24": {
-                psych: "🧠 Psixoloq: Qaydaları sadə izah etmə (növbə gözləmə, paylaşma). Xəyal oyunları (kuklalar, telefon). Emosiyaları adlandırma ('kədərli oldu', 'xoşbəxt').",
-                speech: "🗣 Loqoped: 2 sözlü cümlələr (mənim topum). Mahnı oxuma. Ədədləri 1-3 sayma. 'Xahiş edirəm' ifadəsini modelləşdirin.",
-                ergo: "✍ Erqoterapevt: Qayçı ilə kəsmə (36 aya yaxın). Düymə açma. Rəsm çəkmə (xətt, dairə). Muncuqları ipə düzmə (orta ölçü).",
-                physio: "🏃 Fizioterapevt: Bir ayaqda dayanma (2 saniyə). Yerində tullanma. Üçtəkərli velosiped (ayaqları pedallara çatdırsa). Topu əllə tutma.",
-                parent: "👪 Valideyn: Gündəlik 20 dəq aktiv oyun. Uşağın seçimlərinə hörmət (paltar, oyuncaq). Sabit yuxu və qidalanma rejimi."
+                psych: "🧠 Psixoloq: Qaydaları sadə izah etmə (növbə gözləmə, paylaşma). Xəyal oyunları (kuklalar, telefon). Emosiyaları adlandırma ('kədərli oldu', 'xoşbəxt'). Müsbət yönləndirmə.",
+                speech: "🗣 Loqoped: 2 sözlü cümlələr (mənim topum). Mahnı oxuma. Ədədləri 1-3 sayma. 'Xahiş edirəm' ifadəsini modelləşdirin. Gündəlik 10-15 dəqiqə kitab oxuyun.",
+                ergo: "✍ Erqoterapevt: Qayçı ilə kəsmə (36 aya yaxın). Düymə açma. Rəsm çəkmə (xətt, dairə). Muncuqları ipə düzmə (orta ölçü). Oyuncaqları rənginə görə ayırma.",
+                physio: "🏃 Fizioterapevt: Bir ayaqda dayanma (2 saniyə). Yerində tullanma. Üçtəkərli velosiped (ayaqları pedallara çatdırsa). Topu əllə tutma. Yumşaq səthdə tullanma.",
+                parent: "👪 Valideyn: Gündəlik 20 dəqiqə aktiv oyun. Uşağın seçimlərinə hörmət (paltar, oyuncaq). Sabit yuxu və qidalanma rejimi. 'Mən səni sevirəm' deyin, qucaqlayın."
             },
             "24-36": {
-                psych: "🧠 Psixoloq: Rol oyunları (ailə, həkim). Emosiya tənzimləmə (dərin nəfəs, sakit künc). Mükafat cədvəli (uyğun davranışa görə stiker).",
-                speech: "🗣 Loqoped: 3-4 sözlü cümlələr. Öz hekayəsini danışma. Bədən hissələrini adlandırma (6-8). 'Niyə?' sualına cavab vermə.",
-                ergo: "✍ Erqoterapevt: Kvadrat kopyalama. Kiçik muncuqları ipə düzmə. Düymə və fermuar açma-qapama. Labirint oyunları.",
-                physio: "🏃 Fizioterapevt: Bir ayaqda dayanma (5 saniyə). Topu hədəfə atma. 'Don – qaç' oyunu. Pilləkənlə növbəli ayaq qalxma.",
-                parent: "👪 Valideyn: Məktəbə hazırlıq (rəsm, kitab, qayçı). Uşağın müstəqilliyini dəstəklə (geyinmə, yemək). Müsbət intizam, qısa izahlar."
+                psych: "🧠 Psixoloq: Rol oyunları (ailə, həkim). Emosiya tənzimləmə (dərin nəfəs, sakit künc). Mükafat cədvəli (uyğun davranışa görə stiker). Qısa təlimatlar.",
+                speech: "🗣 Loqoped: 3-4 sözlü cümlələr. Öz hekayəsini danışma. Bədən hissələrini adlandırma (6-8). 'Niyə?' sualına cavab vermə. Gündəlik hekayə danışmaq və sual cavab.",
+                ergo: "✍ Erqoterapevt: Kvadrat kopyalama. Kiçik muncuqları ipə düzmə. Düymə və fermuar açma-qapama. Labirint oyunları (barmaqla). Puzzle (4-6 hissə).",
+                physio: "🏃 Fizioterapevt: Bir ayaqda dayanma (5 saniyə). Topu hədəfə atma. 'Don – qaç' oyunu. Pilləkənlə növbəli ayaq qalxma. Xətt üzərində gəzinti.",
+                parent: "👪 Valideyn: Məktəbə hazırlıq (rəsm, kitab, qayçı). Uşağın müstəqilliyini dəstəklə (geyinmə, yemək). Müsbət intizam, qısa izahlar. Uşağa ev işlərində kiçik vəzifələr verin."
             },
             "36-48": {
-                psych: "🧠 Psixoloq: Qrup oyunlarında iştiraka təşviq. Emosiyaları tanıma kartları (10-dan çox). Problemlərin həlli üçün 'nə etməli?' sualı.",
-                speech: "🗣 Loqoped: Mürəkkəb cümlələr ('çünki', 'amma'). Rəngləri, formaları adlandırma. Şeir və mahnı öyrənmə. Sadə hekayəni ardıcıl danışma.",
-                ergo: "✍ Erqoterapevt: Xaç (+) işarəsi kopyalama. Adın baş hərfini yazma. Puzzle 4-6 parça. Qayçı ilə kontur kəsmə.",
-                physio: "🏃 Fizioterapevt: Tək ayaqda tullanma (3 dəfə). Topu yuxarı atıb tutma. Velosiped sürmə, xətt üzərində gəzinti.",
-                parent: "👪 Valideyn: Uşağın suallarına səbirlə cavab verin. Birlikdə sadə yemək hazırlamaq. Kitabxanaya aparın, musiqi alətində cəhd."
+                psych: "🧠 Psixoloq: Qrup oyunlarında iştiraka təşviq. Emosiyaları tanıma kartları (10-dan çox). Problemlərin həlli üçün 'nə etməli?' sualı. Məğlubiyyət hissini normal saymaq.",
+                speech: "🗣 Loqoped: Mürəkkəb cümlələr ('çünki', 'amma'). Rəngləri, formaları adlandırma. Şeir və mahnı öyrənmə. Sadə hekayəni ardıcıl danışma. 'Əvvəl, sonra' anlayışları.",
+                ergo: "✍ Erqoterapevt: Xaç (+) işarəsi kopyalama. Adın baş hərfini yazma. Puzzle 4-6 parça. Qayçı ilə kontur kəsmə. Kiçik leqolar.",
+                physio: "🏃 Fizioterapevt: Tək ayaqda tullanma (3 dəfə). Topu yuxarı atıb tutma. Velosiped sürmə, xətt üzərində gəzinti. İp üzərində tarazlıq.",
+                parent: "👪 Valideyn: Uşağın suallarına səbirlə cavab verin. Birlikdə sadə yemək hazırlamaq. Kitabxanaya aparın, musiqi alətində cəhd. Məktəbə emosional hazırlıq."
             },
             "48-60": {
-                psych: "🧠 Psixoloq: Məğlubiyyət və qələbə reaksiyalarını müzakirə etmə. Müstəqil seçim imkanları (hansı oyunu oynayır?). Dostluq qurma bacarığı.",
-                speech: "🗣 Loqoped: Təfərrüatlı hekayə danışma (başlanğıc, orta, son). Riyazi dil (birinci, sonra, əvvəl). Məktəb lüğəti.",
-                ergo: "✍ Erqoterapevt: Üçbucaq və almaz şəkli çəkmə. Kiçik legolar, modellər. Ad-soyad yazma. Düymə və ayaqqabı bağlama müstəqil.",
-                physio: "🏃 Fizioterapevt: İp atlama (bir neçə dəfə). Bir ayaqda 10 saniyə dayanma. Topu səkkiz şəklinə sürmə. Qaçışda istiqamət dəyişmə.",
-                parent: "👪 Valideyn: Məktəbə hazırlıq dəstəyi (yazı, oxuma). Müstəqil öyrənmə layihələri. Ailə ilə stol oyunları, növbə gözləməyi gücləndirmə."
+                psych: "🧠 Psixoloq: Məğlubiyyət və qələbə reaksiyalarını müzakirə etmə. Müstəqil seçim imkanları (hansı oyunu oynayır?). Dostluq qurma bacarığı. Qrup qaydalarına hörmət.",
+                speech: "🗣 Loqoped: Təfərrüatlı hekayə danışma (başlanğıc, orta, son). Riyazi dil (birinci, sonra, əvvəl). Məktəb lüğəti. Uzun müddətli dinləmə və təkrarlama.",
+                ergo: "✍ Erqoterapevt: Üçbucaq və almaz şəkli çəkmə. Kiçik legolar, modellər. Ad-soyad yazma. Düymə və ayaqqabı bağlama müstəqil. Rəngli şəkli xətt daxilində boyama.",
+                physio: "🏃 Fizioterapevt: İp atlama (bir neçə dəfə). Bir ayaqda 10 saniyə dayanma. Topu səkkiz şəklində sürmə. Qaçışda istiqamət dəyişmə. Komanda oyunları.",
+                parent: "👪 Valideyn: Məktəbə hazırlıq dəstəyi (yazı, oxuma). Müstəqil öyrənmə layihələri. Ailə ilə stol oyunları, növbə gözləməyi gücləndirmə. Ev heyvanına qulluq (məsuliyyət)."
             },
             "60-72": {
-                psych: "🧠 Psixoloq: Mücərrəd düşüncə təlimləri (əgər... onda). Sosial situasiyalarda empatiya. Məsuliyyət vermə (ev işləri, heyvan baxımı).",
-                speech: "🗣 Loqoped: İnkişaf etmiş lüğət (1000+ söz). Mürəkkəb zamanlar, şərt cümlələri. Qarşılıqlı söhbət, uzun hekayələr. Səslərin aydın tələffüzü.",
-                ergo: "✍ Erqoterapevt: Kiçik yazı elementləri (əlifba, rəqəmlər). Mürəkkəb puzzle (50+ parça). Yemək hazırlanması (bıçaq istifadəsi təhlükəsiz).",
-                physio: "🏃 Fizioterapevt: Mürəkkəb idman oyunları (futbol, basketbol). Daban-ucma uzun xətt. Sürətli qaçışda ani dayanma. Tarazlıq lövhəsi.",
-                parent: "👪 Valideyn: Uşağı məktəbə emosional hazırlayın. Müntəzəm idman və musiqi dərsləri. Gündəlik oxuma saatı, layihə əsaslı öyrənmə."
+                psych: "🧠 Psixoloq: Mücərrəd düşüncə təlimləri (əgər... onda). Sosial situasiyalarda empatiya. Məsuliyyət vermə (ev işləri, heyvan baxımı). Münaqişələri sözlə həll etmə.",
+                speech: "🗣 Loqoped: İnkişaf etmiş lüğət (1000+ söz). Mürəkkəb zamanlar, şərt cümlələri. Qarşılıqlı söhbət, uzun hekayələr. Səslərin aydın tələffüzü. Oxumağa hazırlıq (hərfləri tanıma).",
+                ergo: "✍ Erqoterapevt: Kiçik yazı elementləri (əlifba, rəqəmlər). Mürəkkəb puzzle (50+ parça). Yemək hazırlanması (bıçaq istifadəsi təhlükəsiz). Əl sənətləri (toxuma, ip bağlama).",
+                physio: "🏃 Fizioterapevt: Mürəkkəb idman oyunları (futbol, basketbol). Daban-ucma uzun xətt. Sürətli qaçışda ani dayanma. Tarazlıq lövhəsi. Verilən hərəkətləri ardıcıllıqla yerinə yetirmə.",
+                parent: "👪 Valideyn: Uşağı məktəbə emosional hazırlayın. Müntəzəm idman və musiqi dərsləri. Gündəlik oxuma saatı, layihə əsaslı öyrənmə. Evdə kiçik laboratoriya təcrübələri."
             }
         };
-        const r = recommendations[interval] || recommendations["60-72"];
-        let planHtml = `<div style="background:#eef3fc; padding:22px; border-radius:28px; margin:20px 0;"><h3>📘 Fərdi İntervensiya Planı – Yaşa uyğun ətraflı tövsiyələr (${interval} ay)</h3>`;
-        planHtml += `<p><strong>🕒 Geriləmə (İnkişaf fərqi):</strong> Faktiki yaş <strong>${age} ay</strong>, təqribi inkişaf yaşı <strong>${analysis.developmentalAge.toFixed(1)} ay</strong>. Geriləmə: <strong>${analysis.delayMonths.toFixed(1)} ay</strong>.</p>`;
+        const r = recommendations[interval];
+        let planHtml = `<div style="background:#eef3fc; padding:22px; border-radius:28px; margin:20px 0;"><h3>📘 Fərdi İntervensiya Planı – Yaşa uyğun ətraflı tövsiyələr (təqribi inkişaf yaşı: ${devAge.toFixed(1)} ay → interval ${interval})</h3>`;
+        planHtml += `<p><strong>🕒 Faktiki yaş:</strong> ${analysis.factualAge} ay &nbsp;|&nbsp; <strong>Təqribi inkişaf yaşı:</strong> ${analysis.developmentalAge.toFixed(1)} ay &nbsp;|&nbsp; <strong>Geriləmə:</strong> ${analysis.delayMonths.toFixed(1)} ay</p>`;
         planHtml += `<p><strong>🧠 Psixoloq tərəfindən test anında qeyd olunan davranışlar:</strong><br>${escapeHtml(behavior) || "Qeyd daxil edilməyib."}</p>`;
         if(analysis.delays.length===0) {
             planHtml += `<p>✅ Heç bir gecikmə aşkarlanmadı. Standart inkişaf fəaliyyətləri (oyun, kitab oxuma, gəzinti, tərif) kifayətdir.</p>`;
         } else {
-            planHtml += `<div><h4>${r.psych}</h4></div>`;
-            planHtml += `<div><h4>${r.speech}</h4></div>`;
-            planHtml += `<div><h4>${r.ergo}</h4></div>`;
-            planHtml += `<div><h4>${r.physio}</h4></div>`;
-            planHtml += `<div><h4>${r.parent}</h4></div>`;
+            planHtml += `<div><h4><i class="fas fa-brain"></i> ${r.psych}</h4></div>`;
+            planHtml += `<div><h4><i class="fas fa-comments"></i> ${r.speech}</h4></div>`;
+            planHtml += `<div><h4><i class="fas fa-hand-peace"></i> ${r.ergo}</h4></div>`;
+            planHtml += `<div><h4><i class="fas fa-running"></i> ${r.physio}</h4></div>`;
+            planHtml += `<div><h4><i class="fas fa-users"></i> ${r.parent}</h4></div>`;
         }
-        planHtml += `<hr><p><strong>🌍 Beynəlxalq standartlar (WHO/UNESCO):</strong> Erkən müdaxilə, ailə mərkəzli, oyun əsaslı, müsbət davranış dəstəyi. Hər 3-6 aydan bir test təkrarlanmalıdır.</p>`;
+        planHtml += `<hr><p><strong>🌍 Beynəlxalq standartlar (WHO – Ümumdünya Səhiyyə Təşkilatı, UNESCO – Birləşmiş Millətlər Təşkilatının Təhsil, Elm və Mədəniyyət Təşkilatı):</strong> Erkən müdaxilə, ailə mərkəzli, oyun əsaslı, müsbət davranış dəstəyi. Hər 3-6 aydan bir test təkrarlanmalıdır.</p>`;
         planHtml += `</div>`;
         return planHtml;
     }
@@ -368,17 +516,18 @@
         if(analysis.error) return null;
         const plan = generateDetailedPlan(analysis, behavior);
         return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Denver II Hesabat - ${escapeHtml(name)}</title>
-        <style>body{font-family:Segoe UI;margin:25px;background:#f8faf8;}.report{max-width:1100px;margin:auto;background:white;padding:28px;border-radius:32px;}.info{background:#eef5ea;padding:20px;border-radius:28px;margin-bottom:25px;}</style>
-        <body><div class="report"><h1>🏥 Denver II Testi – Peşəkar Hesabat</h1>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <style>body{font-family:Segoe UI;margin:25px;background:#f8faf8;}.report{max-width:1100px;margin:auto;background:white;padding:28px;border-radius:32px;box-shadow:0 8px 24px rgba(0,0,0,0.1);}.info{background:#eef5ea;padding:20px;border-radius:28px;margin-bottom:25px;}</style>
+        <body><div class="report"><h1><i class="fas fa-child"></i> Denver II Testi – Peşəkar Hesabat</h1>
         <div class="info"><p><strong>Uşaq:</strong> ${escapeHtml(name)}</p><p><strong>Doğum tarixi:</strong> ${dob} | Faktiki yaş: ${analysis.factualAge} ay</p>
         <p><strong>📉 Təqribi inkişaf yaşı:</strong> ${analysis.developmentalAge.toFixed(1)} ay | <strong>Geriləmə: ${analysis.delayMonths.toFixed(1)} ay</strong></p>
         <p><strong>⚠️ Gecikmə sayı:</strong> ${analysis.delayCount} | <strong>🔔 Qiymətləndirmə:</strong> ${analysis.evaluation}</p></div>
-        ${plan}<footer style="margin-top:30px;">Bu hesabat Denver II (120+ maddə) və WHO/UNESCO əsasında avtomatik yaradılmışdır. Mütəxəssis tərəfindən dəyərləndirilməlidir.</footer></div></body></html>`;
+        ${plan}<footer style="margin-top:30px;">Bu hesabat Denver II (120+ maddə) və Ümumdünya Səhiyyə Təşkilatı (WHO) & UNESCO prinsipləri əsasında avtomatik yaradılmışdır. Mütəxəssis tərəfindən dəyərləndirilməlidir.</footer></div></body></html>`;
     }
     
     function escapeHtml(str) { return str.replace(/[&<>]/g, m=>{if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
     
-    // ========== İDARƏETMƏ ==========
+    // ========== İDARƏETMƏ (toxunulmaz) ==========
     const msgDiv = document.getElementById("testMessage"), dobInp = document.getElementById("dob");
     function updateTable() { const d=dobInp.value; if(!d) { buildFullTable(); msgDiv.innerHTML="✅ Bütün 120+ maddə göstərilir."; } else { let m=calculateAge(d); if(m!==null) { buildDynamicTable(m); msgDiv.innerHTML=`✅ Yaş: ${m} ay. Yalnız bu yaşa uyğun maddələr göstərilir.`; } else buildFullTable(); } }
     dobInp.addEventListener("change", updateTable);
@@ -409,7 +558,7 @@
     };
     document.getElementById("clearCheckBtn").onclick = () => { updateTable(); msgDiv.innerHTML = "Cədvəl təmizləndi."; };
     
-    // ========== ARXİV ==========
+    // ========== ARXİV VƏ STATİSTİKA (toxunulmaz) ==========
     let allRecords = [];
     async function loadAllData() {
         try {
@@ -435,7 +584,7 @@
             html += `<tr class="archive-row" data-name="${nameAttr}" data-dob="${dobAttr}" data-reg="${regAttr}" data-checks="${escapeHtml(checksField)}">
                         <td>${(row[0]||'').slice(0,16)}</td><td>${nameAttr}</td><td>${dobAttr}</td><td>${regAttr}</td><td>${count}</td>
                          <td><button class="btn-small archive-report-btn" data-name="${nameAttr}" data-dob="${dobAttr}" data-checks="${encodeURIComponent(checksField)}">📄 Hesabat</button></td>
-                       </td>`;
+                       </tr>`;
         });
         html += `</tbody></table></div><p>📌 Ad sətrinə klik → test yüklənir. Hesabat düyməsi ilə ayrı pəncərədə hesabat açılır.</p>`;
         container.innerHTML = html;
@@ -491,7 +640,7 @@
         <li><strong>Qiymətləndirmə:</strong> Yaş xəttinin solunda olub bacarılmayan hər maddə <strong>Gecikmə</strong>; sağında olub bacarılmayanlar <strong>Uyarı</strong> hesab olunur. Nəticə: <strong>Normal</strong> (0 gecikmə, ≤1 uyarı), <strong>Şübhəli</strong> (1 gecikmə və/ya ≥2 uyarı), <strong>Anormal</strong> (≥2 gecikmə).</li></ul>
         <h3>🤖 Bu avtomatlaşdırılmış sistemin iş prinsipi</h3>
         <ul><li>✅ 120+ orijinal maddə (hər sahə 30-35).</li><li>✅ Yaşa uyğun dinamik filtr – doğum tarixinə əsasən uyğun maddələr göstərilir.</li><li>✅ Virtual yaş xətti, gecikmə/uyarı avtomatik hesablanır.</li><li>✅ Psixoloq qeydləri hesabata əlavə olunur.</li><li>✅ Yaşa uyğun (8 interval, 6 aylıq) ətraflı fərdi müdaxilə planı (psixoloq, loqoped, erqoterapevt, fizioterapevt, valideyn).</li><li>✅ Google Cədvəl arxivi, axtarış, statistika.</li></ul>
-        <p><strong>Beynəlxalq uyğunluq:</strong> WHO (Ümumdünya Səhiyyə Təşkilatı) və UNESCO prinsiplərinə tam uyğundur.</p>
+        <p><strong>Beynəlxalq uyğunluq:</strong> Ümumdünya Səhiyyə Təşkilatı (WHO) və UNESCO prinsiplərinə tam uyğundur.</p>
     `;
     
     // Tab keçid
@@ -511,7 +660,7 @@
     document.getElementById("calcStatsBtn").onclick = () => displayStats();
     
     buildFullTable();
-    msgDiv.innerHTML = "✅ Hazır. 120+ maddə yükləndi (hər sahə 30-35). Hesabat düyməsi işləkdir, tövsiyələr yaşa uyğun və ətraflıdır.";
+    msgDiv.innerHTML = "✅ Hazır. 120+ maddə yükləndi (hər sahə 30-35). Hesabat düyməsi işləkdir, tövsiyələr inkişaf yaşına uyğun və ətraflıdır.";
 </script>
 </body>
 </html>
