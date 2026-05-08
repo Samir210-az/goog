@@ -223,8 +223,7 @@
     </footer>
 </div>
 <script>
-
-    // ========== GOOGLE APPS SCRIPT URL ==========
+        // ========== GOOGLE APPS SCRIPT URL ==========
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzNW0YqJ8qhN0ArGEo8qP20mdXf9S5VQTxx7M_Uw6pq1hmwhaPMs9cVSk5jYhuzp7mixQ/exec";
     
     // ---------- Tam 120+ maddə (4 sahə, yaş intervalları ilə) – DƏYİŞMƏYİB ----------
@@ -356,15 +355,7 @@
     ];
     const ageCols = ["2ay","4ay","6ay","9am","12ay","15ay","18ay","24ay","3yas","4yas","5yas","6yas"];
     const ageMonths = [2,4,6,9,12,15,18,24,36,48,60,72];
-        // ========== GOOGLE APPS SCRIPT URL ==========
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUFz-JQcjv7iAuSiVYgV3aRSaFNU-FWbWhL5A6Tt7vB88FhdQ_v5fvbX4pfgs159Gs9Q/exec";
-    
-    // ---------- Tam 120+ maddə (əvvəlki kimi, buraya köçürün) ----------
-    // ... (items massivi burada olmalıdır, əvvəlki mesajdakı eyni)
-    
-    const ageCols = ["2ay","4ay","6ay","9am","12ay","15ay","18ay","24ay","3yas","4yas","5yas","6yas"];
-    const ageMonths = [2,4,6,9,12,15,18,24,36,48,60,72];
-    
+          
     // ========== KÖMƏKÇİ FUNKSİYALAR (toxunulmaz) ==========
     function calculateAge(birthDateStr) { if(!birthDateStr) return null; const b=new Date(birthDateStr), t=new Date(); let m=(t.getFullYear()-b.getFullYear())*12+(t.getMonth()-b.getMonth()); if(t.getDate()<b.getDate()) m--; return m; }
     function getAgeIndex(months) { if(months===null) return null; let idx=0; for(let i=0;i<ageMonths.length;i++) if(months>=ageMonths[i]) idx=i; else break; return idx; }
