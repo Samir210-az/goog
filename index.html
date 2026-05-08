@@ -1,622 +1,357 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Denver II Test – Professional Hesabat + Təlimatlar</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        body {
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-            background: #eef2f5;
-            margin: 0;
-            padding: 12px;
-        }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 28px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            padding: 16px 20px 24px;
-        }
-        h1 {
-            font-size: 1.5rem;
-            color: #1e6b3b;
-            border-left: 5px solid #1e6b3b;
-            padding-left: 18px;
-            margin-top: 0;
-        }
-        .tabs {
-            display: flex;
-            gap: 8px;
-            margin: 16px 0;
-            flex-wrap: wrap;
-            border-bottom: 1px solid #ccc;
-        }
-        .tab-btn {
-            background: none;
-            border: none;
-            padding: 8px 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 30px 30px 0 0;
-            color: #2c5a2e;
-            transition: 0.2s;
-        }
-        .tab-btn.active {
-            background: #1e6b3b;
-            color: white;
-        }
-        .tab-pane {
-            display: none;
-            animation: fade 0.2s ease;
-        }
-        .tab-pane.active {
-            display: block;
-        }
-        @keyframes fade {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .info-panel {
-            background: #e8f3ec;
-            padding: 12px 16px;
-            border-radius: 26px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 20px;
-            align-items: flex-end;
-        }
-        .info-field {
-            flex: 1;
-            min-width: 130px;
-        }
-        .info-field label {
-            font-weight: bold;
-            font-size: 0.7rem;
-            color: #1e6b3b;
-            display: block;
-            margin-bottom: 4px;
-        }
-        .info-field input {
-            width: 100%;
-            padding: 8px 12px;
-            border-radius: 28px;
-            border: 1px solid #cbdcc2;
-            background: white;
-            font-size: 0.85rem;
-        }
-        button {
-            background: #1e6b3b;
-            color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 4px 4px 0 0;
-            font-size: 0.8rem;
-            transition: 0.1s;
-        }
-        button:active { transform: scale(0.97); }
-        .btn-secondary {
-            background: #4a6a5e;
-        }
-        .status {
-            background: #fcf8e8;
-            padding: 10px 14px;
-            border-radius: 18px;
-            margin: 12px 0;
-            border-left: 5px solid #e9b35f;
-            font-size: 0.85rem;
-        }
-        /* Gücləndirilmiş sticky başlıqlar */
-        .table-wrapper {
-            overflow-x: auto;
-            overflow-y: auto;
-            border: 1px solid #d4dfe3;
-            border-radius: 20px;
-            margin-top: 20px;
-            max-height: 70vh;
-            position: relative;
-        }
-        .test-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.72rem;
-            min-width: 800px;
-        }
-        .test-table th,
-        .test-table td {
-            border: 1px solid #d0dbdf;
-            padding: 8px 5px;
-            text-align: center;
-            vertical-align: middle;
-        }
-        .test-table thead th {
-            position: sticky;
-            top: 0;
-            background: #d9e8da;
-            z-index: 20;
-            backdrop-filter: blur(2px);
-        }
-        .test-table td:first-child,
-        .test-table th:first-child {
-            position: sticky;
-            left: 0;
-            background-color: #fefaf0;
-            z-index: 15;
-            text-align: left;
-        }
-        .test-table th:first-child {
-            background: #cbddce;
-            z-index: 30;
-        }
-        .test-table td:first-child {
-            background-color: #fefaf0;
-            box-shadow: 1px 0 2px rgba(0,0,0,0.05);
-        }
-        .domain-row {
-            background: #cbddce;
-            font-weight: bold;
-            text-align: left;
-        }
-        .checkbox-cell input {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: #1e6b3b;
-        }
-        .search-box {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .search-box input {
-            flex: 2;
-            padding: 10px 16px;
-            border-radius: 32px;
-            border: 1px solid #ccc;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-            gap: 12px;
-            margin-top: 20px;
-        }
-        .stat-card {
-            background: #f0f7f0;
-            padding: 12px;
-            border-radius: 20px;
-            text-align: center;
-        }
-        footer {
-            font-size: 0.7rem;
-            text-align: center;
-            margin-top: 25px;
-            color: #5e7c6b;
-        }
-        .archive-row {
-            cursor: pointer;
-            transition: 0.1s;
-        }
-        .archive-row:hover {
-            background: #e0f0e0;
-        }
-        .btn-small {
-            padding: 4px 12px;
-            font-size: 0.7rem;
-            margin: 0;
-        }
-        .guidance-content {
-            background: #f9faf6;
-            padding: 20px;
-            border-radius: 24px;
-            line-height: 1.5;
-            font-size: 0.9rem;
-            margin-top: 20px;
-        }
-        .guidance-content h3 {
-            color: #1e6b3b;
-            margin-top: 20px;
-        }
-        .guidance-content p {
-            margin: 12px 0;
-        }
-        .guidance-content ul {
-            margin: 8px 0 16px 20px;
-        }
-        @media (max-width: 700px) {
-            .container { padding: 12px; }
-            .test-table { font-size: 0.65rem; min-width: 720px; }
-            .test-table td:first-child { font-size: 0.65rem; min-width: 140px; }
-            button { padding: 6px 14px; font-size: 0.75rem; }
-            .checkbox-cell input { width: 20px; height: 20px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Denver II Test – Yaşa Uyğun Dinamik Suallar + Ətraflı Plan</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: 'Segoe UI', Roboto, system-ui, sans-serif; background: #eef2f5; margin: 0; padding: 12px; }
+.container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); padding: 16px 20px 24px; }
+h1 { font-size: 1.5rem; color: #1e6b3b; border-left: 5px solid #1e6b3b; padding-left: 18px; margin-top: 0; }
+.tabs { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; border-bottom: 1px solid #ccc; }
+.tab-btn { background: none; border: none; padding: 8px 20px; font-size: 0.9rem; font-weight: bold; cursor: pointer; border-radius: 30px 30px 0 0; color: #2c5a2e; }
+.tab-btn.active { background: #1e6b3b; color: white; }
+.tab-pane { display: none; animation: fade 0.2s ease; }
+.tab-pane.active { display: block; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.info-panel { background: #e8f3ec; padding: 12px 16px; border-radius: 26px; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; margin-bottom: 20px; }
+.info-field { flex: 1; min-width: 130px; }
+.info-field label { font-weight: bold; font-size: 0.7rem; color: #1e6b3b; display: block; margin-bottom: 4px; }
+.info-field input { width: 100%; padding: 8px 12px; border-radius: 28px; border: 1px solid #cbdcc2; background: white; font-size: 0.85rem; }
+button { background: #1e6b3b; color: white; border: none; padding: 8px 18px; border-radius: 40px; font-weight: bold; cursor: pointer; margin: 4px 4px 0 0; font-size: 0.8rem; }
+.btn-secondary { background: #4a6a5e; }
+.status { background: #fcf8e8; padding: 10px 14px; border-radius: 18px; margin: 12px 0; border-left: 5px solid #e9b35f; font-size: 0.85rem; }
+.table-wrapper { overflow-x: auto; overflow-y: auto; border: 1px solid #d4dfe3; border-radius: 20px; margin-top: 20px; max-height: 70vh; }
+.test-table { width: 100%; border-collapse: collapse; font-size: 0.72rem; min-width: 600px; }
+.test-table th, .test-table td { border: 1px solid #d0dbdf; padding: 8px 5px; text-align: center; vertical-align: middle; }
+.test-table thead th { position: sticky; top: 0; background: #d9e8da; z-index: 20; }
+.domain-row { background: #cbddce; font-weight: bold; text-align: left; }
+.checkbox-cell input { width: 18px; height: 18px; cursor: pointer; accent-color: #1e6b3b; }
+.search-box { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-top: 20px; }
+.stat-card { background: #f0f7f0; padding: 12px; border-radius: 20px; text-align: center; }
+footer { margin-top: 25px; text-align: center; font-size: 0.8rem; border-top: 1px solid #ddd; padding-top: 20px; }
+.archive-row { cursor: pointer; }
+.archive-row:hover { background: #e0f0e0; }
+.btn-small { padding: 4px 12px; font-size: 0.7rem; }
+.guidance-content { background: #f9faf6; padding: 20px; border-radius: 24px; line-height: 1.5; font-size: 0.9rem; margin-top: 20px; }
+@media (max-width: 700px) { .container { padding: 12px; } .test-table { font-size: 0.65rem; } button { padding: 6px 14px; } }
+</style>
 </head>
 <body>
 <div class="container">
-    <h1>🏥 Denver II İnkişaf Testi <span style="font-size:0.8rem;">(Geriləmə Analizi + Təlimat)</span></h1>
+<h1>🏥 Denver II İnkişaf Testi <span style="font-size:0.8rem;">(Yaşa Uyğun Dinamik Suallar + Peşəkar Plan)</span></h1>
 
-    <div class="tabs">
-        <button class="tab-btn active" data-tab="test">📋 Test cədvəli</button>
-        <button class="tab-btn" data-tab="archive">📚 Arxiv & axtarış</button>
-        <button class="tab-btn" data-tab="stats">📊 Statistika</button>
-        <button class="tab-btn" data-tab="guidance">📖 Testin keçirilmə qaydası</button>
-    </div>
+<div class="tabs">
+<button class="tab-btn active" data-tab="test">📋 Test cədvəli</button>
+<button class="tab-btn" data-tab="archive">📚 Arxiv</button>
+<button class="tab-btn" data-tab="stats">📊 Statistika</button>
+<button class="tab-btn" data-tab="guidance">📖 Təlimat</button>
+</div>
 
-    <!-- TEST PANELİ -->
-    <div id="testPane" class="tab-pane active">
-        <div class="info-panel">
-            <div class="info-field"><label>👶 Uşağın adı</label><input type="text" id="childName" placeholder="Ad Soyad"></div>
-            <div class="info-field"><label>🎂 Doğum tarixi</label><input type="date" id="dob"></div>
-            <div class="info-field"><label>🆔 Qeydiyyat №</label><input type="text" id="regNo" placeholder="Qeydiyyat"></div>
-            <div>
-                <button id="saveBtn">💾 Yadda saxla</button>
-                <button id="clearCheckBtn" class="btn-secondary">🗑 Təmizlə</button>
-                <button id="reportBtn" class="btn-secondary" style="background:#c96f0e;">📄 Hesabat çıxar</button>
-            </div>
-        </div>
-        <div id="testMessage" class="status">✅ Cədvəli doldurun. "Hesabat çıxar" → geriləmə ayı və ətraflı iş planı.</div>
-        <div class="table-wrapper" id="testTableWrapper"></div>
-    </div>
+<!-- TEST PANELİ -->
+<div id="testPane" class="tab-pane active">
+<div class="info-panel">
+<div class="info-field"><label>👶 Uşağın adı</label><input type="text" id="childName" placeholder="Ad Soyad"></div>
+<div class="info-field"><label>🎂 Doğum tarixi</label><input type="date" id="dob"></div>
+<div class="info-field"><label>🆔 Qeydiyyat №</label><input type="text" id="regNo" placeholder="Qeydiyyat"></div>
+<div><button id="saveBtn">💾 Yadda saxla</button><button id="clearCheckBtn" class="btn-secondary">🗑 Təmizlə</button><button id="reportBtn" style="background:#c96f0e;">📄 Hesabat çıxar</button></div>
+</div>
+<div id="testMessage" class="status">✅ Doğum tarixini seçin – avtomatik olaraq yaşa uyğun test maddələri göstəriləcək.</div>
+<div class="table-wrapper" id="testTableWrapper"></div>
+</div>
 
-    <!-- ARXİV (keçmiş testlər) -->
-    <div id="archivePane" class="tab-pane">
-        <div class="search-box">
-            <input type="text" id="searchName" placeholder="Uşaq adı ilə axtar...">
-            <button id="searchBtn">🔍 Axtar</button>
-            <button id="refreshArchiveBtn" class="btn-secondary">🔄 Yenilə</button>
-        </div>
-        <div id="archiveList" style="max-height: 550px; overflow-y: auto;"></div>
-    </div>
+<!-- ARXIV -->
+<div id="archivePane" class="tab-pane">
+<div class="search-box"><input type="text" id="searchName" placeholder="Uşaq adı ilə axtar..."><button id="searchBtn">🔍 Axtar</button><button id="refreshArchiveBtn" class="btn-secondary">🔄 Yenilə</button></div>
+<div id="archiveList"></div>
+</div>
 
-    <!-- STATİSTİKA -->
-    <div id="statsPane" class="tab-pane">
-        <button id="calcStatsBtn" class="btn-secondary">📈 Yenilə statistika</button>
-        <div id="statsContent" class="stats-grid"></div>
-    </div>
+<!-- STATİSTİKA -->
+<div id="statsPane" class="tab-pane"><button id="calcStatsBtn" class="btn-secondary">📈 Yenilə</button><div id="statsContent" class="stats-grid"></div></div>
 
-    <!-- TƏLİMAT (Testin keçirilmə qaydası) -->
-    <div id="guidancePane" class="tab-pane">
-        <div class="guidance-content">
-            <h2>📌 Denver II Testi haqqında</h2>
-            <p><strong>Denver II (DDST)</strong> – uşağın doğumdan 6 yaşa qədər olan inkişaf səviyyəsini qiymətləndirən, dünyada ən geniş istifadə olunan <strong>tarama (skrininq) testidir</strong>. Frankenburg & Dodds tərəfindən yaradılmış, son versiyası 1992-ci ildə standartlaşdırılmışdır. Test <strong>4 əsas sahəni</strong> əhatə edir: Kobud motor, İncə motor – adaptiv, Dil və Sosial-şəxsi.</p>
-            
-            <h3>🌍 Beynəlxalq standartlara uyğunluq</h3>
-            <p>Test Ümumdünya Səhiyyə Təşkilatının (ÜST) <strong>“Erkən uşaqlıq inkişafının monitorinqi”</strong> təlimatlarına, həmçinin UNESCO-nun <strong>“Hər kəs üçün təhsil”</strong> və <strong>“İnklüziv erkən təhsil”</strong> prinsiplərinə əsaslanır. Nəticələr yalnız bir mütəxəssis tərəfindən şərh edilməli, diaqnoz qoymaq üçün deyil, potensial gerilikləri vaxtında aşkarlamaq üçün istifadə olunmalıdır.</p>
-            
-            <h3>✅ Testin keçirilmə qaydası (addım-addım)</h3>
-            <ul>
-                <li><strong>1. Materialların hazırlanması:</strong> Qırmızı toplu ip, çıngıraq, zınqırov, tennis topu, kağız, qırmızı karandaş, stəkan, kubiklər, kişmiş, oyuncaq kukla, şəkillər dəsti.</li>
-                <li><strong>2. Uşağın rahat olması:</strong> Test oyun mühitində, valideyn iştirakı ilə aparılır. Uşaq qorxudulmamalı, məcbur edilməməlidir.</li>
-                <li><strong>3. Yaş xəttinin çəkilməsi:</strong> Cədvəldə uşağın <strong>kronoloji yaşına (doğum tarixinə əsasən)</strong> uyğun şaquli xətt çəkilir. Vaxtından əvvəl doğulanlarda düzəliş edilir.</li>
-                <li><strong>4. Maddələrin tətbiqi:</strong> Hər bir sahədə yaş xəttinin <strong>solunda</strong> qalan maddələr uşağa təqdim olunur. Maddələr aydın göstərişlərlə, sərbəst oyun formatında verilir. Müşahidəçi işarələr qoyur: <strong>✓ (yerinə yetirir), ✗ (yerinə yetirmir), R (imtina edir), NO (imkan olmayıb).</strong></li>
-                <li><strong>5. Qiymətləndirmə:</strong> Hər bir maddə üçün <strong>“Gecikmə”</strong> (yaş xəttinin solunda olan, lakin uşağın bacarmadığı maddələr) və <strong>“Uyarı”</strong> (yaş xəttinin sağında – daha böyük yaşlara aid, bacarmadığı maddələr) qeyd edilir.</li>
-                <li><strong>6. Nəticələrin təhlili:</strong> Aşağıdakı kateqoriyalardan biri verilir: <strong>Normal, Şübhəli, Anormal.</strong></li>
-            </ul>
-            
-            <h3>📊 Qiymətləndirmə forması</h3>
-            <p><strong>Normal:</strong> Heç bir “Gecikmə” yoxdur və ən çox 1 “Uyarı” aşkar edilir. Uşaq inkişafının yaşına uyğun olduğu qənaətinə gəlinir.</p>
-            <p><strong>Şübhəli:</strong> Bir sahədə 1 “Gecikmə” VƏ/YA 2 və daha çox “Uyarı” varsa. Bu halda test 2-4 həftə sonra təkrarlanmalı və ya dərinləşdirilmiş qiymətləndirmə aparılmalıdır.</p>
-            <p><strong>Anormal (Patoloji):</strong> İki və daha çox sahədə ümumilikdə 2 və ya daha çox “Gecikmə” aşkar edildikdə. Yaxud bir sahədə 2 və daha çox “Gecikmə” olduqda. Belə hallarda uşaq mütləq pediatr, nevroloq və ya inkişaf psixoloquna yönləndirilməlidir.</p>
-            <p><strong>Qeyd:</strong> Test yalnız <strong>tarama (skrininq)</strong> məqsədi daşıyır, diaqnoz qoymur. Şübhəli və ya anormal nəticələr daha ətraflı neyropsixoloji qiymətləndirmə üçün əsasdır.</p>
-            
-            <h3>🔁 Yenidən test etmə</h3>
-            <p>ÜST və UNESCO tövsiyələrinə əsasən, erkən müdaxilə proqramlarından sonra hər 3-6 aydan bir testin təkrar edilməsi məqsədyönlüdür. Hər bir uşaq öz inkişaf sürətinə malikdir, mühüm olan vaxtında dəstək təmin etməkdir.</p>
-            <p><em>Bu bölmədəki məlumatlar Denver II testinin orijinal təlimatlarına, Ümumdünya Səhiyyə Təşkilatının (WHO) “Erkən uşaqlıq inkişafı” (ECD) qaydalarına və UNESCO-nun “İnklüziv təhsil” prinsiplərinə tamamilə uyğundur.</em></p>
-        </div>
-    </div>
+<!-- TƏLİMAT -->
+<div id="guidancePane" class="tab-pane">
+<div class="guidance-content">
+<h3>📌 Denver II Testinin keçirilmə qaydası (Beynəlxalq protokol)</h3>
+<p>Materiallar: çıngıraq, zınqırov, tennis topu, kağız, qələm, stəkan, kubiklər, kişmiş, şəkillər.</p>
+<p>1. Uşağın <strong>kronoloji yaşı</strong> doğum tarixinə əsasən hesablanır. Vaxtından əvvəl doğulanlarda düzəliş edilir.<br>
+2. Yaş xətti çəkilir – bu xəttin solunda qalan bütün maddələr uşağa təqdim olunur.<br>
+3. Hər maddə oyun formatında verilir, cavab <strong>✓ (bacarır), ✗ (bacarmır), R (imtina), NO (imkan olmayıb)</strong> qeyd olunur.<br>
+4. <strong>Gecikmə</strong> = yaş xəttinin solunda olub bacarılmayan maddələr; <strong>Uyarı</strong> = sağında olub bacarılmayan maddələr.<br>
+5. Nəticə: Normal (0 gecikmə, ≤1 uyarı), Şübhəli (1 gecikmə və ya ≥2 uyarı), Anormal (≥2 gecikmə).<br>
+6. Test yalnız tarama məqsədi daşıyır, diaqnoz qoymur.</p>
+<p><em>Bu təlimat Ümumdünya Səhiyyə Təşkilatı (WHO) və Denver II orijinal təlimatlarına əsaslanır.</em></p>
+</div>
+</div>
 
-    <footer>📌 Arxivdə ad sətrinə klik → test yüklənir. "Hesabat yüklə" düyməsi ilə beynəlxalq iş planı alın.
-    <a href="https://www.instagram.com/s_akhundoff" target="_blank" rel="noopener noreferrer" class="social-link">
-            <i class="fab fa-instagram"></i> by s_akhundoff
-        </a>
-        <div class="copyright">Bütün hüquqları qorunur. 2026</div></footer>
+<footer>Psixoloji Reabilitasiya Mərkəzləri üçün peşəkar Denver II testi. Yaşa uyğun dinamik suallar, ətraflı hesabat.</footer>
 </div>
 
 <script>
-    // ========== KONFİQURASİYA ==========
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUFz-JQcjv7iAuSiVYgV3aRSaFNU-FWbWhL5A6Tt7vB88FhdQ_v5fvbX4pfgs159Gs9Q/exec";
-    
-    // ========== DENVER II MADDƏLƏRİ (tam) ==========
-    const domains = [
-        { name: "🏃 KOBUD MOTOR", items: [ "Başını 1-2 dəq düz tutur","Üstüstə yatarkən başını qaldırır","Ayaqları ilə təpikləyir","Baş və döşü qaldırır","Başını düz saxlayır","Dayaqlı oturur","Qarından kürəyə dönür","Sürünməyə çalışır","Stabil oturur","Qaldırılanda ayaq üstə durur","Tutub qalxır","Kreslo ətrafında addımlayır","Müstəqil dayanır","Təkbaşına yeriyir","Pilləkənlərə dırmaşır","Arabaları itələyir","Kresloya dırmaşır","Arxaya doğru yeriyir","Pilləkənlə enib-qalxır","Tullanır","Qaçır","Özü stula oturur","Top atır","Düz qaçır, dırmaşır","Bir ayaqda dayanır, özü geyinir","Bir ayaqda dayanır, tullanır, velosiped" ] },
-        { name: "✍ İNCƏ MOTOR", items: [ "İşığı izləyir","Zəngi yuxarı-aşağı izləyir","Nəzərini obyektdən obyektə keçirir","Kubu tutur","Əşyaları ağzına aparır","Kubu masadan qaldırır","Düşmüş əşyanı axtarır","Oyuncağı əlindən-ələ keçirir","İki əşya ilə oynayır","Kubları bir-birinə vurur","Cımbız tutuşu","Üç kiçik əşya saxlayır","Bir əl üstünlüyü","Dörd kub tutur","Əşyaları üst-üstə qoyur","Qaralamalar çəkir","3 kubdan qüllə","4 kubdan qüllə","5+ kubdan qüllə","Şaquli xətt kopyalayır","Üfüqi xətt kopyalayır","Dairə çəkir","Sancaq qaldırır","Bir göz qapalı detalları tanıyır","9 kubdan qüllə","Kərpicdən körpü","Kvadrat + dairə çəkir","Qələmi düzgün tutur" ] },
-        { name: "🗣 DİL VƏ DANIŞMA", items: [ "Səslərdən qorxur","Zəng səsini dinləyir","Səs mənbəyini gözlə axtarır","Səsə baş çevirir","Musiqi eşidəndə səslənir","Vokalizasiyalar","Diqqət çəkmək üçün qışqırır","Mama/dada deyir","Saat tıqqıltısını dinləyir","2 söz bilir","3 söz bilir","Şəkilə baxır","Öz adını bilir","4-5 söz","6-7 söz","Cümlələşir","Şəkilli kitabları sevir","9 söz","12 söz","2 sözlü cümlələr","Nağıl dinləyir","20+ söz","4 oyuncağın adını çəkir","Nə? Harada? sualları","Bədən hissələrini adlandırır","Təmiz danışır, geniş cümlələr","Suallara cavab verir" ] },
-        { name: "🧸 SOSİAL-ŞƏXSİ", items: [ "Qucağa alanda sakitləşir","Gülümsəyir","İnsanı izləyir","Müayinəçiyə qarşılıqlı gülümsəmə","Oyuna reaksiya","Danışana baş çevirir","Kassadan içir","Güzgüyə baxır","Fincanı tutmağa kömək edir","Güzgüdə təbəssüm","Barmaqları ilə yeyir","Əl çalır, yelləyir","Fincanı tutur","Qaşıqdan istifadə edir","Ayaqqabılarını göstərir","Qapı dəstəyini çevirir","Kubokla bacarır","Corab/ayaqqabı çıxarır","Bir bədən hissəsini tanıyır","Tualet istədiyini bildirir","Gündüz sidik nəzarəti","Başına gələni danışır","İki bədən hissəsini bilir","Dörd bədən hissəsi + qaşıq","Şalvarını tualet üçün endirir","Özü yeyir, yuyunur","Adını deyir, ev işlərində kömək edir","Əməkdaşlıq edir","Geyinir/təmizlənir" ] }
-    ];
-    const ageCols = ["2ay","4ay","6ay","9am","12ay","15ay","18ay","24ay","3yas","4yas","5yas","6yas"];
-    const ageMonths = [2,4,6,9,12,15,18,24,36,48,60,72];
-    
-    function buildFullTable(checksSet = new Set()) {
-        let html = `<table class="test-table"><thead>鱼<th>İnkişaf sahəsi / Maddələr</th>${ageCols.map(a=>`<th>${a}</th>`).join('')}</thead><tbody>`;
-        domains.forEach(domain => {
-            html += `<tr><th class="domain-row" colspan="${ageCols.length+1}">${domain.name}</th></tr>`;
-            domain.items.forEach(item => {
-                html += `<tr><td class="item-name">${item}</td>`;
-                for(let i=0;i<ageCols.length;i++) {
-                    const key = `${item}|${ageCols[i]}`;
-                    const checked = checksSet.has(key) ? 'checked' : '';
-                    html += `<td class="checkbox-cell"><input type="checkbox" data-item="${item.replace(/"/g, '&quot;')}" data-age="${ageCols[i]}" ${checked}></td>`;
-                }
-                html += `</tr>`;
-            });
-        });
-        html += `</tbody></table>`;
-        document.getElementById("testTableWrapper").innerHTML = html;
-    }
-    
-    function getAllChecks() {
-        let checks = [];
-        document.querySelectorAll("#testTableWrapper input[type=checkbox]:checked").forEach(cb => {
-            checks.push(cb.getAttribute("data-item") + "|" + cb.getAttribute("data-age"));
-        });
-        return checks;
-    }
-    
-    function setChecksFromArray(checksArray) {
-        const chkSet = new Set(checksArray);
-        buildFullTable(chkSet);
-    }
-    
-    function calculateAge(birthDateStr) {
-        if(!birthDateStr) return null;
-        const birth = new Date(birthDateStr);
-        const today = new Date();
-        let months = (today.getFullYear() - birth.getFullYear())*12 + (today.getMonth()-birth.getMonth());
-        if(today.getDate() < birth.getDate()) months--;
-        return months;
-    }
-    
-    function calculateDevelopmentalAge(checkedItems) {
-        if(!checkedItems.length) return 0;
-        let totalMonths = 0;
-        for(let item of checkedItems) {
-            const agePart = item.split('|')[1];
-            const idx = ageCols.indexOf(agePart);
-            if(idx !== -1) totalMonths += ageMonths[idx];
-        }
-        return totalMonths / checkedItems.length;
-    }
-    
-    function analyzeAdvanced(childName, dob, checksArray) {
-        const factualAge = calculateAge(dob);
-        if(factualAge === null) return { error: "Doğum tarixi keçərsiz" };
-        let ageIndex = 0;
-        for(let i=0; i<ageMonths.length; i++) {
-            if(factualAge >= ageMonths[i]) ageIndex = i;
-            else break;
-        }
-        const checkedSet = new Set(checksArray);
-        let delays = [];
-        domains.forEach(domain => {
-            domain.items.forEach(item => {
-                for(let col=0; col<ageCols.length; col++) {
-                    const key = `${item}|${ageCols[col]}`;
-                    if(col <= ageIndex && !checkedSet.has(key)) delays.push({ item, ageCol: ageCols[col], colMonth: ageMonths[col], domain: domain.name });
-                }
-            });
-        });
-        const developmentalAge = calculateDevelopmentalAge(checksArray);
-        let delayMonths = factualAge - developmentalAge;
-        if(delayMonths < 0) delayMonths = 0;
-        let evaluation = "";
-        if(delays.length === 0) evaluation = "✅ Normal (yaşına uyğun inkişaf)";
-        else if(delays.length >= 2) evaluation = "⚠️ Anormal – Dərinləşdirilmiş qiymətləndirmə tövsiyyə olunur";
-        else evaluation = "🔍 Şübhəli – Təkrar test və müşahidə edilməlidir";
-        return { childName, dob, factualAge, developmentalAge, delayMonths, delayCount: delays.length, delays, evaluation };
-    }
-    
-    function generateDetailedPlan(analysis) {
-        let planHtml = `<div style="background:#eef3fc; padding:20px; border-radius:28px; margin:20px 0;">`;
-        planHtml += `<h3>📘 Fərdi İntervensiya Planı (Beynəlxalq Erkən Müdaxilə Standartları)</h3>`;
-        planHtml += `<p><strong>🕒 Geriləmə (İnkişaf fərqi):</strong> Faktiki yaş <strong>${analysis.factualAge} ay</strong>, təqribi inkişaf yaşı <strong>${analysis.developmentalAge.toFixed(1)} ay</strong>. <span style="background:#fff0c0;">Geriləmə: ${analysis.delayMonths.toFixed(1)} ay</span>. Bu, uşağın mütəxəssis dəstəyinə ehtiyacı olduğunu göstərir.</p>`;
-        planHtml += `<p><strong>🎯 Ümumi yanaşma:</strong> Oyun əsaslı, ailə mərkəzli, müsbət təkrarlama. Hər kiçik irəliləyiş qeydə alınır.</p>`;
-        const motorDelays = analysis.delays.filter(d => d.domain.includes("KOBUD"));
-        const fineDelays = analysis.delays.filter(d => d.domain.includes("İNCƏ"));
-        const langDelays = analysis.delays.filter(d => d.domain.includes("DİL"));
-        const socialDelays = analysis.delays.filter(d => d.domain.includes("SOSİAL"));
-        
-        if(motorDelays.length) {
-            planHtml += `<div style="margin-top:20px;"><h4>🏃 Kobud Motor (İri motor)</h4>`;
-            planHtml += `<p><strong>🧠 Psixoloq / Fizioterapevt üçün metodlar:</strong> Gündəlik 20 dəq yerdə oyun, sürünmə oyunları, top tutma-atma, maneəli parkur, pilləkən qalxma. Tarazlıq lövhəsi. Beynəlxalq təlimatlara uyğun olaraq hər bacarıq 5-7 təkrar, müsbət gücləndirmə.</p>`;
-            planHtml += `<p><strong>👪 Valideynlər üçün gündəlik fəaliyyətlər:</strong> Parkda "mənim kimi et" oyunu, evdə yastıq tuneli, top qapıya vurma, yerdə lentlə tullanma hədəfləri.</p>`;
-            planHtml += `<p><strong>✅ İzlənən hədəf bacarıqlar:</strong> ${motorDelays.slice(0,8).map(d=>d.item).join(", ")}</p></div>`;
-        }
-        if(fineDelays.length) {
-            planHtml += `<div><h4>✍ İncə Motor (Əl-göz koordinasiyası)</h4>`;
-            planHtml += `<p><strong>🧠 Psixoloq / Erqoterapevt üçün metodlar:</strong> Mozaika, lego, muncuq dizmə, qayçı, barmaq boyaları, cımbızla xırda əşyalar. Gün ərzində 5-10 dəq tapşırıqlar.</p>`;
-            planHtml += `<p><strong>👪 Valideynlər üçün ev üsulları:</strong> Makaron ipə düzmək, şəkilli kitabda detalları tapmaq, qum/qarğıdalı unu içində oyun, barmaqla dairə çəkmə.</p></div>`;
-        }
-        if(langDelays.length) {
-            planHtml += `<div><h4>🗣 Dil və Danışma</h4>`;
-            planHtml += `<p><strong>🧠 Psixoloq / Danışma terapevti (Loqoped) üçün metodlar:</strong> Hər gün 20 dəq şəkil kartları, əmrə uyğun hərəkət, "Gördüyünü adlandır", səsləri təqlid. Reseptiv dil üçün bədən hissələrini göstərmə.</p>`;
-            planHtml += `<p><strong>👪 Valideynlər üçün tövsiyələr:</strong> Gündəlik kitab oxuma, şəkilləri göstərib soruşma ("Bu nə?"), uşağın cümlələrini genişləndirmə, gün ərzində nə etdiyini danışma.</p></div>`;
-        }
-        if(socialDelays.length) {
-            planHtml += `<div><h4>🧸 Sosial-Şəxsi</h4>`;
-            planHtml += `<p><strong>🧠 Psixoloq üçün metodlar:</strong> Rollu oyunlar, emosiya kartları, növbə gözləmə oyunları, gündəlik həyat bacarıqlarının təlimi (düymə, ayaqqabı). Qaydaları şəkillərlə izah, mükafat cədvəlləri.</p>`;
-            planHtml += `<p><strong>👪 Valideynlər üçün:</strong> Özü qaşıq tutmağa imkan, sadə ev işləri (dəsmal yığmaq), birlikdə stol oyunları, "xahiş edirəm", "sağ ol" modelləşdirmə.</p></div>`;
-        }
-        if(analysis.delays.length === 0) planHtml += `<p>✅ Heç bir gecikmə aşkarlanmadı. Standart fəaliyyətlər davam etdirilməlidir.</p>`;
-        planHtml += `<hr><p><strong>🌍 Qlobal Erkən Müdaxilə Qaydaları (WHO, UNESCO):</strong> Ailə mərkəzli, təbii mühit, oyunun gücü, müsbət davranış dəstəyi. Hər 3-6 aydan bir təkrar qiymətləndirmə.</p>`;
-        planHtml += `</div>`;
-        return planHtml;
-    }
-    
-    async function generateReportFromChecks(childName, dob, checksArray) {
-        if(!childName || !dob) { alert("Uşağın adı və doğum tarixi olmalıdır"); return null; }
-        const analysis = analyzeAdvanced(childName, dob, checksArray);
-        if(analysis.error) { alert(analysis.error); return null; }
-        const plan = generateDetailedPlan(analysis);
-        const reportHtml = `
-        <!DOCTYPE html>
-        <html>
-        <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Denver II Hesabat - ${escapeHtml(childName)}</title>
-        <style>body{font-family:Segoe UI,sans-serif;margin:25px;background:#f8faf8;}.report{max-width:1100px;margin:auto;background:white;padding:28px;border-radius:32px;box-shadow:0 8px 24px rgba(0,0,0,0.08);}.info{background:#eef5ea;padding:18px;border-radius:24px;margin-bottom:25px;}.badge{font-weight:bold;font-size:1.1rem;}</style></head>
-        <body>
-        <div class="report">
-            <h1>🏥 Denver II Gelişim Testi – Fərdi Hesabat</h1>
-            <div class="info">
-                <p><strong>Uşaq:</strong> ${escapeHtml(childName)}</p>
-                <p><strong>Doğum tarixi:</strong> ${dob} | Faktiki yaş: ${analysis.factualAge} ay</p>
-                <p><strong>Test tarixi:</strong> ${new Date().toLocaleDateString('az-AZ')}</p>
-                <p><strong>📉 Təqribi inkişaf yaşı:</strong> ${analysis.developmentalAge.toFixed(1)} ay &nbsp;&nbsp;📉 <strong>Geriləmə: ${analysis.delayMonths.toFixed(1)} ay</strong></p>
-                <p><strong>⚠️ Gecikmə sayı:</strong> ${analysis.delayCount} &nbsp;| <strong>🔔 Qiymətləndirmə:</strong> ${analysis.evaluation}</p>
-            </div>
-            ${plan}
-            <footer style="margin-top:30px; font-size:0.75rem;">Bu hesabat Denver II testi, WHO və UNESCO erkən uşaqlıq müdaxilə təlimatlarına əsaslanır. Mütləq pediatr/inkişaf psixoloqu tərəfindən izlənilməlidir.</footer>
-        </div>
-        </body>
-        </html>
-        `;
-        return reportHtml;
-    }
-    
-    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
-    
-    // UI elementlər
-    const msgDiv = document.getElementById("testMessage");
-    function showTestMessage(msg, col){ msgDiv.innerHTML=msg; msgDiv.style.borderLeftColor=col||"#e9b35f"; }
-    
-    document.getElementById("saveBtn").onclick = async () => {
-        const name = document.getElementById("childName").value.trim();
-        if(!name){ showTestMessage("❌ Uşaq adını yazın!","red"); return; }
-        const checks = getAllChecks();
-        const url = `${SCRIPT_URL}?action=save&name=${encodeURIComponent(name)}&dob=${document.getElementById("dob").value}&reg=${encodeURIComponent(document.getElementById("regNo").value)}&checks=${encodeURIComponent(checks.join(";"))}`;
-        showTestMessage("Göndərilir...","blue");
-        try{
-            const resp = await fetch(url);
-            const txt = await resp.text();
-            if(txt==="OK") showTestMessage("✅ Məlumatlar saxlanıldı!","green");
-            else showTestMessage("⚠️ Xəta: "+txt,"red");
-        }catch(e){ showTestMessage("❌ Şəbəkə xətası","red"); }
-    };
-    
-    document.getElementById("reportBtn").onclick = async () => {
-        const name = document.getElementById("childName").value.trim();
-        const dob = document.getElementById("dob").value;
-        if(!name || !dob){ showTestMessage("Hesabat üçün ad və doğum tarixi yazın","red"); return; }
-        const checks = getAllChecks();
-        if(checks.length===0){ showTestMessage("Heç bir işarə yoxdur","orange"); return; }
-        const report = await generateReportFromChecks(name, dob, checks);
-        if(report){
-            const win = window.open();
-            win.document.write(report);
-            win.document.close();
-        }
-    };
-    
-    document.getElementById("clearCheckBtn").onclick = () => { buildFullTable(new Set()); showTestMessage("Cədvəl təmizləndi","blue"); };
-    
-    // ========== ARXİV ==========
-    let allRecords = [];
-    async function loadAllData() {
-        try{
-            const resp = await fetch(SCRIPT_URL+"?action=load");
-            const data = await resp.json();
-            allRecords = Array.isArray(data) ? data : [];
-            return allRecords;
-        }catch(e){ return []; }
-    }
-    
-    async function displayArchive(searchTerm=""){
-        const records = await loadAllData();
-        const container = document.getElementById("archiveList");
-        if(!records.length){ container.innerHTML=`<div class="status">⚠️ Heç bir test yoxdur.</div>`; return; }
-        let filtered = records;
-        if(searchTerm.trim()) filtered = records.filter(r=>r[1] && r[1].toLowerCase().includes(searchTerm.toLowerCase()));
-        if(!filtered.length){ container.innerHTML=`<div class="status">🔍 "${searchTerm}" üzrə nəticə yoxdur.</div>`; return; }
-        let html = `<div class="table-wrapper"><table class="test-table"><thead>运转<th>Tarix</th><th>Uşaq adı</th><th>Doğum</th><th>Qeydiyyat</th><th>Bac.Say</th><th>Hesabat</th></thead><tbody>`;
-        filtered.slice().reverse().forEach((row,idx)=>{
-            const checksField = row[4] || "";
-            const count = checksField.split(";").filter(c=>c).length;
-            const nameAttr = escapeHtml(row[1]||'');
-            const dobAttr = row[2]||'';
-            const regAttr = row[3]||'';
-            const checksEnc = encodeURIComponent(checksField);
-            html += `<tr class="archive-row" data-name="${nameAttr}" data-dob="${dobAttr}" data-reg="${regAttr}" data-checks="${escapeHtml(checksField)}">
-                        <td>${(row[0]||'').slice(0,16)}</td><td>${nameAttr}</td><td>${dobAttr}</td><td>${regAttr}</td><td>${count}</td>
-                        <td><button class="btn-small archive-report-btn" data-name="${nameAttr}" data-dob="${dobAttr}" data-checks="${checksEnc}" data-reg="${regAttr}">📄 Hesabat yüklə</button></td>
-                       </tr>`;
-        });
-        html += `</tbody>}</div><p style="font-size:0.7rem;">📌 Ad sətrinə kliklə → test cədvələ yüklənir. Hesabat düyməsi ilə ayrı pəncərədə hesabat açılır.</p>`;
-        container.innerHTML = html;
-        
-        document.querySelectorAll('.archive-row').forEach(tr => {
-            tr.addEventListener('click', (e) => {
-                if(e.target.classList.contains('archive-report-btn')) return;
-                const name = tr.getAttribute('data-name');
-                const dob = tr.getAttribute('data-dob');
-                const reg = tr.getAttribute('data-reg');
-                const checksStr = tr.getAttribute('data-checks');
-                document.getElementById("childName").value = name;
-                document.getElementById("dob").value = dob;
-                document.getElementById("regNo").value = reg;
-                const checksArray = checksStr ? checksStr.split(";").filter(c=>c) : [];
-                setChecksFromArray(checksArray);
-                showTestMessage(`📂 "${name}" testi yükləndi. "Hesabat çıxar" edə bilərsiniz.`, "blue");
-                document.querySelector('.tab-btn[data-tab="test"]').click();
-            });
-        });
-        document.querySelectorAll('.archive-report-btn').forEach(btn => {
-            btn.addEventListener('click', async (e) => {
-                e.stopPropagation();
-                const name = btn.getAttribute('data-name');
-                const dob = btn.getAttribute('data-dob');
-                const checksStr = btn.getAttribute('data-checks');
-                const checksArray = checksStr ? decodeURIComponent(checksStr).split(";").filter(c=>c) : [];
-                if(!name || !dob) { alert("Məlumatlar tam deyil"); return; }
-                const report = await generateReportFromChecks(name, dob, checksArray);
-                if(report){
-                    const win = window.open();
-                    win.document.write(report);
-                    win.document.close();
-                }
-            });
-        });
-    }
-    
-    async function displayStats(){
-        const records = await loadAllData();
-        if(!records.length){ document.getElementById("statsContent").innerHTML=`<div class="stat-card">Məlumat yoxdur</div>`; return; }
-        const total = records.length;
-        const unique = new Set(records.map(r=>r[1])).size;
-        let skillCount = {};
-        records.forEach(r=>{ (r[4]||"").split(";").forEach(s=>{ if(s) skillCount[s]=(skillCount[s]||0)+1; }); });
-        const top = Object.entries(skillCount).sort((a,b)=>b[1]-a[1]).slice(0,5);
-        document.getElementById("statsContent").innerHTML = `<div class="stat-card"><h3>📋 Ümumi testlər</h3><p>${total}</p></div>
-        <div class="stat-card"><h3>👶 Fərqli uşaqlar</h3><p>${unique}</p></div>
-        <div class="stat-card"><h3>🏆 Top 5 bacarıq</h3><ul>${top.map(t=>`<li>${t[0].slice(0,35)}... (${t[1]})</li>`).join('')}</ul></div>`;
-    }
-    
-    // Tab keçidlər
-    document.querySelectorAll(".tab-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
-            btn.classList.add("active");
-            document.querySelectorAll(".tab-pane").forEach(p=>p.classList.remove("active"));
-            const tab = btn.getAttribute("data-tab");
-            document.getElementById(`${tab}Pane`).classList.add("active");
-            if(tab==="archive") displayArchive(document.getElementById("searchName").value);
-            if(tab==="stats") displayStats();
-        });
-    });
-    document.getElementById("searchBtn").onclick = () => displayArchive(document.getElementById("searchName").value);
-    document.getElementById("refreshArchiveBtn").onclick = () => displayArchive(document.getElementById("searchName").value);
-    document.getElementById("calcStatsBtn").onclick = () => displayStats();
-    
-    buildFullTable(new Set());
-    showTestMessage("Hazır. Faiz göstəricisi silindi. Təlimat bölməsi əlavə edildi.","green");
+// ========== SİZİN GOOGLE APPS SCRIPT URL ==========
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUFz-JQcjv7iAuSiVYgV3aRSaFNU-FWbWhL5A6Tt7vB88FhdQ_v5fvbX4pfgs159Gs9Q/exec";
+
+// ========== MADDƏLƏR (yaş aralıqları ilə) ==========
+const items = [
+{ domain: "KOBUD MOTOR", name: "Başını 1-2 dəq düz tutur", minMonth: 0, maxMonth: 4 },
+{ domain: "KOBUD MOTOR", name: "Üstüstə yatarkən başını qaldırır", minMonth: 1, maxMonth: 4 },
+{ domain: "KOBUD MOTOR", name: "Ayaqları ilə təpikləyir", minMonth: 2, maxMonth: 6 },
+{ domain: "KOBUD MOTOR", name: "Dayaqlı oturur", minMonth: 5, maxMonth: 8 },
+{ domain: "KOBUD MOTOR", name: "Qarından kürəyə dönür", minMonth: 4, maxMonth: 7 },
+{ domain: "KOBUD MOTOR", name: "Sürünməyə çalışır", minMonth: 6, maxMonth: 9 },
+{ domain: "KOBUD MOTOR", name: "Təkbaşına yeriyir", minMonth: 11, maxMonth: 15 },
+{ domain: "KOBUD MOTOR", name: "Pilləkənlə enib-qalxır", minMonth: 16, maxMonth: 24 },
+{ domain: "KOBUD MOTOR", name: "Tullanır", minMonth: 22, maxMonth: 30 },
+{ domain: "KOBUD MOTOR", name: "Bir ayaqda dayanır", minMonth: 36, maxMonth: 48 },
+{ domain: "İNCƏ MOTOR", name: "İşığı izləyir", minMonth: 0, maxMonth: 3 },
+{ domain: "İNCƏ MOTOR", name: "Kubu tutur", minMonth: 3, maxMonth: 6 },
+{ domain: "İNCƏ MOTOR", name: "Cımbız tutuşu (kişmiş)", minMonth: 9, maxMonth: 12 },
+{ domain: "İNCƏ MOTOR", name: "3 kubdan qüllə", minMonth: 18, maxMonth: 24 },
+{ domain: "İNCƏ MOTOR", name: "Şaquli xətt kopyalayır", minMonth: 36, maxMonth: 48 },
+{ domain: "DİL VƏ DANIŞMA", name: "Səsə baş çevirir", minMonth: 3, maxMonth: 6 },
+{ domain: "DİL VƏ DANIŞMA", name: "Mama/dada deyir", minMonth: 8, maxMonth: 12 },
+{ domain: "DİL VƏ DANIŞMA", name: "2 sözlü cümlələr", minMonth: 20, maxMonth: 30 },
+{ domain: "DİL VƏ DANIŞMA", name: "Bədən hissələrini adlandırır", minMonth: 30, maxMonth: 42 },
+{ domain: "SOSİAL-ŞƏXSİ", name: "Gülümsəyir", minMonth: 1, maxMonth: 3 },
+{ domain: "SOSİAL-ŞƏXSİ", name: "Barmaqları ilə yeyir", minMonth: 10, maxMonth: 14 },
+{ domain: "SOSİAL-ŞƏXSİ", name: "Özü yeyir, yuyunur", minMonth: 36, maxMonth: 54 },
+{ domain: "SOSİAL-ŞƏXSİ", name: "Adını deyir, ev işlərində kömək edir", minMonth: 48, maxMonth: 72 }
+ ];
+
+const ageCols = ["2ay","4ay","6ay","9am","12ay","15ay","18ay","24ay","3yas","4yas","5yas","6yas"];
+const ageMonths = [2,4,6,9,12,15,18,24,36,48,60,72];
+
+function calculateAge(birthDateStr) {
+if(!birthDateStr) return null;
+const birth = new Date(birthDateStr);
+const today = new Date();
+let months = (today.getFullYear() - birth.getFullYear())*12 + (today.getMonth()-birth.getMonth());
+if(today.getDate() < birth.getDate()) months--;
+return months;
+}
+
+function getAgeIndex(months) {
+if(months === null) return 0;
+let idx = 0;
+for(let i=0; i<ageMonths.length; i++) {
+if(months >= ageMonths[i]) idx = i;
+else break;
+}
+return idx;
+}
+
+// Dinamik cədvəl – yalnız uşağın yaşına uyğun maddələr
+function buildDynamicTable(months) {
+const ageIdx = getAgeIndex(months);
+const maxCol = Math.min(ageIdx+2, ageCols.length-1);
+const visibleCols = ageCols.slice(0, maxCol+1);
+const filtered = items.filter(i => i.minMonth <= months && i.maxMonth >= months-3);
+
+let html = <table class="test-table"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;İnkişaf sahəsi / Maddə (normal yaş intervalı)&lt;/th&gt;${visibleCols.map(a=><th&gt;${a}</th>).join('')}&lt;/thead&gt;&lt;tbody>;
+let curr = "";
+filtered.forEach(item => {
+if(item.domain !== curr) {
+html += <tr&gt;&lt;th class="domain-row" colspan="${visibleCols.length+1}">${item.domain}&lt;/th&gt;&lt;/tr>;
+curr = item.domain;
+}
+html += <td&gt;&lt;td&gt;${item.name} (${item.minMonth}-${item.maxMonth} ay)</td>; for(let i=0; i&lt;=maxCol; i++) { html +=<td class="checkbox-cell"><input type="checkbox" data-item="${item.name.replace(/"/g, '&quot;')}" data-age="${ageCols[i]}"></td>; } html +=; }); html +=</tbody></table>`;
+document.getElementById("testTableWrapper").innerHTML = html;
+return { visibleCols, maxCol };
+}
+
+function getAllChecks() {
+let checks = [];
+document.querySelectorAll("#testTableWrapper input:checked").forEach(cb => {
+checks.push(cb.getAttribute("data-item") + "|" + cb.getAttribute("data-age"));
+});
+return checks;
+}
+
+function setChecksFromArray(checksArr, months) {
+buildDynamicTable(months);
+const set = new Set(checksArr);
+document.querySelectorAll("#testTableWrapper input").forEach(cb => {
+const key = cb.getAttribute("data-item") + "|" + cb.getAttribute("data-age");
+if(set.has(key)) cb.checked = true;
+});
+}
+
+// Analiz (gecikmə/uyarı)
+function analyzeTest(childName, dob, checksArray, ageIdx) {
+const factual = calculateAge(dob);
+if(factual === null) return { error: "Doğum tarixi xətalı" };
+const checkedSet = new Set(checksArray);
+let delays = [], warnings = [];
+const rows = document.querySelectorAll("#testTableWrapper tbody tr");
+rows.forEach(row => {
+const nameCell = row.querySelector("td:first-child");
+if(!nameCell) return;
+let itemName = nameCell.innerText.split(" (")[0];
+const boxes = row.querySelectorAll("input");
+for(let i=0; i<boxes.length; i++) {
+const ageCol = boxes[i].getAttribute("data-age");
+const colIdx = ageCols.indexOf(ageCol);
+const isChecked = boxes[i].checked;
+if(colIdx <= ageIdx && !isChecked) delays.push({ item: itemName, ageCol });
+else if(colIdx > ageIdx && !isChecked) warnings.push({ item: itemName, ageCol });
+}
+});
+let totalM=0, cnt=0;
+checksArray.forEach(ch => {
+const part = ch.split('|')[1];
+const idx = ageCols.indexOf(part);
+if(idx !== -1) { totalM += ageMonths[idx]; cnt++; }
+});
+const devAge = cnt>0 ? totalM/cnt : 0;
+let delayMonths = factual - devAge;
+if(delayMonths<0) delayMonths=0;
+let eval = "";
+if(delays.length===0) eval = "✅ Normal (yaşına uyğun)";
+else if(delays.length>=2) eval = "⚠️ Anormal – dərinləşdirilmiş qiymətləndirmə şərtdir";
+else eval = "🔍 Şübhəli – təkrar test tövsiyə olunur";
+return { childName, dob, factualAge:factual, developmentalAge:devAge, delayMonths, delayCount:delays.length, warningCount:warnings.length, delays, evaluation:eval };
+}
+
+// YAŞA UYĞUN TÖVSİYYƏLƏR (psixoloq, loqoped, fizioterapevt, valideyn)
+function generateAgeSpecificRecommendations(ageMonths, delays) {
+let motor = delays.some(d => d.item.includes("Baş")||d.item.includes("otur")||d.item.includes("yeriy")||d.item.includes("pilləkən"));
+let fine = delays.some(d => d.item.includes("Kubu")||d.item.includes("Cımbız")||d.item.includes("kublar")||d.item.includes("xətt"));
+let lang = delays.some(d => d.item.includes("Səs")||d.item.includes("Mama")||d.item.includes("sözlü")||d.item.includes("Bədən"));
+let social = delays.some(d => d.item.includes("Gülümsəyir")||d.item.includes("yeyir")||d.item.includes("Adını"));
+
+let html = <div style="background:#eef3fc; padding:20px; border-radius:28px; margin:20px 0;"&gt;&lt;h3&gt;📘 Fərdi İş Planı (Yaşa görə uyğunlaşdırılmış)&lt;/h3>;
+html += <p&gt;&lt;strong&gt;Uşağın yaşı:&lt;/strong&gt;${ageMonths} ay. Aşağıdakı tövsiyələr bu yaş qrupuna xasdır.</p>`;
+
+if(ageMonths <= 12) {
+if(motor) html += <h4&gt;🏃 Kobud motor (0-12 ay)&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Psixoloq/Fizioterapevt:&lt;/strong&gt; Qarın üstə yatmağa təşviq, sürünmə oyunları, top yuvarlama. Baş nəzarətini gücləndirən fəaliyyətlər.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Hər gün uşaqla yerdə oyun, "hava təyyarəsi" hərəkətləri.&lt;/p>;
+if(fine) html += <h4&gt;✍ İncə motor&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Psixoloq/Erqoterapevt:&lt;/strong&gt; Cingiltili oyuncaqlar, tutmalı halqalar, barmaq oyunları.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Uşağın əlinə kiçik əşyalar verin (təhlükəsiz), "cımbız" tutuşunu gücləndirin.&lt;/p>;
+if(lang) html += <h4&gt;🗣 Dil&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Loqoped:&lt;/strong&gt; Səs çıxarma təqlidi, "mama-dada" hecalarını təkrarlatma.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Uşağa bol-bol danışın, onun səslərinə cavab verin.&lt;/p>;
+if(social) html += <h4&gt;🧸 Sosial&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Psixoloq:&lt;/strong&gt; üz-üzə gülümsəmə, qucaqda sakitləşmə oyunları.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Uşağa adı ilə müraciət, onun reaksiyalarını müşahidə edin.&lt;/p>;
+}
+else if(ageMonths <= 24) {
+if(motor) html += <h4&gt;🏃 Kobud motor (12-24 ay)&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Fizioterapevt:&lt;/strong&gt; Dayanma, pilləkənlə əl-ələ qalxma, top təpikləmə.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Parkda "gəl məni tut" oyunu, maneəli yolda sürünmə.&lt;/p>;
+if(fine) html += <h4&gt;✍ İncə motor&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Erqoterapevt:&lt;/strong&gt; Böyük muncuqları ipə düzmə, qüllə tikmə, barmaq boyaları.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Makaronları düzmək, şəkilli kitabda detalları göstərmək.&lt;/p>;
+if(lang) html += <h4&gt;🗣 Dil&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Loqoped:&lt;/strong&gt; İki sözlü ifadələr, "nə?" suallarına cavab vermə.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Gündəlik kitab oxuma, şəkilləri adlandırma.&lt;/p>;
+if(social) html += <h4&gt;🧸 Sosial&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Psixoloq:&lt;/strong&gt; Özü qaşıq tutma, tualet əlamətlərini tanıma.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; "Xahiş edirəm" deməyi modelləşdirmə, sadə ev işləri (oyuncaqları yığmaq).&lt;/p>;
+}
+else if(ageMonths <= 48) {
+if(motor) html += <h4&gt;🏃 Kobud motor (2-4 yaş)&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Fizioterapevt:&lt;/strong&gt; Bir ayaqda dayanma, tullanma, üçtəkərli velosiped.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Açıq havada top oyunları, maneəli parkur.&lt;/p>;
+if(fine) html += <h4&gt;✍ İncə motor&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Erqoterapevt:&lt;/strong&gt; Qayçı ilə kəsmə, dairə çəkmə, lego tikmə.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Plastilin oyunları, barmaq oyunları (barmaq ailəsi).&lt;/p>;
+if(lang) html += <h4&gt;🗣 Dil&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Loqoped:&lt;/strong&gt; Hekayə qurma, "harada?" suallarına cavab vermə.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Hər gün 15-20 dəq kitab oxuma, uşağın danışdıqlarını genişləndirmə.&lt;/p>;
+if(social) html += <h4&gt;🧸 Sosial&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Psixoloq:&lt;/strong&gt; Emosiya kartları, növbə gözləmə oyunları.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Uşağa sadə qaydalar qoymaq, onun öz qərar verməsinə imkan tanımaq.&lt;/p>;
+}
+else {
+if(motor) html += <h4&gt;🏃 Kobud motor (4-6 yaş)&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Fizioterapevt:&lt;/strong&gt; Koordinasiya məşqləri, bir ayaqda sıçrayış, ip tullanma.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Velosiped sürmə, topu hədəfə atma oyunları.&lt;/p>;
+if(fine) html += <h4&gt;✍ İncə motor&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Erqoterapevt:&lt;/strong&gt; Xətləri kopyalama, labirint oyunları, kiçik legolar.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Hər gün 10 dəq rəsm çəkmə, yazı hazırlığı.&lt;/p>;
+if(lang) html += <h4&gt;🗣 Dil&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Loqoped:&lt;/strong&gt; Ardıcıl 3 hadisəni izah etmə, mürəkkəb suallara cavab.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Gündəlik müzakirələr, uşağın fikirlərini ifadə etməsinə dəstək.&lt;/p>;
+if(social) html += <h4&gt;🧸 Sosial&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;Psixoloq:&lt;/strong&gt; Qaydalı oyunlar, məsuliyyət daşıma, əməkdaşlıq bacarıqları.&lt;br&gt;&lt;strong&gt;Valideyn:&lt;/strong&gt; Evdə kiçik vəzifələr vermək, müsbət nümunə olmaq.&lt;/p>;
+}
+if(!motor && !fine && !lang && !social) html += <p&gt;✅ Heç bir gecikmə aşkarlanmadı. Standart inkişaf fəaliyyətləri kifayətdir.&lt;/p>;
+html += <hr&gt;&lt;p&gt;&lt;strong&gt;🌍 Qlobal Erkən Müdaxilə Qaydaları (WHO, UNESCO):&lt;/strong&gt; Ailə mərkəzli, oyun əsaslı, müsbət gücləndirmə. Hər 3-6 aydan bir test təkrarlanmalıdır.&lt;/p&gt;&lt;/div>;
+return html;
+}
+
+async function generateReport(childName, dob, checksArray) {
+const months = calculateAge(dob);
+if(!childName || !dob) { alert("Ad və doğum tarixi tələb olunur"); return null; }
+const ageIdx = getAgeIndex(months);
+const analysis = analyzeTest(childName, dob, checksArray, ageIdx);
+if(analysis.error) { alert(analysis.error); return null; }
+const plan = generateAgeSpecificRecommendations(analysis.factualAge, analysis.delays);
+const reportHtml = &lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;title&gt;Denver II Hesabat - ${escapeHtml(childName)}</title>
+<style>body{font-family:Segoe UI,sans-serif;margin:25px;background:#f8faf8;}.report{max-width:1100px;margin:auto;background:white;padding:28px;border-radius:32px;}.info{background:#eef5ea;padding:18px;border-radius:24px;margin-bottom:20px;}</style>
+<body><div class="report"><h1>🏥 Denver II Testi – Fərdi Hesabat</h1>
+<div class="info"><p><strong>Uşaq:</strong> ${escapeHtml(childName)}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Doğum tarixi:&lt;/strong&gt; ${dob} | Faktiki yaş: ${analysis.factualAge} ay&lt;/p&gt; &lt;p&gt;&lt;strong&gt;📉 Təqribi inkişaf yaşı:&lt;/strong&gt; ${analysis.developmentalAge.toFixed(1)} ay | <strong>Geriləmə: ${analysis.delayMonths.toFixed(1)} ay&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;&lt;strong&gt;⚠️ Gecikmə sayı:&lt;/strong&gt; ${analysis.delayCount} | <strong>🔔 Qiymətləndirmə:</strong> ${analysis.evaluation}&lt;/p&gt; &lt;p&gt;&lt;strong&gt;🧠 Davranış reytinqi:&lt;/strong&gt; Test zamanı uşağın diqqəti, əməkdaşlığı, qorxu reaksiyası psixoloq tərəfindən ayrıca qeyd edilməlidir.&lt;/p&gt;&lt;/div&gt; ${plan}<footer style="margin-top:20px;">Bu hesabat Denver II metodologiyasına (WHO/UNESCO) əsaslanır. Mütləq mütəxəssis tərəfindən dəyərləndirilməlidir.</footer></div></body></html>`;
+return reportHtml;
+}
+
+function escapeHtml(str) { return str.replace(/[&<>]/g, m=>{if(m==='&') return '&'; if(m==='<') return '<'; if(m==='>') return '>'; return m;}); }
+
+// ========== UI İDARƏSİ ==========
+const msgDiv = document.getElementById("testMessage");
+const dobInput = document.getElementById("dob");
+let currMonths = null;
+
+function updateTable() {
+const dob = dobInput.value;
+if(!dob) { document.getElementById("testTableWrapper").innerHTML = <div class="status"&gt;📅 Doğum tarixini seçin – test avtomatik qurulacaq.&lt;/div>; return; }
+const months = calculateAge(dob);
+if(months === null) return;
+currMonths = months;
+buildDynamicTable(months);
+msgDiv.innerHTML = ✅ Yaş:${months} ay. Test yalnız bu yaşa uyğun maddələri göstərir.`;
+}
+dobInput.addEventListener("change", updateTable);
+
+document.getElementById("saveBtn").onclick = async () => {
+const name = document.getElementById("childName").value.trim();
+const dob = dobInput.value;
+if(!name || !dob) { msgDiv.innerHTML = "❌ Ad və doğum tarixi tələb olunur!"; return; }
+const checks = getAllChecks();
+const url = ${SCRIPT_URL}?action=save&name=${encodeURIComponent(name)}&dob=${dob}&reg=${encodeURIComponent(document.getElementById("regNo").value)}&checks=${encodeURIComponent(checks.join(";"))}`;
+msgDiv.innerHTML = "Göndərilir...";
+try{
+const resp = await fetch(url);
+const txt = await resp.text();
+if(txt==="OK") msgDiv.innerHTML = "✅ Məlumatlar saxlanıldı!";
+else msgDiv.innerHTML = "⚠️ Xəta: "+txt;
+}catch(e){ msgDiv.innerHTML = "❌ Şəbəkə xətası"; }
+};
+document.getElementById("reportBtn").onclick = async () => {
+const name = document.getElementById("childName").value.trim();
+const dob = dobInput.value;
+if(!name || !dob){ msgDiv.innerHTML = "Hesabat üçün ad və doğum tarixi daxil edin!"; return; }
+const checks = getAllChecks();
+if(checks.length===0){ msgDiv.innerHTML = "Heç bir maddə işarələnməyib!"; return; }
+const report = await generateReport(name, dob, checks);
+if(report){ const win = window.open(); win.document.write(report); win.document.close(); }
+};
+document.getElementById("clearCheckBtn").onclick = () => { if(currMonths) buildDynamicTable(currMonths); msgDiv.innerHTML = "Cədvəl təmizləndi."; };
+
+// ========== ARXİV VƏ STATİSTİKA ==========
+let allRecords = [];
+async function loadAllData() {
+try{ const resp = await fetch(SCRIPT_URL+"?action=load"); const data = await resp.json(); allRecords = Array.isArray(data) ? data : []; return allRecords; }catch(e){ return []; }
+}
+async function displayArchive(searchTerm=""){
+const records = await loadAllData();
+const container = document.getElementById("archiveList");
+if(!records.length){ container.innerHTML=<div class="status"&gt;⚠️ Heç bir test yoxdur.&lt;/div>; return; }
+let filtered = records;
+if(searchTerm.trim()) filtered = records.filter(r=>r[1] && r[1].toLowerCase().includes(searchTerm.toLowerCase()));
+if(!filtered.length){ container.innerHTML=<div class="status"&gt;🔍 Nəticə yoxdur.&lt;/div>; return; }
+let html = <div class="table-wrapper"&gt;&lt;table class="test-table"&gt;&lt;thead&gt;&lt;th&gt;Tarix&lt;/th&gt;&lt;th&gt;Uşaq adı&lt;/th&gt;&lt;th&gt;Doğum&lt;/th&gt;&lt;th&gt;Qeydiyyat&lt;/th&gt;&lt;th&gt;Bac.Say&lt;/th&gt;&lt;th&gt;Hesabat&lt;/th&gt;&lt;/thead&gt;&lt;tbody>;
+filtered.slice().reverse().forEach(row=>{
+const checksField = row[4] || "";
+const count = checksField.split(";").filter(c=>c).length;
+const nameAttr = escapeHtml(row[1]||''); const dobAttr = row[2]||''; const regAttr = row[3]||'';
+html += <tr class="archive-row" data-name="${nameAttr}" data-dob=" {regAttr}" data-checks=" {(row[0]||'').slice(0,16)}</td><td> {dobAttr}</td><td> {count}</td>
+<td><button class="btn-small archive-report-btn" data-name=" {dobAttr}" data-checks="latex
+{encodeURIComponent(checksField)}"&gt;📄 Hesabat&lt;/button&gt;&lt;/td&gt; &lt;/tr>`; }); html += `</tbody&gt;}&lt;/div&gt;&lt;p&gt;Ad sətrinə klik testi yükləyir.&lt;/p>`; container.innerHTML = html; document.querySelectorAll('.archive-row').forEach(tr=&gt;{ tr.addEventListener('click', (e)=&gt;{ if(e.target.classList.contains('archive-report-btn')) return; const name = tr.getAttribute('data-name'); const dob = tr.getAttribute('data-dob'); const reg = tr.getAttribute('data-reg'); const checksStr = tr.getAttribute('data-checks'); document.getElementById("childName").value = name; dobInput.value = dob; document.getElementById("regNo").value = reg; const checksArr = checksStr ? checksStr.split(";").filter(c=&gt;c) : []; setChecksFromArray(checksArr, calculateAge(dob)); msgDiv.innerHTML = `📂 "
+
+{name}" testi yükləndi.; document.querySelector('.tab-btn[data-tab="test"]').click(); }); }); document.querySelectorAll('.archive-report-btn').forEach(btn=&gt;{ btn.addEventListener('click', async (e)=&gt;{ e.stopPropagation(); const name = btn.getAttribute('data-name'); const dob = btn.getAttribute('data-dob'); const checksStr = decodeURIComponent(btn.getAttribute('data-checks')); const checksArr = checksStr ? checksStr.split(";").filter(c=&gt;c) : []; if(!name || !dob) return; const report = await generateReport(name, dob, checksArr); if(report){ const win = window.open(); win.document.write(report); win.document.close(); } }); }); } async function displayStats(){ const records = await loadAllData(); if(!records.length){ document.getElementById("statsContent").innerHTML=<div class="stat-card">Məlumat yoxdur</div>; return; } const total = records.length, unique = new Set(records.map(r=&gt;r[1])).size; let skillCount = {}; records.forEach(r=&gt;{ (r[4]||"").split(";").forEach(s=&gt;{ if(s) skillCount[s]=(skillCount[s]||0)+1; }); }); const top = Object.entries(skillCount).sort((a,b)=&gt;b[1]-a[1]).slice(0,5); document.getElementById("statsContent").innerHTML =<div class="stat-card"><h3>Ümumi testlər</h3><p> {unique}</p></div><div class="stat-card"><h3>Top 5 bacarıq</h3><ul>latex
+{top.map(t=>`<li&gt;
+
+{t[0].slice(0,35)} (${t[1]})&lt;/li>).join('')}</ul></div>`;
+}
+
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+btn.addEventListener("click",()=>{
+document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+document.querySelectorAll(".tab-pane").forEach(p=>p.classList.remove("active"));
+const tab = btn.getAttribute("data-tab");
+document.getElementById(``${tab}Pane`).classList.add("active");
+if(tab==="archive") displayArchive(document.getElementById("searchName").value);
+if(tab==="stats") displayStats();
+});
+});
+document.getElementById("searchBtn").onclick = () => displayArchive(document.getElementById("searchName").value);
+document.getElementById("refreshArchiveBtn").onclick = () => displayArchive(document.getElementById("searchName").value);
+document.getElementById("calcStatsBtn").onclick = () => displayStats();
+updateTable();
 </script>
 </body>
 </html>
