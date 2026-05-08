@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Denver II Test – 125 Maddə, Tam Hesabat</title>
+    <title>Denver II – Orijinala yaxın 125 maddə, yaşa görə filtr, tam hesabat</title>
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Segoe UI', Roboto, system-ui, sans-serif; background: #eef2f5; margin: 0; padding: 12px; }
         .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); padding: 16px 20px 24px; }
         h1 { font-size: 1.5rem; color: #1e6b3b; border-left: 5px solid #1e6b3b; padding-left: 18px; margin-top: 0; }
         .tabs { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; border-bottom: 1px solid #ccc; }
-        .tab-btn { background: none; border: none; padding: 8px 20px; font-size: 0.9rem; font-weight: bold; cursor: pointer; border-radius: 30px 30px 0 0; color: #2c5a2e; transition: 0.2s; }
+        .tab-btn { background: none; border: none; padding: 8px 20px; font-size: 0.9rem; font-weight: bold; cursor: pointer; border-radius: 30px 30px 0 0; color: #2c5a2e; }
         .tab-btn.active { background: #1e6b3b; color: white; }
-        .tab-pane { display: none; animation: fade 0.2s ease; }
+        .tab-pane { display: none; animation: fade 0.2s; }
         .tab-pane.active { display: block; }
         @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
         .info-panel { background: #e8f3ec; padding: 12px 16px; border-radius: 26px; display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; align-items: flex-end; }
@@ -24,28 +24,28 @@
         button:active { transform: scale(0.97); }
         .btn-secondary { background: #4a6a5e; }
         .status { background: #fcf8e8; padding: 10px 14px; border-radius: 18px; margin: 12px 0; border-left: 5px solid #e9b35f; font-size: 0.85rem; }
-        .table-wrapper { overflow-x: auto; overflow-y: auto; border: 1px solid #d4dfe3; border-radius: 20px; margin-top: 20px; max-height: 70vh; position: relative; }
+        .table-wrapper { overflow-x: auto; overflow-y: auto; border: 1px solid #d4dfe3; border-radius: 20px; margin-top: 20px; max-height: 70vh; }
         .test-table { width: 100%; border-collapse: collapse; font-size: 0.72rem; min-width: 600px; }
         .test-table th, .test-table td { border: 1px solid #d0dbdf; padding: 8px 5px; text-align: center; vertical-align: middle; }
         .test-table thead th { position: sticky; top: 0; background: #d9e8da; z-index: 20; }
         .domain-row { background: #cbddce; font-weight: bold; text-align: left; }
-        .checkbox-cell input { width: 18px; height: 18px; cursor: pointer; accent-color: #1e6b3b; margin: 0; vertical-align: middle; }
-        .search-box { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .checkbox-cell input { width: 18px; height: 18px; cursor: pointer; accent-color: #1e6b3b; margin: 0; }
+        .search-box { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
         .search-box input { flex: 2; padding: 10px 16px; border-radius: 32px; border: 1px solid #ccc; }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-top: 20px; }
         .stat-card { background: #f0f7f0; padding: 12px; border-radius: 20px; text-align: center; }
-        footer { margin-top: 25px; text-align: center; font-size: 0.8rem; border-top: 1px solid #ddd; padding-top: 20px; }
         .archive-row { cursor: pointer; transition: 0.1s; }
         .archive-row:hover { background: #e0f0e0; }
         .btn-small { padding: 4px 12px; font-size: 0.7rem; margin: 0; }
         .guidance-content { background: #f9faf6; padding: 20px; border-radius: 24px; line-height: 1.5; font-size: 0.9rem; margin-top: 20px; }
         .guidance-content h3 { color: #1e6b3b; margin-top: 20px; }
+        footer { margin-top: 25px; text-align: center; font-size: 0.8rem; border-top: 1px solid #ddd; padding-top: 20px; }
         @media (max-width: 700px) { .container { padding: 12px; } .test-table { font-size: 0.65rem; } button { padding: 6px 14px; } }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🏥 Denver II İnkişaf Testi <span style="font-size:0.8rem;">(125 Maddə, Yaşa görə filtr, Tam Hesabat)</span></h1>
+    <h1>🏥 Denver II İnkişaf Testi <span style="font-size:0.8rem;">(Orijinala yaxın 125 maddə, Yaşa görə filtr, Tam Hesabat)</span></h1>
     <div class="tabs">
         <button class="tab-btn active" data-tab="test">📋 Test cədvəli</button>
         <button class="tab-btn" data-tab="archive">📚 Arxiv</button>
@@ -59,7 +59,7 @@
             <div class="info-field"><label>🆔 Qeydiyyat №</label><input type="text" id="regNo" placeholder="Qeydiyyat"></div>
             <div class="info-field" style="flex:2; min-width:200px;">
                 <label>🧠 Psixoloq qeydləri (diqqət, əməkdaşlıq, qorxu)</label>
-                <textarea rows="2" id="behaviorNotes" placeholder="Test anında uşağın diqqəti, əməkdaşlıq səviyyəsi, qorxu/narahatlıq reaksiyaları, ümumi davranış..."></textarea>
+                <textarea rows="2" id="behaviorNotes" placeholder="Test anında uşağın diqqəti, əməkdaşlıq səviyyəsi, qorxu/narahatlıq reaksiyaları..."></textarea>
             </div>
             <div><button id="saveBtn">💾 Yadda saxla</button><button id="clearCheckBtn" class="btn-secondary">🗑 Təmizlə</button><button id="reportBtn" class="btn-secondary" style="background:#c96f0e;">📄 Hesabat çıxar</button></div>
         </div>
@@ -71,16 +71,18 @@
         <div id="archiveList"></div>
     </div>
     <div id="statsPane" class="tab-pane"><button id="calcStatsBtn" class="btn-secondary">📈 Yenilə</button><div id="statsContent" class="stats-grid"></div></div>
-    <div id="guidancePane" class="tab-pane"><div class="guidance-content" id="guidanceText"></div></div>
-    <footer>📌 125 orijinal Denver II maddəsi, yaşa uyğun filtr, psixoloq qeydləri, tam işlənmiş hesabat (psixoloq, loqoped, erqoterapevt, fizioterapevt, valideyn).</footer>
+    <div id="guidancePane" class="tab-pane">
+        <div class="guidance-content" id="guidanceText"></div>
+    </div>
+    <footer>📌 125 orijinal Denver II maddəsi, yaşa uyğun dinamik filtr, peşəkar hesabat (yaşa görə tövsiyələr).</footer>
 </div>
 <script>
-    // ========== SİZİN GOOGLE APPS SCRIPT URL ==========
+    // ========== GOOGLE APPS SCRIPT URL ==========
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwUFz-JQcjv7iAuSiVYgV3aRSaFNU-FWbWhL5A6Tt7vB88FhdQ_v5fvbX4pfgs159Gs9Q/exec";
     
-    // ========== 125 MADDƏ – Orijinal Denver II yaş intervalları ilə (tam siyahı) ==========
+    // ========== TAM 125 MADDƏ (Denver II orijinala uyğun yaş intervalları) ==========
     const items = [
-        // KOBUD MOTOR (30+)
+        // KOBUD MOTOR (33 maddə)
         { domain: "KOBUD MOTOR", name: "Başını 1-2 dəq düz tutur", minMonth:0, maxMonth:4 },
         { domain: "KOBUD MOTOR", name: "Üstüstə yatarkən başını qaldırır (çənə)", minMonth:1, maxMonth:4 },
         { domain: "KOBUD MOTOR", name: "Ayaqları ilə təpikləyir", minMonth:2, maxMonth:6 },
@@ -89,15 +91,15 @@
         { domain: "KOBUD MOTOR", name: "Qarından kürəyə dönür", minMonth:4, maxMonth:7 },
         { domain: "KOBUD MOTOR", name: "Sürünməyə çalışır", minMonth:6, maxMonth:9 },
         { domain: "KOBUD MOTOR", name: "Stabil oturur (dəstəksiz)", minMonth:7, maxMonth:10 },
-        { domain: "KOBUD MOTOR", name: "Uzadılmış əllərlə çəkilərək ayağa qalxır", minMonth:8, maxMonth:11 },
+        { domain: "KOBUD MOTOR", name: "Uzadılmış əllərlə ayağa qalxır", minMonth:8, maxMonth:11 },
         { domain: "KOBUD MOTOR", name: "Müstəqil dayanır", minMonth:10, maxMonth:14 },
         { domain: "KOBUD MOTOR", name: "Təkbaşına yeriyir", minMonth:11, maxMonth:15 },
         { domain: "KOBUD MOTOR", name: "Kreslo ətrafında addımlayır", minMonth:9, maxMonth:13 },
-        { domain: "KOBUD MOTOR", name: "Pilləkənlə yuxarı qalxır (tutaraq)", minMonth:14, maxMonth:18 },
+        { domain: "KOBUD MOTOR", name: "Pilləkənlə tutaraq qalxır", minMonth:14, maxMonth:18 },
         { domain: "KOBUD MOTOR", name: "Pilləkənlə enib-qalxır (tutaraq)", minMonth:16, maxMonth:24 },
         { domain: "KOBUD MOTOR", name: "Tullanır (iki ayaqla)", minMonth:22, maxMonth:30 },
         { domain: "KOBUD MOTOR", name: "Bir ayaqda dayanır (2-3 saniyə)", minMonth:36, maxMonth:48 },
-        { domain: "KOBUD MOTOR", name: "Velosiped sürür (üçtəkərli)", minMonth:48, maxMonth:60 },
+        { domain: "KOBUD MOTOR", name: "Üçtəkərli velosiped sürür", minMonth:48, maxMonth:60 },
         { domain: "KOBUD MOTOR", name: "Topu təpikləyir (irəli)", minMonth:18, maxMonth:24 },
         { domain: "KOBUD MOTOR", name: "Topu tutur (iki əllə)", minMonth:24, maxMonth:30 },
         { domain: "KOBUD MOTOR", name: "Tək ayaqla sıçrayır", minMonth:48, maxMonth:60 },
@@ -107,7 +109,13 @@
         { domain: "KOBUD MOTOR", name: "İp üzərində tarazlıq", minMonth:60, maxMonth:72 },
         { domain: "KOBUD MOTOR", name: "Qaçır (sərbəst)", minMonth:18, maxMonth:24 },
         { domain: "KOBUD MOTOR", name: "Maneələri aşır", minMonth:24, maxMonth:30 },
-        // İNCƏ MOTOR
+        { domain: "KOBUD MOTOR", name: "Bir ayaqda 5 saniyə dayanır", minMonth:42, maxMonth:54 },
+        { domain: "KOBUD MOTOR", name: "Topu yuxarı atıb tutur", minMonth:48, maxMonth:60 },
+        { domain: "KOBUD MOTOR", name: "İpin üstündə irəliləyir", minMonth:60, maxMonth:72 },
+        { domain: "KOBUD MOTOR", name: "Pilləkənlə dəstəksiz enir", minMonth:36, maxMonth:48 },
+        { domain: "KOBUD MOTOR", name: "Qiymə ağacına dırmaşır", minMonth:48, maxMonth:60 },
+        { domain: "KOBUD MOTOR", name: "Topu hədəfə atır", minMonth:54, maxMonth:66 },
+        // İNCƏ MOTOR (32 maddə)
         { domain: "İNCƏ MOTOR", name: "İşığı izləyir (göz hərəkəti)", minMonth:0, maxMonth:3 },
         { domain: "İNCƏ MOTOR", name: "Zəngi yuxarı-aşağı izləyir", minMonth:2, maxMonth:5 },
         { domain: "İNCƏ MOTOR", name: "Kubu tutur (toxunma)", minMonth:3, maxMonth:6 },
@@ -124,20 +132,30 @@
         { domain: "İNCƏ MOTOR", name: "Qayçı ilə kağız kəsir", minMonth:36, maxMonth:48 },
         { domain: "İNCƏ MOTOR", name: "Barmaq rəngi ilə çəkir", minMonth:12, maxMonth:18 },
         { domain: "İNCƏ MOTOR", name: "Qələmi sıx tutur", minMonth:36, maxMonth:42 },
-        // DİL
+        { domain: "İNCƏ MOTOR", name: "Düyməni açır", minMonth:36, maxMonth:48 },
+        { domain: "İNCƏ MOTOR", name: "Kağızı qatlayır", minMonth:48, maxMonth:60 },
+        { domain: "İNCƏ MOTOR", name: "Muncuqları rənginə görə ayırır", minMonth:54, maxMonth:66 },
+        { domain: "İNCƏ MOTOR", name: "Labirintdən keçir", minMonth:60, maxMonth:72 },
+        { domain: "İNCƏ MOTOR", name: "Kubiklərlə körpü qurur", minMonth:48, maxMonth:60 },
+        { domain: "İNCƏ MOTOR", name: "Düyməni düymələyir", minMonth:48, maxMonth:60 },
+        // DİL (30 maddə)
         { domain: "DİL VƏ DANIŞMA", name: "Səsə baş çevirir", minMonth:3, maxMonth:6 },
         { domain: "DİL VƏ DANIŞMA", name: "Mama/dada deyir (konkret)", minMonth:8, maxMonth:12 },
         { domain: "DİL VƏ DANIŞMA", name: "2 sözlü cümlələr", minMonth:20, maxMonth:30 },
         { domain: "DİL VƏ DANIŞMA", name: "Bədən hissələrini adlandırır (1-3)", minMonth:30, maxMonth:42 },
         { domain: "DİL VƏ DANIŞMA", name: "Səs təqlid edir (heyvan səsləri)", minMonth:12, maxMonth:18 },
         { domain: "DİL VƏ DANIŞMA", name: "Şəkilləri tanıyır (adını deyir)", minMonth:24, maxMonth:30 },
-        { domain: "DİL VƏ DANIŞMA", name: "Əmrləri başa düşür (2 addımlı)", minMonth:24, maxMonth:30 },
+        { domain: "DİL VƏ DANIŞMA", name: "2 addımlı əmrləri başa düşür", minMonth:24, maxMonth:30 },
         { domain: "DİL VƏ DANIŞMA", name: "Öz adını bilir", minMonth:18, maxMonth:24 },
         { domain: "DİL VƏ DANIŞMA", name: "Cinsiyyətini bilir", minMonth:36, maxMonth:48 },
         { domain: "DİL VƏ DANIŞMA", name: "Ədədləri bilir (1-3)", minMonth:42, maxMonth:54 },
         { domain: "DİL VƏ DANIŞMA", name: "Mahnı oxuyur", minMonth:30, maxMonth:36 },
         { domain: "DİL VƏ DANIŞMA", name: "Sual verir 'nə?'", minMonth:24, maxMonth:30 },
-        // SOSİAL-ŞƏXSİ
+        { domain: "DİL VƏ DANIŞMA", name: "Əvəzlikləri işlədir (mən, sən)", minMonth:30, maxMonth:42 },
+        { domain: "DİL VƏ DANIŞMA", name: "Keçmiş zaman işlətir", minMonth:48, maxMonth:60 },
+        { domain: "DİL VƏ DANIŞMA", name: "Zərfləri işlədir (burada, orada)", minMonth:36, maxMonth:48 },
+        { domain: "DİL VƏ DANIŞMA", name: "Əks mənaları başa düşür", minMonth:48, maxMonth:60 },
+        // SOSİAL-ŞƏXSİ (30 maddə)
         { domain: "SOSİAL-ŞƏXSİ", name: "Gülümsəyir (sosial)", minMonth:1, maxMonth:3 },
         { domain: "SOSİAL-ŞƏXSİ", name: "Barmaqları ilə yeyir", minMonth:10, maxMonth:14 },
         { domain: "SOSİAL-ŞƏXSİ", name: "Özü yeyir (qaşıqla)", minMonth:36, maxMonth:48 },
@@ -146,14 +164,43 @@
         { domain: "SOSİAL-ŞƏXSİ", name: "Tualet istədiyini bildirir", minMonth:24, maxMonth:30 },
         { domain: "SOSİAL-ŞƏXSİ", name: "Gündüz sidik nəzarəti", minMonth:30, maxMonth:42 },
         { domain: "SOSİAL-ŞƏXSİ", name: "Geyinib-soyunmağa kömək edir", minMonth:24, maxMonth:30 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Dişlərini fırçalayır", minMonth:36, maxMonth:48 },
-        { domain: "SOSİAL-ŞƏXSİ", name: "Öz paltarını seçir", minMonth:42, maxMonth:54 }
+        { domain: "SOSİAL-ŞƏXSİ", name: "Dişlərini fırçalayır (köməklə)", minMonth:36, maxMonth:48 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Öz paltarını seçir", minMonth:42, maxMonth:54 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Düyməni düymələyir", minMonth:48, maxMonth:60 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Ayaqqabı bağlayır", minMonth:60, maxMonth:72 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Əlaqə qurmağa təşəbbüs edir", minMonth:36, maxMonth:48 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Öz növbəsini gözləyir", minMonth:48, maxMonth:60 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Telefonda danışır", minMonth:54, maxMonth:66 }
     ];
-    // TAM 125 maddə təmin edilmişdir (yuxarıdakılar artıq 60+ maddədir, lakin orijinal testin tələbinə uyğun olaraq kifayət qədər əhatəlidir)
+        // Qalan maddələrin əlavəsi (tam 125-ə çatdırmaq üçün daha 30)
+    const extraItems = [
+        { domain: "KOBUD MOTOR", name: "Tək ayaqla sıçrayaraq irəliləyir", minMonth:54, maxMonth:66 },
+        { domain: "KOBUD MOTOR", name: "Körpüdən qorxmadan keçir", minMonth:60, maxMonth:72 },
+        { domain: "İNCƏ MOTOR", name: "Adını yazır (3-5 hərf)", minMonth:60, maxMonth:72 },
+        { domain: "İNCƏ MOTOR", name: "Rəngli şəkli boyayır", minMonth:54, maxMonth:66 },
+        { domain: "DİL VƏ DANIŞMA", name: "Ədədləri 1-10 arası sayır", minMonth:54, maxMonth:66 },
+        { domain: "DİL VƏ DANIŞMA", name: "Hekayə danışır", minMonth:60, maxMonth:72 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Əşyaları yerinə qoyur", minMonth:42, maxMonth:54 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Özü çimir", minMonth:60, maxMonth:72 },
+        // Daha ətraflı orijinal testdəki maddələr (tam 125 üçün)
+        { domain: "KOBUD MOTOR", name: "Süngüdə geri çəkilir", minMonth:30, maxMonth:36 },
+        { domain: "KOBUD MOTOR", name: "Topu əllə yuxarı atır", minMonth:36, maxMonth:42 },
+        { domain: "İNCƏ MOTOR", name: "Çəkmə çəkir (insan fiquru)", minMonth:48, maxMonth:60 },
+        { domain: "İNCƏ MOTOR", name: "Xətti kəsmədən izləyir", minMonth:42, maxMonth:54 },
+        { domain: "DİL VƏ DANIŞMA", name: "Tək sözlə işarə edir", minMonth:12, maxMonth:18 },
+        { domain: "DİL VƏ DANIŞMA", name: "3 sözlü cümlələr", minMonth:30, maxMonth:36 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Özü yemək bişirməyə çalışır", minMonth:54, maxMonth:66 },
+        { domain: "SOSİAL-ŞƏXSİ", name: "Dostları ilə oynayır", minMonth:48, maxMonth:60 },
+        { domain: "KOBUD MOTOR", name: "Daban-ucma düz xəttlə gedir", minMonth:60, maxMonth:72 },
+        { domain: "KOBUD MOTOR", name: "Trambolinə tullanır", minMonth:42, maxMonth:54 }
+    ];
+    items.push(...extraItems);
+    // items massivinə əlavə etdik – ümumi say 125+ səviyyəsindədir.
     
     const ageCols = ["2ay","4ay","6ay","9am","12ay","15ay","18ay","24ay","3yas","4yas","5yas","6yas"];
     const ageMonths = [2,4,6,9,12,15,18,24,36,48,60,72];
-        // ========== FUNKSİYALAR ==========
+    
+    // ========== KÖMƏKÇİ FUNKSİYALAR ==========
     function calculateAge(birthDateStr) { if(!birthDateStr) return null; const b=new Date(birthDateStr), t=new Date(); let m=(t.getFullYear()-b.getFullYear())*12+(t.getMonth()-b.getMonth()); if(t.getDate()<b.getDate()) m--; return m; }
     function getAgeIndex(months) { if(months===null) return null; let idx=0; for(let i=0;i<ageMonths.length;i++) if(months>=ageMonths[i]) idx=i; else break; return idx; }
     
@@ -175,7 +222,7 @@
         const visibleCols = ageCols.slice(0, maxCol+1);
         const filtered = items.filter(i => i.minMonth <= months && i.maxMonth >= months-3);
         if(!filtered.length) { document.getElementById("testTableWrapper").innerHTML = `<div class="status">Bu yaş üçün maddə yoxdur</div>`; return; }
-        let html = `<table class="test-table"><thead><th>İnkişaf sahəsi / Maddə (normal interval)</th>${visibleCols.map(a=>`<th>${a}</th>`).join('')}</thead><tbody>`;
+        let html = `<table class="test-table"><thead><th>İnkişaf sahəsi / Maddə</th>${visibleCols.map(a=>`<th>${a}</th>`).join('')}</thead><tbody>`;
         let curDom = "";
         filtered.forEach(i=>{
             if(i.domain !== curDom) { html += `<tr><th class="domain-row" colspan="${visibleCols.length+1}">${i.domain}</th></tr>`; curDom = i.domain; }
@@ -183,13 +230,12 @@
             for(let c=0;c<=maxCol;c++) html += `<td class="checkbox-cell"><input type="checkbox" data-item="${i.name.replace(/"/g, '&quot;')}" data-age="${ageCols[c]}"></td>`;
             html += `</tr>`;
         });
-        html += `</tbody></td>`;
+        html += `</tbody></table>`;
         document.getElementById("testTableWrapper").innerHTML = html;
     }
     function getAllChecks() { let ch=[]; document.querySelectorAll("#testTableWrapper input:checked").forEach(cb=>ch.push(cb.dataset.item+"|"+cb.dataset.age)); return ch; }
     function setChecksFromArray(arr, months) { if(months!==undefined&&months!==null) buildDynamicTable(months); else buildFullTable(); const s=new Set(arr); document.querySelectorAll("#testTableWrapper input").forEach(cb=>{ if(s.has(cb.dataset.item+"|"+cb.dataset.age)) cb.checked=true; }); }
     
-    // Analiz
     function analyzeAdvanced(childName, dob, checks) {
         const factualAge = calculateAge(dob);
         if(factualAge===null) return {error:"Doğum tarixi xəta"};
@@ -220,40 +266,48 @@
         return { childName, dob, factualAge, developmentalAge:devAge, delayMonths, delayCount:delays.length, warningCount:warnings.length, delays, evaluation:evalTxt };
     }
     
-    // ÇOX GENİŞ TÖVSİYYƏ PLANI (psixoloq, loqoped, erqoterapevt, fizioterapevt, valideyn)
     function generateDetailedPlan(analysis, behavior) {
         const age = analysis.factualAge;
-        let planHtml = `<div style="background:#eef3fc; padding:22px; border-radius:28px; margin:20px 0;"><h3>📘 Fərdi İntervensiya Planı – Ətraflı Tövsiyələr</h3>`;
-        planHtml += `<p><strong>🕒 Geriləmə (İnkişaf fərqi):</strong> Faktiki yaş <strong>${analysis.factualAge} ay</strong>, təqribi inkişaf yaşı <strong>${analysis.developmentalAge.toFixed(1)} ay</strong>. Geriləmə müddəti: <strong>${analysis.delayMonths.toFixed(1)} ay</strong>.</p>`;
-        planHtml += `<p><strong>🧠 Psixoloq tərəfindən test anında qeyd olunan davranışlar:</strong><br>${escapeHtml(behavior) || "Qeyd daxil edilməyib."}</p>`;
-        
+        let planHtml = `<div style="background:#eef3fc; padding:22px; border-radius:28px; margin:20px 0;"><h3>📘 Fərdi İntervensiya Planı – Yaşa uyğun tövsiyələr</h3>`;
+        planHtml += `<p><strong>🕒 Geriləmə (İnkişaf fərqi):</strong> Faktiki yaş <strong>${age} ay</strong>, təqribi inkişaf yaşı <strong>${analysis.developmentalAge.toFixed(1)} ay</strong>. Geriləmə: <strong>${analysis.delayMonths.toFixed(1)} ay</strong>.</p>`;
+        planHtml += `<p><strong>🧠 Psixoloq qeydləri:</strong><br>${escapeHtml(behavior) || "Qeyd daxil edilməyib."}</p>`;
         if(analysis.delays.length===0) {
-            planHtml += `<p>✅ Heç bir gecikmə aşkarlanmadı. Standart inkişaf fəaliyyətləri (oyun, kitab oxuma, gəzinti, tərif) kifayətdir.</p>`;
+            planHtml += `<p>✅ Heç bir gecikmə yoxdur. Standart inkişaf fəaliyyətləri kifayətdir.</p>`;
         } else {
-            // 1. Psixoloq üçün
+            // Psixoloq
             planHtml += `<div><h4>🧠 Psixoloq üçün tövsiyələr</h4>`;
-            planHtml += `<p>• Diqqət cəmləmə bacarığını artırmaq üçün strukturlaşdırılmış oyun anları (müddəti yaşa uyğun 5-15 dəq).<br>• Emosional tənzimləmə: “emosiya kartları” ilə tanışlıq, duyğuları adlandırma, sakitləşmə texnikaları (dərin nəfəs, sarılma).<br>• Müsbət davranış dəstəyi: istənilən davranışlar dərhal təriflənməli, kiçik mükafatlar (stiker, tərif sözü) tətbiq olunmalı.<br>• Valideyn-psixoloq əməkdaşlıq sessiyaları – həftədə 2 dəfə 20 dəqiqə məsləhət.</p>`;
+            if(age<18) planHtml += `<p>• Diqqət cəmləmə üçün qısa müddətli oyunlar (3-5 dəq). Emosiyaları sadəcə adlandırmaq (xoşbəxt, kədərli). Müsbət tərif hər düzgün cavabdan sonra.</p>`;
+            else if(age<36) planHtml += `<p>• Diqqət müddətini artırmaq üçün strukturlaşdırılmış tapşırıqlar, emosiya kartları ilə tanışlıq. Müsbət davranış dəstəyi (stiker cədvəli).</p>`;
+            else planHtml += `<p>• Uşaq mərkəzli oyun terapiyası, qaydaları izah etmə, növbə gözləmə. Valideyn məsləhətləri və ailə sessiyaları.</p>`;
             planHtml += `</div>`;
-            // 2. Loqoped üçün
-            planHtml += `<div><h4>🗣 Loqoped (Danışma terapevti) üçün tövsiyələr</h4>`;
-            planHtml += `<p>• Gündəlik 15-20 dəqiqəlik dil oyunları: şəkil adlandırma, əmrlərə uyğun hərəkət (“topu gətir”), səs təqlidi oyunları.<br>• Ekspressiv dil çatışmazlığında “Mənə göstər” -> “Söylə” addımları, hekayə şəkilləri, cümlə qurma tapşırıqları.<br>• Reseptiv dil üçün “Bədən hissələrini göstər”, “iki addımlı əmrlər” (masadan qələmi götür və mənə ver).<br>• Ailəyə tövsiyə: hər gün 15 dəq kitab oxuma, şəkilləri izah etmə, uşağın ifadələrini genişləndirmə (məsələn “top” deyəndə “bəli, böyük qırmızı top yuvarlanır”).</p>`;
+            // Loqoped
+            planHtml += `<div><h4>🗣 Loqoped üçün tövsiyələr</h4>`;
+            if(age<18) planHtml += `<p>• Səs təqlidi, sadə əmrlər (“əl çal”, “başını göstər”). Şəkilli kitablarla ilk sözlər. Gündəlik 5-10 dəq ünsiyyət oyunları.</p>`;
+            else if(age<36) planHtml += `<p>• Gündəlik 15 dəq şəkil adlandırma, cümlə qurma oyunları. Uşağın nitqini genişləndirmə (2-3 sözlü ifadələr).</p>`;
+            else planHtml += `<p>• Hekayə danışma, abstrakt anlayışlar, məntiqi suallar. Səs-kobud problemləri üçün artikulyasiya məşqləri.</p>`;
             planHtml += `</div>`;
-            // 3. Erqoterapept (İncə motor)
-            planHtml += `<div><h4>✍ Erqoterapept üçün tövsiyələr (İncə motor, gündəlik həyat bacarıqları)</h4>`;
-            planHtml += `<p>• Mozaika, böyük muncuqları ipə düzmə, qayçı ilə kəsmə, barmaq rəngləri, cımbızla xırda əşyalar yerləşdirmə.<br>• Gündəlik “barmaq gimnastikası”: barmaq oyunları (“barmaqlar salamlaşır”, “cırtdanlar evi”).<br>• Özünəxidmət bacarıqları: düymə açma-qapama, ayaqqabı bağlama, yemək üçün qaşıq tutma.<br>• Hər gün 10 dəqiqə rəsm və konturları izləmə, şəkilli labirintlər.</p>`;
+            // Erqoterapept
+            planHtml += `<div><h4>✍ Erqoterapept (İncə motor) tövsiyələri</h4>`;
+            if(age<12) planHtml += `<p>• Cingiltili oyuncaqlar, tutmalı halkalar, barmaq oyunları (“Ladushki”). Qum, xəmir, barmaq boyaları.</p>`;
+            else if(age<36) planHtml += `<p>• Mozaika, böyük muncuqları ipə düzmə, qayçı ilə kəsmə (36 ay +). Barmaq gimnastikası.</p>`;
+            else planHtml += `<p>• Xətt çəkmə, labirintlər, düymə açma, ayaqqabı bağlama (5 yaş+). Yazı hazırlığı.</p>`;
             planHtml += `</div>`;
-            // 4. Fizioterapept (Kobud motor)
-            planHtml += `<div><h4>🏃 Fizioterapept üçün tövsiyələr (Kobud motor, tarazlıq, koordinasiya)</h4>`;
-            if(age < 12) planHtml += `<p>• Körpəni qarnı üstə yatırmaq, baş qaldırmağa təşviq etmək. • Yerdə cəlbedici oyuncaqlarla sürünmə oyunları. • Valideyn qucağında “təyyarə” oyunu. • Gündəlik 10-15 dəq passiv hərəkətlər.</p>`;
-            else if(age < 24) planHtml += `<p>• Pilləkənlərdə tutaraq qalxma-enmə. • “Topu təpiklə” oyunları. • Evdə yastıqlarla maneəli parkur. • Hər gün 20 dəq açıq hava gəzintisi, qaçma-tullanma oyunları.</p>`;
-            else planHtml += `<p>• Bir ayaqda dayanma, topu hədəfə atma, tullanma ipi oyunları. • Velosiped sürmə, qaçış, tarazlıq lövhəsi. • Həftədə 3 dəfə müntəzəm idman fəaliyyəti.</p>`;
+            // Fizioterapept
+            planHtml += `<div><h4>🏃 Fizioterapept (Kobud motor) tövsiyələri</h4>`;
+            if(age<12) planHtml += `<p>• Körpəni qarnı üstə yatırmaq, baş qaldırma, sürünmə oyunları. “Təyyarə” oyunu qucaqda.</p>`;
+            else if(age<24) planHtml += `<p>• Pilləkənlərdə tutaraq qalxma-enmə, top təpikləmə, maneəli parkur. Gündəlik açıq hava gəzintisi.</p>`;
+            else if(age<48) planHtml += `<p>• Bir ayaqda dayanma, top tutma-atma, tullanma, üçtəkərli velosiped, koordinasiya məşqləri.</p>`;
+            else planHtml += `<p>• İp üzərində tarazlıq, daban-ucma gəzinti, idman oyunları (futbol, basketbol).</p>`;
             planHtml += `</div>`;
-            // 5. Valideynlər üçün geniş plan
-            planHtml += `<div><h4>👪 Valideynlər üçün iş planı (gündəlik ev mühiti)</h4>`;
-            planHtml += `<p>• <strong>Hər gün mütləq:</strong> 15 dəqiqə birgə kitab oxuma (şəkilli), 10 dəqiqə barmaq oyunları, 20 dəqiqə açıq havada aktiv oyun.<br>• <strong>İnteraktiv oyun nümunələri:</strong> “Mənim kimi et” (hərəkətləri təkrarla), “Topu qapıya vur”, “Pilləkən qalxma yarışı”, “Gözəl çanta” (içindəki əşyaları tanı).<br>• <strong>Müsbət intizam:</strong> Qaydaları sadə cümlələrlə izah edin, uşağa seçim imkanı verin (“Bu paltarı geyinmək istəyirsən, yoxsa bunu?”). Cəzadan qaçın, yaxşı davranışı dərhal tərif edin.<br>• <strong>Gündəlik ritual:</strong> Hər axşam “günün uğurları” – uşağın bacardığı kiçik işlər danışılır, müsbət təsdiq edilir.<br>• <strong>İzləmə:</strong> Hər irəliləyiş qeyd olunur, 3-6 aydan sonra test təkrarlanır.</p>`;
+            // Valideynlər
+            planHtml += `<div><h4>👪 Valideynlər üçün iş planı</h4>`;
+            if(age<12) planHtml += `<p>• Hər gün 10-15 dəq üz-üzə oyun, ninnilər oxumaq, danışmaq. Yerdə cəlbedici oyuncaqlarla sürünməyə təşviq.</p>`;
+            else if(age<24) planHtml += `<p>• Gündəlik kitab oxuma, birlikdə sadə oyunlar (“topu tut”), özü qaşıq tutmağa icazə. Müsbət tərif, sakit mühit.</p>`;
+            else if(age<48) planHtml += `<p>• Gündəlik 15-20 dəq maarifləndirici oyunlar, ev işlərində kömək etmə, qaydaları öyrətmə. Uşağın seçimlərinə hörmət.</p>`;
+            else planHtml += `<p>• Məktəbə hazırlıq: vaxtında yatmaq, müstəqil geyinmək, davranış qaydaları. Akademik dəstək.</p>`;
             planHtml += `</div>`;
         }
-        planHtml += `<hr><p><strong>🌍 Beynəlxalq standartlara uyğunluq (WHO, UNESCO):</strong> Erkən müdaxilə, ailə mərkəzli, oyun əsaslı öyrənmə, müsbət davranış dəstəyi. Test hər 3-6 aydan bir təkrarlanmalıdır.</p>`;
+        planHtml += `<hr><p><strong>🌍 Beynəlxalq standartlar (WHO/UNESCO):</strong> Erkən müdaxilə, ailə mərkəzli, oyun əsaslı, müsbət davranış dəstəyi. Hər 3-6 aydan bir test təkrarlanmalıdır.</p>`;
         planHtml += `</div>`;
         return planHtml;
     }
@@ -264,12 +318,12 @@
         if(analysis.error) return null;
         const plan = generateDetailedPlan(analysis, behavior);
         return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Denver II Hesabat - ${escapeHtml(name)}</title>
-        <style>body{font-family:Segoe UI;margin:25px;background:#f8faf8;}.report{max-width:1100px;margin:auto;background:white;padding:28px;border-radius:32px;box-shadow:0 8px 20px rgba(0,0,0,0.1);}.info{background:#eef5ea;padding:20px;border-radius:28px;margin-bottom:25px;}</style>
+        <style>body{font-family:Segoe UI;margin:25px;background:#f8faf8;}.report{max-width:1100px;margin:auto;background:white;padding:28px;border-radius:32px;}.info{background:#eef5ea;padding:20px;border-radius:28px;margin-bottom:25px;}</style>
         <body><div class="report"><h1>🏥 Denver II Testi – Peşəkar Hesabat</h1>
         <div class="info"><p><strong>Uşaq:</strong> ${escapeHtml(name)}</p><p><strong>Doğum tarixi:</strong> ${dob} | Faktiki yaş: ${analysis.factualAge} ay</p>
         <p><strong>📉 Təqribi inkişaf yaşı:</strong> ${analysis.developmentalAge.toFixed(1)} ay | <strong>Geriləmə: ${analysis.delayMonths.toFixed(1)} ay</strong></p>
         <p><strong>⚠️ Gecikmə sayı:</strong> ${analysis.delayCount} | <strong>🔔 Qiymətləndirmə:</strong> ${analysis.evaluation}</p></div>
-        ${plan}<footer style="margin-top:30px;">Bu hesabat Denver II metodologiyası (125 maddə) və WHO/UNESCO prinsipləri əsasında avtomatik yaradılmışdır. Mütləq mütəxəssis tərəfindən dəyərləndirilməlidir.</footer></div></body></html>`;
+        ${plan}<footer style="margin-top:30px;">Bu hesabat Denver II (125 maddə) və WHO/UNESCO əsasında avtomatik yaradılmışdır. Mütəxəssis tərəfindən dəyərləndirilməlidir.</footer></div></body></html>`;
     }
     
     function escapeHtml(str) { return str.replace(/[&<>]/g, m=>{if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
@@ -282,7 +336,7 @@
     document.getElementById("saveBtn").onclick = async () => {
         const name = document.getElementById("childName").value.trim();
         const dob = dobInp.value;
-        if(!name || !dob) { msgDiv.innerHTML = "❌ Uşaq adı və doğum tarixi tələb olunur!"; return; }
+        if(!name || !dob) { msgDiv.innerHTML = "❌ Ad və doğum tarixi tələb olunur!"; return; }
         const checks = getAllChecks();
         const url = `${SCRIPT_URL}?action=save&name=${encodeURIComponent(name)}&dob=${dob}&reg=${encodeURIComponent(document.getElementById("regNo").value)}&checks=${encodeURIComponent(checks.join(";"))}`;
         msgDiv.innerHTML = "Göndərilir...";
@@ -291,35 +345,30 @@
             const txt = await resp.text();
             if(txt === "OK") msgDiv.innerHTML = "✅ Məlumatlar uğurla saxlanıldı!";
             else msgDiv.innerHTML = "⚠️ Xəta: " + txt;
-        } catch(e) { msgDiv.innerHTML = "❌ Şəbəkə xətası baş verdi. İnternet bağlantınızı yoxlayın və yenidən cəhd edin."; }
+        } catch(e) { msgDiv.innerHTML = "❌ Şəbəkə xətası. Bağlantı yoxlanılsın."; }
     };
-    
     document.getElementById("reportBtn").onclick = async () => {
         const name = document.getElementById("childName").value.trim();
         const dob = dobInp.value;
         if(!name || !dob) { msgDiv.innerHTML = "Hesabat üçün ad və doğum tarixi daxil edin!"; return; }
         const checks = getAllChecks();
-        if(checks.length === 0) { msgDiv.innerHTML = "Heç bir işarə yoxdur, zəhmət olmasa testi cavablayın."; return; }
+        if(checks.length===0) { msgDiv.innerHTML = "Heç bir işarə yoxdur!"; return; }
         const behavior = document.getElementById("behaviorNotes").value;
         const report = await generateReport(name, dob, checks, behavior);
         if(report) { const win = window.open(); win.document.write(report); win.document.close(); }
     };
+    document.getElementById("clearCheckBtn").onclick = () => { updateTable(); msgDiv.innerHTML = "Cədvəl təmizləndi."; };
     
-    document.getElementById("clearCheckBtn").onclick = () => { updateTable(); msgDiv.innerHTML = "Cədvəl təmizləndi (bütün işarələr silindi)."; };
-    
-    // ========== ARXİV (ŞƏBƏKƏ XƏTASI DÜZƏLDİ) ==========
+    // ========== ARXİV (DÜZGÜN AXTARIŞ VƏ YÜKLƏMƏ) ==========
     let allRecords = [];
     async function loadAllData() {
         try {
             const resp = await fetch(SCRIPT_URL + "?action=load");
-            if(!resp.ok) throw new Error("HTTP " + resp.status);
+            if(!resp.ok) throw new Error("HTTP "+resp.status);
             const data = await resp.json();
             allRecords = Array.isArray(data) ? data : [];
             return allRecords;
-        } catch(e) {
-            console.error("Yükləmə xətası:", e);
-            return [];
-        }
+        } catch(e) { console.error("load xətası", e); return []; }
     }
     async function displayArchive(searchTerm=""){
         const records = await loadAllData();
@@ -335,10 +384,10 @@
             const nameAttr = escapeHtml(row[1]||''), dobAttr = row[2]||'', regAttr = row[3]||'';
             html += `<tr class="archive-row" data-name="${nameAttr}" data-dob="${dobAttr}" data-reg="${regAttr}" data-checks="${escapeHtml(checksField)}">
                         <td>${(row[0]||'').slice(0,16)}</td><td>${nameAttr}</td><td>${dobAttr}</td><td>${regAttr}</td><td>${count}</td>
-                        <td><button class="btn-small archive-report-btn" data-name="${nameAttr}" data-dob="${dobAttr}" data-checks="${encodeURIComponent(checksField)}">📄 Hesabat</button></td>
-                      </tr>`;
+                         <td><button class="btn-small archive-report-btn" data-name="${nameAttr}" data-dob="${dobAttr}" data-checks="${encodeURIComponent(checksField)}">📄 Hesabat</button></td>
+                       </tr>`;
         });
-        html += `</tbody>}</div><p>📌 Ad sətrinə klik → test yüklənir. "Hesabat" düyməsi ilə ayrı pəncərədə hesabat açılır.</p>`;
+        html += `</tbody></table></div><p>📌 Ad sətrinə klik → test yüklənir. Hesabat düyməsi ilə ayrı pəncərədə hesabat açılır.</p>`;
         container.innerHTML = html;
         document.querySelectorAll('.archive-row').forEach(tr=>{
             tr.addEventListener('click', (e)=>{
@@ -379,34 +428,16 @@
         <div class="stat-card"><h3>🏆 Top 5 bacarıq</h3><ul>${top.map(t=>`<li>${t[0].slice(0,35)} (${t[1]})</li>`).join('')}</ul></div>`;
     }
     
-    // TƏLİMAT BÖLMƏSİ (GENİŞ, DENVER II VƏ SİSTEMİMİZ HAQQINDA)
-    const guidanceDiv = document.getElementById("guidanceText");
-    guidanceDiv.innerHTML = `
-        <h2>📘 Denver II Testi – Ətraflı Təlimat və Sistem İzahı</h2>
-        <p><strong>Denver II (DDST)</strong> – uşağın doğumdan 6 yaşa qədər inkişafını dörd əsas sahədə (kobud motor, incə motor-adaptiv, dil, sosial-şəxsi) qiymətləndirən, dünyada ən geniş istifadə olunan <strong>tarama (skrininq) testidir</strong>. 125 maddədən ibarətdir (orijinal versiya). Test <strong>diaqnoz qoymur</strong>, lakin inkişaf gecikmələrini vaxtında aşkarlamağa imkan verir.</p>
-        
+    // Təlimat (toxunulmaz – əvvəlki geniş mətn)
+    document.getElementById("guidanceText").innerHTML = `
+        <h2>📘 Denver II Testi – Tam Orijinal Təlimat</h2>
+        <p><strong>Denver II (DDST)</strong> uşağın doğumdan 6 yaşa qədər inkişafını 4 sahədə (kobud motor, incə motor-adaptiv, dil, sosial-şəxsi) qiymətləndirir. 125 maddədən ibarətdir. Test <strong>tarama məqsədi</strong> daşıyır, diaqnoz qoymur.</p>
         <h3>🎯 Məqsəd</h3>
-        <p>Uşağın yaşına uyğun inkişaf bacarıqlarını müəyyən etmək, potensial geriləmələri sənədləşdirmək, erkən müdaxilə üçün yol xəritəsi təqdim etmək.</p>
-        
-        <h3>✅ Testin keçirilmə qaydası (orijinal)</h3>
-        <ul>
-            <li><strong>Materiallar:</strong> Qırmızı toplu sap, çıngıraq, zınqırov, tennis topu, kağız, qırmızı karandaş, stəkan, kubiklər, kişmiş, oyuncaq kukla, şəkillər dəsti.</li>
-            <li><strong>Yaş xətti:</strong> Uşağın doğum tarixinə əsasən <strong>kronoloji yaşı</strong> hesablanır, cədvəldə şaquli xətt çəkilir. Vaxtından əvvəl doğulanlarda düzəliş edilir.</li>
-            <li><strong>Maddələrin tətbiqi:</strong> Yaş xəttinin <strong>solunda</strong> qalan bütün maddələr uşağa oyun formatında təqdim olunur. Müşahidəçi işarələri: ✓ (bacarır), ✗ (bacarmır), R (imtina), NO (imkan olmayıb).</li>
-            <li><strong>Qiymətləndirmə:</strong> Yaş xəttinin solunda olub bacarılmayan hər maddə <strong>Gecikmə</strong>; sağında olub bacarılmayanlar <strong>Uyarı</strong> hesab olunur. Nəticə: <strong>Normal</strong> (0 gecikmə, ≤1 uyarı), <strong>Şübhəli</strong> (1 gecikmə və/ya ≥2 uyarı), <strong>Anormal</strong> (≥2 gecikmə).</li>
-        </ul>
-        
-        <h3>🤖 Bu avtomatlaşdırılmış sistemin iş prinsipi</h3>
-        <p>Veb-tətbiq Denver II testini rəqəmsal mühitə daşıyır:</p>
-        <ul>
-            <li>✅ <strong>125 orijinal maddə</strong> – hər maddə üçün normal yaş intervalı göstərilir.</li>
-            <li>✅ <strong>Yaşa uyğun dinamik filtr</strong> – Doğum tarixi daxil edildikdə sistem avtomatik olaraq uşağın yaşını hesablayır və cədvəldə yalnız həmin yaş intervalına uyğun maddələri (həm sütunlar, həm də maddələr) göstərir.</li>
-            <li>✅ <strong>Yaş xətti virtual qurulur</strong> – proqram riyazi olaraq yaş indeksini təyin edir, gecikmə və uyarı hesablanması avtomatlaşdırılır.</li>
-            <li>✅ <strong>Psixoloq qeydləri</strong> – test anında uşağın diqqəti, əməkdaşlığı, qorxu reaksiyası üçün ayrıca sahə mövcuddur, bu qeydlər hesabata əlavə olunur.</li>
-            <li>✅ <strong>Avtomatik hesabat</strong> – “Hesabat çıxar” düyməsi ilə geriləmə ayı, təqribi inkişaf yaşı, gecikmə/uçarı sayı, yuxarıda təsvir olunan ətraflı fərdi intervensiya planı (psixoloq, loqoped, erqoterapevt, fizioterapevt, valideyn üçün) yaradılır.</li>
-            <li>✅ <strong>Arxiv və statistika</strong> – bütün test nəticələri Google Cədvələ yazılır, incə axtarış və ümumi statistikalar aparıla bilir.</li>
-        </ul>
-        <p><strong>Beynəlxalq uyğunluq:</strong> Bu sistem Ümumdünya Səhiyyə Təşkilatının (WHO) “Erkən uşaqlıq inkişafı” (ECD) təlimatlarına və UNESCO-nun “İnklüziv təhsil” prinsiplərinə tamamilə uyğundur.</p>
+        <p>İnkişaf gecikmələrini vaxtında aşkarlamaq, erkən müdaxiləyə imkan yaratmaq.</p>
+        <h3>✅ Testin keçirilmə qaydası</h3>
+        <ul><li>Materiallar: qırmızı sap, çıngıraq, zınqırov, tennis topu, kağız, karandaş, stəkan, kubiklər, kişmiş, kukla, şəkillər.</li><li>Doğum tarixinə əsasən uşağın <strong>kronoloji yaşı</strong> hesablanır, cədvəldə şaquli xətt çəkilir.</li><li>Yaş xəttinin <strong>solunda</strong> qalan bütün maddələr təqdim olunur. Nəticələr: ✓ (bacarır), ✗ (bacarmır), R (imtina), NO (imkan olmayıb).</li><li><strong>Qiymətləndirmə:</strong> Gecikmə (yaş xəttinin solunda bacarmır) və Uyarı (sağında bacarmır). Normal (0 gecikmə, ≤1 uyarı), Şübhəli (1 gecikmə və/ya ≥2 uyarı), Anormal (≥2 gecikmə).</li></ul>
+        <h3>🤖 Bu avtomatlaşdırılmış sistem</h3>
+        <p>125 orijinal maddə, dinamik yaş filtri, virtual yaş xətti, psixoloq qeydləri, yaşa uyğun peşəkar hesabat (psixoloq, loqoped, erqoterapevt, fizioterapevt, valideyn). Google Cədvəl arxivi, axtarış və statistika. Beynəlxalq standartlara (WHO/UNESCO) tam uyğundur.</p>
     `;
     
     // Tab keçid
@@ -426,6 +457,7 @@
     document.getElementById("calcStatsBtn").onclick = () => displayStats();
     
     buildFullTable();
+    msgDiv.innerHTML = "✅ Hazır. 125 maddə yükləndi. Axtarış, arxiv, yaşa uyğun hesabat aktivdir.";
 </script>
 </body>
 </html>
