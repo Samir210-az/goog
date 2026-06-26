@@ -257,148 +257,6 @@ h1:hover{
 <script src="license-check.js" data-tool="goog"></script>
 </head>
 <body>
-<!-- ====== KEÇİRİLMƏ TƏLİMATI (popup) — by s_akhundoff ====== -->
-<style>
-@keyframes dvgGrad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-@keyframes dvgPulse{0%,100%{transform:scale(1);box-shadow:0 8px 22px -8px rgba(30,107,59,.55)}50%{transform:scale(1.035);box-shadow:0 14px 30px -8px rgba(210,165,93,.6)}}
-@keyframes dvgUp{from{opacity:0;transform:translateY(34px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes dvgReveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-@keyframes dvgFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-22px)}}
-.dvg-bar{display:flex;justify-content:center;margin:14px auto 2px;padding:0 1rem;max-width:1100px}
-.dvg-open{cursor:pointer;border:none;color:#fff;font-weight:800;font-size:1rem;padding:14px 26px;border-radius:40px;
- background:linear-gradient(120deg,#1e6b3b,#2b9e4a,#D2A55D,#2b9e4a,#1e6b3b);background-size:300% 300%;
- animation:dvgGrad 7s ease infinite, dvgPulse 3.2s ease-in-out infinite;letter-spacing:.2px}
-.dvg-open:hover{filter:brightness(1.06)}
-#dvgModal{display:none;position:fixed;inset:0;z-index:99999;background:rgba(10,40,22,.55);backdrop-filter:blur(7px);
- align-items:flex-start;justify-content:center;padding:24px 14px;overflow:auto}
-#dvgModal.show{display:flex}
-.dvg-card{position:relative;width:100%;max-width:860px;background:#fff;border-radius:28px;overflow:hidden;
- box-shadow:0 40px 80px -30px rgba(0,0,0,.5);animation:dvgUp .55s cubic-bezier(.22,1,.36,1) both;margin:auto}
-.dvg-head{position:relative;padding:30px 30px 24px;color:#fff;overflow:hidden;
- background:linear-gradient(120deg,#1e6b3b,#2b9e4a,#2A9D8F);background-size:200% 200%;animation:dvgGrad 9s ease infinite}
-.dvg-blob{position:absolute;border-radius:50%;filter:blur(8px);opacity:.32;pointer-events:none;animation:dvgFloat 9s ease-in-out infinite}
-.dvg-head h2{position:relative;font-size:1.5rem;font-weight:900;z-index:2;margin:0}
-.dvg-head p{position:relative;z-index:2;margin:8px 0 0;opacity:.92;font-size:.9rem}
-.dvg-x{position:absolute;top:18px;right:20px;z-index:5;cursor:pointer;border:none;background:rgba(255,255,255,.18);
- color:#fff;width:40px;height:40px;border-radius:50%;font-size:1.4rem;line-height:1;transition:.2s}
-.dvg-x:hover{background:rgba(255,255,255,.34);transform:rotate(90deg)}
-.dvg-body{padding:8px 28px 26px;color:#21413a;line-height:1.62;font-size:.95rem}
-.dvg-sec{margin-top:22px;animation:dvgReveal .6s ease both}
-.dvg-sec h3{font-size:1.12rem;color:#1e6b3b;margin:0 0 8px;display:flex;align-items:center;gap:8px}
-.dvg-sec p{margin:.4rem 0}
-.dvg-sec ul{margin:.4rem 0;padding-left:1.2rem}
-.dvg-sec li{margin:.32rem 0}
-.dvg-chips{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
-.dvg-chip{flex:1 1 200px;border-radius:16px;padding:12px 14px;font-size:.86rem;border:1px solid;line-height:1.4}
-.dvg-chip b{display:block;font-size:.95rem;margin-bottom:3px}
-.c-green{background:#eef9f3;border-color:#bfe6d4;color:#14694d}
-.c-gold{background:#fdf6e7;border-color:#ecd9a6;color:#9a6a12}
-.c-red{background:#fdeeed;border-color:#f2c4bf;color:#9e2b22}
-.c-blue{background:#eef4fb;border-color:#c4d8ef;color:#1d4e86}
-.dvg-eg{background:linear-gradient(135deg,#f1faf4,#fef9ec);border:1px dashed #cfe7d6;border-radius:18px;padding:14px 16px;margin:12px 0}
-.dvg-eg b{color:#1e6b3b}
-.dvg-step{counter-reset:s;list-style:none;padding:0;margin:.5rem 0}
-.dvg-step li{position:relative;padding:10px 12px 10px 46px;margin:8px 0;background:#f5fbf7;border-radius:14px;border:1px solid #e1efe6}
-.dvg-step li::before{counter-increment:s;content:counter(s);position:absolute;left:10px;top:50%;transform:translateY(-50%);
- width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#1e6b3b,#D2A55D);color:#fff;display:flex;
- align-items:center;justify-content:center;font-weight:800;font-size:.85rem}
-.dvg-note{background:#f0f8f1;border-left:4px solid #2b9e4a;border-radius:10px;padding:11px 14px;margin-top:14px;font-size:.88rem}
-.dvg-foot{text-align:center;padding:16px;border-top:1px solid #eef3f0;font-size:.82rem;color:#6f9a8b}
-.dvg-foot a{color:#1e6b3b;text-decoration:none;font-weight:700}
-@media(max-width:600px){.dvg-head h2{font-size:1.25rem}.dvg-body{padding:6px 18px 20px}}
-</style>
-
-<div class="dvg-bar">
-  <button class="dvg-open" onclick="dvgOpen()">📖 Bu test necə keçirilir? — Tam Təlimat</button>
-</div>
-
-<div id="dvgModal" onclick="if(event.target===this)dvgClose()">
- <div class="dvg-card">
-  <div class="dvg-head">
-   <span class="dvg-blob" style="width:130px;height:130px;background:#D2A55D;top:-40px;right:60px"></span>
-   <span class="dvg-blob" style="width:90px;height:90px;background:#9ff0b8;bottom:-30px;left:30px;animation-delay:2s"></span>
-   <button class="dvg-x" onclick="dvgClose()">&times;</button>
-   <h2>🧠 Denver II — Keçirilmə Təlimatı</h2>
-   <p>120 maddəli, yaşa uyğun filtrli versiya. Elmi əsaslar, addım-addım keçirilməsi və qiymətləndirmə qaydaları — sadə dildə.</p>
-  </div>
-  <div class="dvg-body">
-
-   <div class="dvg-sec">
-    <h3>① Denver II nədir?</h3>
-    <p>Denver II — <b>0–6 yaş</b> arası uşağın inkişafını yoxlayan <b>skrininq (ilkin süzgəc)</b> testidir. O, <b>diaqnoz qoymur</b> — yalnız "daha dərin müayinəyə ehtiyacı ola bilər" deyilən uşaqları erkən üzə çıxarır.</p>
-    <p>Bu versiyada <b>120 maddə</b>, <b>4 inkişaf sahəsi</b> üzrə bölünüb (hər sahədə 30 maddə):</p>
-    <ul>
-     <li>🏃 <b>Kobud Motor</b> — oturma, sürünmə, yerimə, qaçma, tarazlıq</li>
-     <li>✍️ <b>İncə Motor</b> — əl-göz koordinasiyası, tutma, rəsm</li>
-     <li>🗣️ <b>Dil və Danışma</b> — eşitmə-anlama və danışıq</li>
-     <li>🧸 <b>Sosial-Şəxsi</b> — özünəxidmət, emosiya, ünsiyyət</li>
-    </ul>
-   </div>
-
-   <div class="dvg-sec">
-    <h3>② Hər maddənin "normal intervalı" nə deməkdir?</h3>
-    <p>Hər maddənin yanında bir <b>yaş intervalı</b> yazılıb (məs. <b>6–9 ay</b>). Bu o deməkdir ki, sağlam uşaqların böyük əksəriyyəti həmin bacarığı bu yaş aralığında qazanır: <b>aşağı rəqəm</b> — uşaqların təxminən dörddə birinin artıq bacardığı yaş; <b>yuxarı rəqəm</b> — demək olar ki, bütün uşaqların (≈90%) bacarmalı olduğu yaş.</p>
-    <div class="dvg-note">📌 Qayda sadədir: uşaq <b>öz yaşına çatmış</b> maddələri bacarmalıdır. Yuxarı sərhəddi keçmiş, amma hələ bacarılmayan maddə diqqət tələb edir.</div>
-   </div>
-
-   <div class="dvg-sec">
-    <h3>③ Bu proqramda necə keçirilir?</h3>
-    <ol class="dvg-step">
-     <li>Uşağın <b>adını</b>, <b>qeyd nömrəsini</b>, <b>mütəxəssis adını</b> və ən vacibi — <b>doğum tarixini</b> daxil edin. Proqram faktiki yaşı avtomatik hesablayır.</li>
-     <li>Proqram uşağın yaşına uyğun maddələri cədvəldə göstərir. Hər sətir bir bacarıq, sütunlar isə <b>yaşlardır (ay/il)</b>.</li>
-     <li>Hər maddə üçün uşaq həmin bacarığı <b>hansı yaşda qazanıbsa</b>, o yaş sütunundakı xananı işarələyin (✓). Bacarmırsa — boş buraxın.</li>
-     <li>Davranış qeydləri varsa "Davranış qeydləri" sahəsinə yazın.</li>
-     <li><b>Hesabla</b> düyməsinə basın — proqram inkişaf yaşını, gecikmələri və yekun qənaəti göstərir. <b>Hesabat</b> ilə arayış çıxarın, <b>Yadda saxla</b> ilə arxivə əlavə edin.</li>
-    </ol>
-   </div>
-
-   <div class="dvg-sec">
-    <h3>④ Qiymətləndirmə qaydası</h3>
-    <p>Proqram uşağın <b>faktiki yaşını</b> əsas götürür və hər xananı yoxlayır:</p>
-    <div class="dvg-chips">
-     <div class="dvg-chip c-red"><b>⛔ Gecikmə</b>Uşağın <u>yaşına çatmış</u> (yaşından kiçik/bərabər) bir bacarıq işarələnməyibsə — bu gecikmədir.</div>
-     <div class="dvg-chip c-gold"><b>⚠️ Xəbərdarlıq</b>Uşağın yaşından <u>böyük</u> sütundakı işarələnməmiş bacarıq. Bu hələ gözlənilmir — problem deyil, sadəcə qeyd.</div>
-     <div class="dvg-chip c-green"><b>✅ Qazanılmış</b>İşarələnmiş bacarıqlar. Bunların orta yaşı uşağın <b>"inkişaf yaşını"</b> verir.</div>
-    </div>
-    <p><b>İnkişaf yaşı</b> = bacarılan maddələrin orta yaşı. <b>Gecikmə (ay)</b> = faktiki yaş − inkişaf yaşı. Məsələn faktiki yaş 36 ay, inkişaf yaşı 28 ay olsa, ~8 ay gecikmə var.</p>
-   </div>
-
-   <div class="dvg-sec">
-    <h3>⑤ Konkret nümunə</h3>
-    <div class="dvg-eg">
-     <b>Uşaq:</b> doğum tarixi 11.05.2023 → bu gün təxminən <b>37 aylıq</b> (≈3 yaş).<br><br>
-     <b>Maddə:</b> "Təkbaşına yeriyir?" intervalı 11–15 ay. Bu sütunlar uşağın yaşından kiçikdir. Əgər işarələnməyibsə → <b>⛔ Gecikmə</b> (37 aylıq uşaq çoxdan yeriməlidir).<br><br>
-     <b>Maddə:</b> "4-6 hissəli puzzle yığır?" intervalı 36–48 ay. 48 ay uşağın yaşından böyükdür — əgər işarələnməyibsə → <b>⚠️ Xəbərdarlıq</b> (hələ gözlənilmir).
-    </div>
-   </div>
-
-   <div class="dvg-sec">
-    <h3>⑥ Ümumi nəticə necə oxunur?</h3>
-    <div class="dvg-chips">
-     <div class="dvg-chip c-green"><b>✅ Normal</b>Heç bir gecikmə yoxdur — yaşına uyğun inkişaf.</div>
-     <div class="dvg-chip c-gold"><b>🔍 Şübhəli</b>1 gecikmə var. Təkrar test və müşahidə edilməlidir.</div>
-     <div class="dvg-chip c-red"><b>⚠️ Anormal</b>2 və daha çox gecikmə. Dərinləşdirilmiş qiymətləndirmə tövsiyə olunur.</div>
-    </div>
-    <div class="dvg-note">⚖️ <b>Unutmayın:</b> Bu test <b>diaqnoz deyil</b>. "Şübhəli" və ya "anormal" nəticə yalnız <b>əlavə müayinənin lazım olduğunu</b> bildirir. Yekun qərarı mütəxəssis verir.</div>
-   </div>
-
-  </div>
-  <div class="dvg-foot">📋 AN Psixoloji Dəstək və Reabilitasiya Mərkəzi &nbsp;•&nbsp; by <a href="https://www.instagram.com/s_akhundoff" target="_blank" rel="noopener">s_akhundoff</a></div>
- </div>
-</div>
-
-<script>
-function dvgOpen(){var m=document.getElementById('dvgModal');m.classList.add('show');document.body.style.overflow='hidden';
- var s=m.querySelectorAll('.dvg-sec');s.forEach(function(e,i){e.style.animationDelay=(i*0.06)+'s'});}
-function dvgClose(){document.getElementById('dvgModal').classList.remove('show');document.body.style.overflow='';}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')dvgClose();});
-document.getElementById('dvgModal').addEventListener('mousemove',function(e){
- var b=this.querySelectorAll('.dvg-blob');var x=(e.clientX/window.innerWidth-.5),y=(e.clientY/window.innerHeight-.5);
- b.forEach(function(el,i){el.style.transform='translate('+(x*(18+i*10))+'px,'+(y*(18+i*10))+'px)';});
-});
-</script>
-<!-- ====== /KEÇİRİLMƏ TƏLİMATI ====== -->
-
 <div class="container">
     <h1><i class="fas fa-child"></i> Denver II İnkişaf Testi <span style="font-size:0.8rem;">(120+ Maddə, Yaşa uyğun filtr, Ətraflı Hesabat)</span></h1>
     <div class="tabs">
@@ -488,5 +346,112 @@ document.getElementById('dvgModal').addEventListener('mousemove',function(e){
 })();
 
 </script>
+<!-- ====== KEÇİRİLMƏ TƏLİMATI (mövcud tab-a yazılır) — by s_akhundoff ====== -->
+<style>
+@keyframes dvgGradG{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes dvgRevealG{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dvgFloatG{0%,100%{transform:translate(0,0)}50%{transform:translate(14px,-16px)}}
+#guidanceText{line-height:1.62;color:#21413a}
+#guidanceText .dvg-hero{position:relative;overflow:hidden;border-radius:22px;padding:26px 26px 22px;color:#fff;margin-bottom:6px;
+ background:linear-gradient(120deg,#1e6b3b,#2b9e4a,#2A9D8F);background-size:200% 200%;animation:dvgGradG 9s ease infinite}
+#guidanceText .dvg-hero h2{margin:0;font-size:1.5rem;font-weight:900;position:relative;z-index:2;color:#fff}
+#guidanceText .dvg-hero p{margin:8px 0 0;opacity:.93;font-size:.92rem;position:relative;z-index:2}
+#guidanceText .dvg-blob{position:absolute;border-radius:50%;filter:blur(10px);opacity:.3;pointer-events:none;animation:dvgFloatG 8s ease-in-out infinite}
+#guidanceText .dvg-sec{margin-top:22px;animation:dvgRevealG .6s ease both}
+#guidanceText .dvg-sec h3{font-size:1.14rem;color:#1e6b3b;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+#guidanceText .dvg-sec p{margin:.4rem 0}
+#guidanceText .dvg-sec ul{margin:.4rem 0;padding-left:1.2rem}
+#guidanceText .dvg-sec li{margin:.32rem 0}
+#guidanceText .dvg-chips{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+#guidanceText .dvg-chip{flex:1 1 220px;border-radius:16px;padding:12px 14px;font-size:.86rem;border:1px solid;line-height:1.4}
+#guidanceText .dvg-chip b{display:block;font-size:.95rem;margin-bottom:3px}
+#guidanceText .c-green{background:#eef9f3;border-color:#bfe6d4;color:#14694d}
+#guidanceText .c-gold{background:#fdf6e7;border-color:#ecd9a6;color:#9a6a12}
+#guidanceText .c-red{background:#fdeeed;border-color:#f2c4bf;color:#9e2b22}
+#guidanceText .dvg-eg{background:linear-gradient(135deg,#f1faf4,#fef9ec);border:1px dashed #cfe7d6;border-radius:18px;padding:14px 16px;margin:12px 0}
+#guidanceText .dvg-eg b{color:#1e6b3b}
+#guidanceText .dvg-step{counter-reset:s;list-style:none;padding:0;margin:.5rem 0}
+#guidanceText .dvg-step li{position:relative;padding:10px 12px 10px 46px;margin:8px 0;background:#f5fbf7;border-radius:14px;border:1px solid #e1efe6}
+#guidanceText .dvg-step li::before{counter-increment:s;content:counter(s);position:absolute;left:10px;top:50%;transform:translateY(-50%);
+ width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#1e6b3b,#D2A55D);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem}
+#guidanceText .dvg-note{background:#f0f8f1;border-left:4px solid #2b9e4a;border-radius:10px;padding:11px 14px;margin-top:14px;font-size:.9rem}
+#guidanceText .dvg-foot{text-align:center;padding:16px 0 4px;margin-top:18px;border-top:1px solid #eef3f0;font-size:.82rem;color:#6f9a8b}
+#guidanceText .dvg-foot a{color:#1e6b3b;text-decoration:none;font-weight:700}
+</style>
+<script>
+(function(){
+  function applyGuide(){
+    var g=document.getElementById('guidanceText');
+    if(!g) return;
+    g.innerHTML = [
+'<div class="dvg-hero">',
+'  <span class="dvg-blob" style="width:120px;height:120px;background:#D2A55D;top:-36px;right:50px"></span>',
+'  <span class="dvg-blob" style="width:80px;height:80px;background:#9ff0b8;bottom:-26px;left:24px;animation-delay:2s"></span>',
+'  <h2>🧠 Denver II — Keçirilmə Təlimatı</h2>',
+'  <p>120 maddəli, yaşa uyğun filtrli versiya. Elmi əsaslar, addım-addım keçirilməsi və qiymətləndirmə qaydaları — sadə dildə.</p>',
+'</div>',
+
+'<div class="dvg-sec"><h3>① Denver II nədir?</h3>',
+'<p>Denver II — <b>0–6 yaş</b> arası uşağın inkişafını yoxlayan <b>skrininq (ilkin süzgəc)</b> testidir. O, <b>diaqnoz qoymur</b> — yalnız daha dərin müayinəyə ehtiyacı ola bilən uşaqları erkən üzə çıxarır.</p>',
+'<p>Bu versiyada <b>120 maddə</b>, <b>4 inkişaf sahəsi</b> üzrə bölünüb (hər sahədə 30 maddə):</p>',
+'<ul><li>🏃 <b>Kobud Motor</b> — oturma, sürünmə, yerimə, qaçma, tarazlıq</li>',
+'<li>✍️ <b>İncə Motor</b> — əl-göz koordinasiyası, tutma, rəsm</li>',
+'<li>🗣️ <b>Dil və Danışma</b> — eşitmə-anlama və danışıq</li>',
+'<li>🧸 <b>Sosial-Şəxsi</b> — özünəxidmət, emosiya, ünsiyyət</li></ul></div>',
+
+'<div class="dvg-sec"><h3>② "Normal interval" nə deməkdir?</h3>',
+'<p>Hər maddənin yanında bir <b>yaş intervalı</b> yazılıb (məs. <b>6–9 ay</b>). Bu o deməkdir ki, sağlam uşaqların əksəriyyəti həmin bacarığı bu yaş aralığında qazanır: <b>aşağı rəqəm</b> — uşaqların təxminən dörddə birinin artıq bacardığı yaş; <b>yuxarı rəqəm</b> — demək olar bütün uşaqların (≈90%) bacarmalı olduğu yaş.</p>',
+'<div class="dvg-note">📌 Qayda sadədir: uşaq <b>öz yaşına çatmış</b> maddələri bacarmalıdır. Yuxarı sərhəddi keçmiş, amma hələ bacarılmayan maddə diqqət tələb edir.</div></div>',
+
+'<div class="dvg-sec"><h3>③ Bu proqramda necə keçirilir?</h3>',
+'<ol class="dvg-step">',
+'<li>Uşağın <b>adını</b>, <b>qeydiyyat nömrəsini</b>, <b>mütəxəssis adını</b> və ən vacibi — <b>doğum tarixini</b> daxil edin. Proqram faktiki yaşı avtomatik hesablayır.</li>',
+'<li>Proqram uşağın yaşına uyğun maddələri cədvəldə göstərir. Hər sətir bir bacarıq, sütunlar isə <b>yaşlardır</b>.</li>',
+'<li>Hər maddə üçün uşaq həmin bacarığı <b>hansı yaşda qazanıbsa</b>, o yaş sütunundakı xananı işarələyin (✓). Bacarmırsa boş buraxın.</li>',
+'<li>Davranış / psixoloq qeydlərini müvafiq sahəyə yazın.</li>',
+'<li><b>Yadda saxla</b> ilə arxivə əlavə edin; nəticə inkişaf yaşını, gecikmələri və yekun qənaəti göstərir.</li>',
+'</ol></div>',
+
+'<div class="dvg-sec"><h3>④ Qiymətləndirmə qaydası</h3>',
+'<p>Proqram uşağın <b>faktiki yaşını</b> əsas götürür və hər xananı yoxlayır:</p>',
+'<div class="dvg-chips">',
+'<div class="dvg-chip c-red"><b>⛔ Gecikmə</b>Uşağın yaşına çatmış (yaşından kiçik/bərabər) bacarıq işarələnməyibsə — bu gecikmədir.</div>',
+'<div class="dvg-chip c-gold"><b>⚠️ Xəbərdarlıq</b>Uşağın yaşından böyük sütundakı işarələnməmiş bacarıq. Hələ gözlənilmir — problem deyil.</div>',
+'<div class="dvg-chip c-green"><b>✅ Qazanılmış</b>İşarələnmiş bacarıqlar. Bunların orta yaşı uşağın "inkişaf yaşını" verir.</div>',
+'</div>',
+'<p><b>İnkişaf yaşı</b> = bacarılan maddələrin orta yaşı. <b>Gecikmə (ay)</b> = faktiki yaş − inkişaf yaşı. Məsələn faktiki yaş 36 ay, inkişaf yaşı 28 ay olsa — təxminən 8 ay gecikmə var.</p></div>',
+
+'<div class="dvg-sec"><h3>⑤ Konkret nümunə</h3>',
+'<div class="dvg-eg"><b>Uşaq:</b> doğum tarixi 11.05.2023 → bu gün təxminən <b>37 aylıq</b> (≈3 yaş).<br><br>',
+'<b>Maddə:</b> "Təkbaşına yeriyir?" intervalı 11–15 ay — uşağın yaşından kiçikdir. İşarələnməyibsə → <b>⛔ Gecikmə</b> (37 aylıq uşaq çoxdan yeriməlidir).<br><br>',
+'<b>Maddə:</b> "4–6 hissəli puzzle yığır?" intervalı 36–48 ay — 48 ay uşağın yaşından böyükdür. İşarələnməyibsə → <b>⚠️ Xəbərdarlıq</b> (hələ gözlənilmir).</div></div>',
+
+'<div class="dvg-sec"><h3>⑥ Ümumi nəticə necə oxunur?</h3>',
+'<div class="dvg-chips">',
+'<div class="dvg-chip c-green"><b>✅ Normal</b>Heç bir gecikmə yoxdur — yaşına uyğun inkişaf.</div>',
+'<div class="dvg-chip c-gold"><b>🔍 Şübhəli</b>1 gecikmə var. Təkrar test və müşahidə edilməlidir.</div>',
+'<div class="dvg-chip c-red"><b>⚠️ Anormal</b>2 və daha çox gecikmə. Dərinləşdirilmiş qiymətləndirmə tövsiyə olunur.</div>',
+'</div>',
+'<div class="dvg-note">⚖️ <b>Unutmayın:</b> Bu test <b>diaqnoz deyil</b>. "Şübhəli" və ya "anormal" nəticə yalnız əlavə müayinənin lazım olduğunu bildirir. Yekun qərarı mütəxəssis verir.</div></div>',
+
+'<div class="dvg-foot">📋 AN Psixoloji Dəstək və Reabilitasiya Mərkəzi &nbsp;•&nbsp; by <a href="https://www.instagram.com/s_akhundoff" target="_blank" rel="noopener">s_akhundoff</a></div>'
+    ].join('');
+    var secs=g.querySelectorAll('.dvg-sec');
+    secs.forEach(function(e,i){ e.style.animationDelay=(i*0.07)+'s'; });
+    // yüngül parallax — siçan hərəkətinə görə
+    var pane=document.getElementById('guidancePane');
+    if(pane && !pane.__dvgPx){ pane.__dvgPx=true; pane.addEventListener('mousemove',function(ev){
+      var b=g.querySelectorAll('.dvg-blob');var x=(ev.clientX/window.innerWidth-.5),y=(ev.clientY/window.innerHeight-.5);
+      b.forEach(function(el,i){el.style.transform='translate('+(x*(14+i*8))+'px,'+(y*(14+i*8))+'px)';});
+    }); }
+  }
+  // obfuscate olunmuş init guidanceText-ə köhnə mətni yazandan SONRA işlət
+  if(document.readyState==='complete'||document.readyState==='interactive'){ setTimeout(applyGuide,60); }
+  else { window.addEventListener('DOMContentLoaded',function(){ setTimeout(applyGuide,60); }); }
+  window.addEventListener('load',function(){ setTimeout(applyGuide,120); });
+})();
+</script>
+<!-- ====== /KEÇİRİLMƏ TƏLİMATI ====== -->
+
 </body>
 </html>
