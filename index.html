@@ -452,6 +452,26 @@ h1:hover{
 })();
 </script>
 <!-- ====== /KEÇİRİLMƏ TƏLİMATI ====== -->
+<script type="module" src="https://samir210-az.github.io/menyu/analytics.js"></script>
+<script>
+(function(){
+  var el = document.getElementById('statsContent');
+  if(!el) return;
+  var lastText = '', timer = null;
+  var mo = new MutationObserver(function(){
+    clearTimeout(timer);
+    timer = setTimeout(function(){
+      var text = el.textContent.trim();
+      if(text && text !== lastText){
+        lastText = text;
+        var summary = text.replace(/\s+/g,' ').slice(0, 300);
+        if(window.sgTrackTest) window.sgTrackTest('Denver II (goog)', summary);
+      }
+    }, 800);
+  });
+  mo.observe(el, {childList:true, subtree:true, characterData:true});
+})();
+</script>
 
 </body>
 </html>
